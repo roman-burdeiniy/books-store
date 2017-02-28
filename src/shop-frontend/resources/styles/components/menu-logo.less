@@ -1,0 +1,75 @@
+@logo_width:145px;
+@bottom_corner_width: floor(sqrt(pow(@logo_width, 2) / 2));
+@bottom_corner_bottom : floor(sqrt(pow(@bottom_corner_width, 2) - pow(@logo_width / 2, 2)));
+
+.logo{
+  height: 190px;
+  width: 145px;
+  float: left;
+  position: relative;
+
+  &-content{
+    height: 190px;
+    width: 145px;
+    background: #F2F2F3 url(../../img/logo1.png) no-repeat center;
+    box-shadow: 6px 8px 9px -9px black,
+      -6px 8px 9px -9px black;
+    border-radius: 0px 0px 10px 10px;
+  }
+
+  &-bottom{
+    position: absolute;
+    overflow: hidden;
+    width: @logo_width;
+    height: @bottom_corner_bottom;
+    bottom: -@bottom_corner_bottom;
+    &:after {
+      content: "";
+      left: (@logo_width - @bottom_corner_width) / 2 - 50px;
+      background: #F2F2F3;
+      top: -@bottom_corner_width/2 - 113px;
+      border-radius: 0 0 80% 0;
+      position: absolute;
+      width : @bottom_corner_width + 100px;
+      height : @bottom_corner_width + 100px;
+      box-shadow: 5px 5px 9px -9px black;
+      transform: rotate(45deg);
+    }
+  }
+}
+
+.betslip-tooltip-arrow {
+  width: 70px;
+  height: 16px;
+  overflow: hidden;
+  position: absolute;
+  left: 80%;
+  margin-left: -35px;
+  bottom: -16px;
+
+  &.top {
+    top: -16px;
+    bottom: auto;
+
+    &:after {
+      bottom: -20px;
+      top: auto;
+    }
+  }
+
+  &.left {
+    left: 20%;
+  }
+
+  &:after {
+    content: "";
+    background: #E6D583;
+    position: absolute;
+    left: 20px;
+    top: -15px;
+    width: 20px;
+    height: 20px;
+    box-shadow: 6px 5px 9px -9px black;
+    transform: rotate(45deg);
+  }
+}

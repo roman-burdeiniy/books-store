@@ -1,0 +1,70 @@
+@import "../common/constants";
+
+.menu-buttons-list{
+  .menu-button{
+    &, &-selected, &-over{
+      margin: 0;
+      float: left;
+      display: block;
+      position: relative;
+      border-right: 1px solid #DFE1E2;
+      height: 89px;
+      cursor: pointer;
+      background: #F2F2F3;
+
+      a{
+        text-decoration: none;
+        color: #515151;
+      }
+
+      .hover-arrow{
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        left: 50%;
+        top: 89px;
+
+        &:after {
+          content: "";
+          background: @SUB_MENU_BG_COLOR;
+          position: absolute;
+          left: -10px;
+          top: 4px;
+          width: 20px;
+          height: 20px;
+          transform: rotate(45deg);
+        }
+
+      }
+    }
+
+    &-holder{
+      position: relative;
+      padding: 0 30px;
+      height: 100%;
+    }
+
+    &-selected{
+        background: linear-gradient(to bottom, #D3B23F, #C2A12B);
+        a{
+          color: #FFFFFF;
+        }
+    }
+
+    &-over{
+        color: #C2A12B;
+    }
+
+    &-label{
+      padding-top: 55px;
+      height: 40px;
+      text-align: center;
+      max-width: 150px;
+      font-size: 15px;
+      font-weight: 400;
+      text-align: center;
+    }
+  }
+
+
+}

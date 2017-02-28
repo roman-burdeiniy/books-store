@@ -1,0 +1,6 @@
+MongoDB shell version v3.4.0
+connecting to: mongodb://127.0.0.1:27017
+MongoDB server version: 3.4.0
+2017-01-16T18:35:52.807+0200 E QUERY    [main] ReferenceError: console is not defined :
+@./data/scripts/populate-db.js:74:1
+failed to load: ./data/scripts/populate-db.js

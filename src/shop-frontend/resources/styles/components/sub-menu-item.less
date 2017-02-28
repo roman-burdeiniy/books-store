@@ -1,0 +1,45 @@
+@import '../common/constants';
+@import '../common/mixins';
+
+.sub-menu-item{
+  display: inline-block;
+  width: 33.3%;
+  height: 210px;
+  margin-bottom: 7px;
+
+  a{
+    display: block;
+    cursor: pointer;
+    padding: @SUB_MENU_PADDINGS;
+
+    &:hover{
+      background-color: @SUB_MENU_ITEM_HOVER_COLOR;
+      transition: background-color 0.3s ease;
+    }
+
+    &.selected{
+      background-color: @SUB_MENU_ITEM_HOVER_COLOR;
+    }
+  }
+
+  &-content{
+    background: #f4f4f4;
+    border-radius: 4px;
+    text-align:center;
+    height: 197px;
+  }
+
+  &-image-holder{
+    height: 150px;
+  }
+
+  &-label{
+    .truncated-label;
+    text-decoration: none;
+    margin-top: 12px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 18px;
+    display: block;
+  }
+}
