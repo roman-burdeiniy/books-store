@@ -80,13 +80,15 @@ gulp.task('prepare-build-dev', function(callback) {
 });
 
 gulp.task('build-dev', ['prepare-build-dev'], function() {
-    copyBackendResources();
-    return gulp.src([BACKEND_SOURCE_PATH + '/**/*.js',
-            '!' + BACKEND_SOURCE_PATH + '/public/**/*'])
+    var res =  gulp.src([BACKEND_SOURCE_PATH + '/**/*.js',
+            '!' + BACKEND_SOURCE_PATH + '/public/**/*',
+            '!' + BACKEND_SOURCE_PATH + '/config/**/*'])
         .pipe(sourcemaps.init())
         .pipe(babel({
             presets: ['es2015', "stage-2"]
         }))
         .pipe(sourcemaps.write('./maps',{includeContent:true, sourceRoot:'../../src'}))
         .pipe(gulp.dest(BUILD_PATH + '/shop-backend'));
+    copyBackendResources();
+    return res;
 });
