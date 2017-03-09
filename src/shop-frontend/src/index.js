@@ -11,6 +11,7 @@ import {render} from 'react-dom'
 import { Provider } from 'react-redux'
 import App from './views/App';
 import BooksListContainer from './views/containers/BooksListContainer';
+import BookDetailsViewContainer from './views/containers/BookDetailsViewContainer'
 import ContactsView from './views/components/main/ContactsView'
 import {store} from './stores/app-store';
 
@@ -25,8 +26,7 @@ import './../resources/styles/index.less';
 import './../resources/styles/common/fonts.less';
 import 'normalize.css';
 
-import * as byPopularStrategy from './views/containers/strategies/byPopularBooksStrategy';
-import * as byCategoryStrategy from './views/containers/strategies/byCategoryBooksStrategy';
+import * as FindSelectedGroupStrategy from './stores/finders/FindSelectedGroupStrategy';
 
 addLocaleData([...en, ...ru]);
 
@@ -37,21 +37,21 @@ render(
                     <Route path="/" component={App}>
                         <Route path="cat/popular"
                                component={BooksListContainer}
-                               findStrategy={byPopularStrategy}/>
+                               findStrategy={FindSelectedGroupStrategy}/>
                         <Route path="cat/contacts"
                                component={ContactsView} />
                         <Route path="cat/:id"
                                component={BooksListContainer}
-                               findStrategy={byCategoryStrategy}/>
+                               findStrategy={FindSelectedGroupStrategy}/>
                         <Route path="cat/:id/subCat/:id"
                                component={BooksListContainer}
-                               findStrategy={byCategoryStrategy}/>
+                               findStrategy={FindSelectedGroupStrategy}/>
                         <Route path="cat/:id/subCat/:id/item/:id"
-                               component={ContactsView}/>
+                               component={BookDetailsViewContainer}/>
                         <Route path="cat/:id/item/:id"
-                               component={ContactsView}/>
+                               component={BookDetailsViewContainer}/>
                         <IndexRoute component={BooksListContainer}
-                                    findStrategy={byPopularStrategy}/>
+                                    findStrategy={FindSelectedGroupStrategy}/>
                     </Route>
             </Router>
         </ConnectedItnlProvider>

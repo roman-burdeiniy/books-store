@@ -1,5 +1,19 @@
 {
   "menu.button.popular": "Популярные",
   "menu.button.contacts": "Контакты",
-  "footer.rights.label" : "All rights reserved"
+  "footer.rights.label" : "All rights reserved",
+  "book.details.publisher" : "Издательство:",
+  "book.details.year" : "Год:",
+  "book.details.description": "Описание",
+  "book.details.details": "Подробнее",
+  "book.details.language" : "Язык",
+  "book.details.dimensions" : "Размеры",
+  "book.details.weight" : "Вес",
+  "book.details.price" : "Цена",
+  "book.details.quantity" : "Количество",
+  "book.details.totalPrice" : "Общая сумма",
+  "book.details.addToCart" : "Купить",
+  "book.details.ISBN" : "ISBN",
+  "currency" : "грн",
+  "weight.kg" : "кг"
 }

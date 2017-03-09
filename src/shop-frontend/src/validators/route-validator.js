@@ -34,7 +34,7 @@ function validateSemantics(path, store){
         let result = getValid(path)(isCat || isSubCat || isItem);
         return result;
     }})
-    return res(path == '/')();
+    return res(path == '/' || !store.dataModel.isInitialized)();
 }
 
 function compose(f, g) {
@@ -51,42 +51,32 @@ function curried(routeInfo, store) {
 };
 
 function isCatPath(catCheck){
-    const isValidWithEmptyStore = (store, routeInfo) => {
-        return routeInfo[CATEGORY_ID] != null && routeInfo[SUB_CATEGORY_ID] == null && _.isEmpty(store.menu.menuItems);
-    }
     const isValidWithFilledStore = (store, routeInfo) => {
-        let findCat = combineCatFind(getCategories, findItem, store.menu);
+        let findCat = combineCatFind(getCategories, findItem, store.dataModel);
         let found = findCat(routeInfo[CATEGORY_ID]);
         return found != null && routeInfo[SUB_CATEGORY_ID] == null;
     }
-    return catCheck(isValidWithEmptyStore) || catCheck(isValidWithFilledStore)
+    return catCheck(isValidWithFilledStore)
 }
 
 function isItemPath(catCheck){
-    const isValidWithEmptyStore = (store, routeInfo) => {
-        return routeInfo[ITEM_ID] != null && _.isEmpty(store.menu.menuItems);
-    }
     const isValidWithFilledStore = (store, routeInfo) => {
-        let findParent = condition({true : () => combineSubCatFind(getSubCategories, findItem, store.menu),
-            false : () => combineCatFind(getCategories, findItem, store.menu)})(routeInfo[SUB_CATEGORY_ID] != null);
+        let findParent = condition({true : () => combineSubCatFind(getSubCategories, findItem, store.dataModel),
+            false : () => combineCatFind(getCategories, findItem, store.dataModel)})(routeInfo[SUB_CATEGORY_ID] != null);
         let parent = findParent()(routeInfo[CATEGORY_ID], routeInfo[SUB_CATEGORY_ID]);
-        let found = parent != null && parent.items != null ? parent.items.find(item => item._id == routeInfo[ITEM_ID]) : null;
-        return found != null;
+        return parent != null;
     }
-    return catCheck(isValidWithEmptyStore) || catCheck(isValidWithFilledStore)
+    return catCheck(isValidWithFilledStore)
 }
 
 function isSubCatPath(catCheck){
-    const isValidWithEmptyStore = (store, routeInfo) => {
-        return !_.isEmpty(routeInfo[CATEGORY_ID]) && !_.isEmpty(routeInfo[SUB_CATEGORY_ID]) && _.isEmpty(store.menu.menuItems);
-    }
     const isValidWithFilledStore = (store, routeInfo) => {
-        let findSubCat = combineSubCatFind(getSubCategories, findItem, store.menu);
+        let findSubCat = combineSubCatFind(getSubCategories, findItem, store.dataModel);
         let found = findSubCat(routeInfo[CATEGORY_ID], routeInfo[SUB_CATEGORY_ID]);
         return found != null && routeInfo[ITEM_ID] == null;
     }
 
-    return catCheck(isValidWithEmptyStore) || catCheck(isValidWithFilledStore);
+    return catCheck(isValidWithFilledStore);
 }
 
 function combineCatFind(f1, f2, item){
@@ -102,8 +92,8 @@ function combineSubCatFind(f1, f2, item){
     }
 }
 
-function getCategories(menu){
-    return menu.menuItems;
+function getCategories(dataModel){
+    return dataModel.groups;
 }
 
 function getSubCategories(cat){

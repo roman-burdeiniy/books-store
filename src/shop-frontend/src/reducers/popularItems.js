@@ -28,6 +28,7 @@ function getPopularItems(categories){
 
 function reducePopular(items){
     return items.reduce((prevValue, currentValue) => {
-        return prevValue.concat(currentValue.items.filter(item => item.isPopular));
+        const items =  currentValue.items || [];
+        return prevValue.concat(items.filter(item => item.isPopular));
     }, []);
 }

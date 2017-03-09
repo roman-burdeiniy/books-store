@@ -5,6 +5,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Link} from 'react-router'
 import {getResourceURL} from '../../../utils/url-utils';
+import {NO_BOOK_LOGO_URL} from '../../../constants/Imgs';
+import {getLocalizedLabel} from '../../../utils/localization-util';
 
 import '../../../../resources/styles/components/book-item.less';
 
@@ -14,7 +16,7 @@ export default class BookItem extends React.Component{
                 <section className="book-item-content-holder">
                     <Link className="book-image-link" onClick={this.onLinkClick.bind(this)}>
                         <section className="image-holder">
-                            <img src={getResourceURL(this.props.data.img)} className="items-list-book-image"/>
+                            <img src={getResourceURL(this.getImgURL())} className="items-list-book-image"/>
                         </section>
                     </Link>
                     <section className="book-details">
@@ -22,10 +24,14 @@ export default class BookItem extends React.Component{
                             <div title={this.props.data.name}>{this.props.data.name}</div>
                         </Link>
                         <span title={this.props.data.author} className="author-box">{this.props.data.author}</span>
-                        <section className="price-box">{this.props.data.price}&#8372;</section>
+                        <section className="price-box">{this.props.data.price} {getLocalizedLabel('currency', 'UAH')}</section>
                     </section>
                 </section>
             </li>
+    }
+
+    getImgURL(){
+        return this.props.data.logo != null ? this.props.data.logo : NO_BOOK_LOGO_URL;
     }
 
     onLinkClick(event){

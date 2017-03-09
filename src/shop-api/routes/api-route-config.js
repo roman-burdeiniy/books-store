@@ -3,8 +3,11 @@
  */
 var express = require('express');
 var router = express.Router();
-import CategoriesRoute from './CategoriesRoute';
+import RouteRegistrator from './RouteRegistrator';
+import {getAllCategories} from './descriptors/CategoriesRouteDescriptor';
+import {getItemsByCategory, getItemsBySubCategory, getItemsByPopular, getItemById} from './descriptors/ItemsRouteDescriptor';
 
-new CategoriesRoute().register(router);
+new RouteRegistrator([getAllCategories]).register(router);
+new RouteRegistrator([getItemsByPopular, getItemsByCategory, getItemsBySubCategory, getItemById]).register(router);
 
 module.exports = router;

@@ -15,10 +15,10 @@ import {getItemById} from '../../utils/array-utils';
 import '../../../resources/styles/containers/header.less';
 
 const mapStateToProps = function(state) {
-    return {menuItems: state.menu.menuItems,
-        selectedItemId : state.menu.selectedCatId,
-        expandedItemId : state.menu.expandedCatId,
-        selectedSubItemId : state.menu.selectedSubCatId,
+    return {menuItems: state.dataModel.groups,
+        selectedItemId : state.dataModel.selectedGroupId,
+        expandedItemId : state.dataModel.expandedGroupId,
+        selectedSubItemId : state.dataModel.selectedSubGroupId,
         langStore : state.langStore}
 }
 

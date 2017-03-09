@@ -10,14 +10,14 @@ import {BooksList} from '../components/main/BooksList';
 
 const mapStateToProps = function(state) {
     return {store: state,
-        selectedCatId : state.menu.selectedCatId,
-        selectedSubCatId : state.menu.selectedSubCatId}
+        selectedGroupId : state.dataModel.selectedGroupId,
+        selectedSubGroupId : state.dataModel.selectedSubGroupId}
 }
 
 const mapDispatchToProps = function(dispatch){
     return {
         onBookItemClick : function(ev){
-            const route = generateItemRoute(this.props.selectedCatId, this.props.selectedSubCatId, ev.detail.id);
+            const route = generateItemRoute(this.props.selectedGroupId, this.props.selectedSubGroupId, ev.detail.id);
             browserHistory.push(route);
         }
     }
@@ -44,10 +44,10 @@ class BooksListContainer extends React.Component {
     }
 
     getHeaderName(){
-       return populateBooksStrategy(this.props.store)(this.findStrategy.populateHeaderName);
+       return populateBooksStrategy(this.props.store)(this.findStrategy.getGroupName);
     }
     getBooksCollection(){
-        return populateBooksStrategy(this.props.store)(this.findStrategy.populateBooksCollection);
+        return populateBooksStrategy(this.props.store)(this.findStrategy.getGroupItems);
     }
 
 }

@@ -15,11 +15,11 @@ class Config{
 
     init(){
         let defaults = {root: path.normalize(__dirname + '/..')};
-        this.dev = _extend(devConf, defaults);
+        this.development = _extend(devConf, defaults);
         this.test = _extend(testConf, defaults);
-        this.prod = _extend(prodConf, defaults);
+        this.production = _extend(prodConf, defaults);
     }
 }
 
-export default new Config()[process.env.NODE_ENV || "dev"];
+export default new Config()[process.env.NODE_ENV || "development"];
 

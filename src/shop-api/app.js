@@ -7,6 +7,7 @@ var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var apiRoute = require('./routes/api-route-config');
+var winston = require('winston');
 
 var app = express();
 
@@ -39,12 +40,12 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
     // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-    // render the error page
-    res.status(err.status || 500);
-    res.render('error');
+    let mes = 'Internal server error occured';
+    const errorObj = {
+        message : req.app.get('env') === 'development' ? (mes +': ' + err.message) : 'Internal server error occured'
+    }
+    res.status(err.status || 500).send({error : errorObj});
+    winston.error(err.stack);
 });
 
 module.exports = app;

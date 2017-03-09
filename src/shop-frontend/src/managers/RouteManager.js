@@ -3,7 +3,7 @@
  */
 import { browserHistory } from 'react-router';
 import {store} from '../stores/app-store';
-import {setRouteLocation} from '../actions/routes'
+import {setRouteLocation, setDefaultRouteLocation} from '../actions/routes'
 import {validateRoute} from '../validators/route-validator';
 
 class RouteManager{

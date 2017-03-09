@@ -5,12 +5,13 @@ import _ from 'underscore';
 import {getItemById} from '../utils/array-utils';
 import {generateCategoryRoute} from '../constants/RoutesToActionsMap';
 
-export default class MenuItem{
-    constructor(id, name, localKey, children, img, disporder, isDefault){
+export default class ItemsGroup{
+    constructor(id, name, localKey, children, img, disporder, isDefault, items){
         this._id = id;
         this.name = name;
         this.localKey = localKey;
         this.children = children;
+        this.items = items;
         this.img = img;
         this.disporder = disporder;
         this.isDefault = isDefault;

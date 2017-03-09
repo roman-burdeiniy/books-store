@@ -2,6 +2,7 @@
  * Created by roman_b on 2/2/2017.
  */
 import {selectMenuItem, selectSubMenuItem} from '../actions/menu';
+import {fetchSelectedItem} from '../actions/items';
 import {CATEGORY_ID, SUB_CATEGORY_ID, CATEGORY, SUB_CATEGORY, ITEM, ITEM_ID} from './PathKeys';
 import _ from 'underscore';
 
@@ -21,9 +22,12 @@ const ACCEPTABLE_ROUTES = [`/${CATEGORY}/:${CATEGORY_ID}`,
 const ACCEPTABLE_ROUTES_TEMPLATES = [buildTemplate(CATEGORY), buildTemplate(CATEGORY, ITEM),
     buildTemplate(CATEGORY, SUB_CATEGORY), buildTemplate(CATEGORY, SUB_CATEGORY, ITEM)];
 
-let actionsMap = {
-    [CATEGORY_ID] : selectMenuItem,
-    [SUB_CATEGORY_ID] : selectSubMenuItem
+const getActionsMap = () => {
+    return {
+        [CATEGORY_ID] : selectMenuItem,
+        [SUB_CATEGORY_ID] : selectSubMenuItem,
+        [ITEM_ID] : fetchSelectedItem
+    }
 }
 
 let generateCategoryRoute = function(catID){
@@ -39,5 +43,5 @@ let generateItemRoute = function(catID, subCatID, itemID){
     return `${generateSubCategoryRoute(catID, subCatID)}/${ITEM}/${itemID}`;
 }
 
-export {actionsMap, ACCEPTABLE_ROUTES, ACCEPTABLE_ROUTES_TEMPLATES,
+export {getActionsMap, ACCEPTABLE_ROUTES, ACCEPTABLE_ROUTES_TEMPLATES,
     generateCategoryRoute, generateSubCategoryRoute, generateItemRoute};

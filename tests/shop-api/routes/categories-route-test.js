@@ -3,7 +3,7 @@
  */
 var expect = require('chai').expect;
 var request = require('supertest');
-var app = require('../.././app');
+var app = require('../../../src/shop-api/app');
 var mockery = require('mockery');
 
 beforeEach(function() {
@@ -29,11 +29,11 @@ describe('GET /shop-api/categories', function() {
             .expect('Content-Type', /json/)
             .expect(function(res) {
                 expect(res.body).to.be.an('Array');
-                expect(res.body).to.have.lengthOf(2);
+                expect(res.body).to.have.lengthOf(3);
                 expect(res.body[0]).to.have.ownProperty('name');
                 expect(res.body[0]).to.have.ownProperty('subCategories');
-                expect(res.body[1]).to.have.ownProperty('items');
-                expect(res.body[0]).to.have.property('name', 'Учебная литература');
+                expect(res.body[2]).to.have.ownProperty('items');
+                expect(res.body[0]).to.have.property('name', 'Учебная');
             }).end(function(err, res){
             if (err) return done(err);
             done();

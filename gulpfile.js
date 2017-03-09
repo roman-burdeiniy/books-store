@@ -58,7 +58,7 @@ gulp.task('build-api', ['clean-dist-api'], function() {
         .pipe(babel({
             presets: ['es2015', "stage-2"]
         }))
-        .pipe(sourcemaps.write('./maps',{includeContent:true, sourceRoot:'../../src'}))
+        .pipe(sourcemaps.write('./maps',{includeContent:true, sourceRoot:'../../src/shop-api'}))
         .pipe(gulp.dest(BUILD_PATH + '/shop-api'));
 });
 

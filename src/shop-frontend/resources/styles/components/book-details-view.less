@@ -1,0 +1,121 @@
+@import '../common/mixins';
+@import './add-to-cart-holder';
+@import './order-holder';
+
+.book-details-view{
+  margin-top: 10px;
+  box-shadow: 6px 6px 8px -9px #383838, -6px 6px 8px -9px #383838;
+  padding: 10px;
+  height: 600px;
+  box-sizing: border-box;
+  position: relative;
+  border-radius: 4px;
+
+  .book-details-bg{
+    background: #FFF;
+    z-index: 1;
+    border-radius: 4px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .details-holder{
+    display: flex;
+    z-index: 2;
+    position: relative;
+    flex-direction: row;
+    .images-holder{
+      width: 260px;
+
+      .full-image-section{
+        position: relative;
+        width: 100%;
+        &.css3-shadow{
+          position:relative;
+        }
+
+        &.css3-shadow:after{
+          content: "";
+          position: absolute;
+          z-index: 0;
+          box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+          bottom: 8px;
+          left: 5%;
+          right: 5%;
+          width: 90%;
+          height: 100px;
+          border-radius: 100%;
+        }
+
+        .book-details-full-image{
+          width: 260px;
+          position: relative;
+          z-index: 1;
+          margin-bottom: 5px;
+          box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .isbn-holder{
+          margin-top: 5px;
+        }
+        .isbn{
+          font-weight: bold;
+          position: relative;
+        }
+      }
+    }
+
+    .info-holder{
+      flex: 1;
+      height: 500px;
+      padding: 0 30px;
+
+      .book-name{
+        font-weight: bold;
+        font-family: Arial;
+        font-size: 22px;
+      }
+
+      .book-details{
+        padding-top: 5px;
+        font-family: Arial;
+      }
+
+      .publisher-holder{
+        color: #939393;
+        cursor: default;
+        margin-top: 5px;
+        font-size: 12px;
+        font-style: italic;
+      }
+
+      .author-holder{
+        color: #939393;
+        cursor: default;
+        margin-top: 2px;
+        font-size: 12px;
+        font-style: italic;
+      }
+
+      .divider{
+        .divider(450px);
+        margin-top: 10px;
+      }
+
+      .control-title-label{
+        .control-title-label;
+      }
+
+      .add-to-cart-holder{
+        .add-to-cart-holder;
+      }
+      .order-holder{
+        .order-holder;
+      }
+    }
+  }
+
+}

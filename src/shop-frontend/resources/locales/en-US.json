@@ -1,5 +1,19 @@
 {
   "menu.button.popular": "Popular",
   "menu.button.contacts": "Contacts",
-  "footer.rights.label" : "All rights reserved"
+  "footer.rights.label" : "All rights reserved",
+  "book.details.publisher" : "Publisher:",
+  "book.details.year" : "Year:",
+  "book.details.description": "Description",
+  "book.details.details": "Details",
+  "book.details.language" : "Language",
+  "book.details.dimensions" : "Product Dimensions",
+  "book.details.weight" : "Shipping Weight",
+  "book.details.price" : "Price",
+  "book.details.quantity" : "Quantity",
+  "book.details.totalPrice" : "Total price",
+  "book.details.addToCart" : "Add to Cart",
+  "book.details.ISBN" : "ISBN",
+  "currency" : "UAH",
+  "weight.kg" : "kg"
 }

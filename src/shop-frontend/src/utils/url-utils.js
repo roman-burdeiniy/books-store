@@ -14,4 +14,5 @@ let getResourceURL = function(path){
     return Config.apiEndpoint + path;
 }
 
+
 export {getBaseURL, getResourceURL};

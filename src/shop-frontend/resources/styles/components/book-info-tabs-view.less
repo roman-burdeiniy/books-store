@@ -1,0 +1,95 @@
+@import '../common/mixins';
+
+.book-info-tabs-view{
+  margin-top: 40px;
+  &_header{
+    display: flex;
+
+    .header-label{
+      .control-title-label;
+      margin-right: 30px;
+      cursor: pointer;
+    }
+
+    .header-label:hover{
+      color: #000;
+    }
+  }
+  .divider{
+    .divider(450px);
+  }
+
+  .selection-indicator{
+    position: relative;
+    width: 65px;
+    height: 1px;
+    top:-1px;
+    border: 0;
+    display: block;
+    background: #BEC5CE;
+
+    &_0{
+      left: 0px;
+      transition: left 0.3s ease-in-out;
+    }
+    &_1{
+      left: 90px;
+      transition: left 0.3s ease-in-out;
+    }
+  }
+
+  .tab-content-holder{
+    position: relative;
+    overflow: hidden;
+    height: 270px;
+    width: 450px;
+  }
+
+  &_description-holder{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    position: absolute;
+    width: 450px;
+    left: 0px;
+    padding-top: 10px;
+    line-height: 1.5em;
+    text-indent: 15px;
+    color: #676F79;
+    transition: left 0.3s ease-in-out;
+
+    &.hide{
+      left: -450px;
+      transition: left 0.3s ease-in-out;
+    }
+  }
+
+  &_details-holder{
+    font-family: 'Montserrat', sans-serif;
+    position: absolute;
+    font-size: 12px;
+    width: 450px;
+    left: 0px;
+    padding-top: 10px;
+    color: #676F79;
+    transition: left 0.3s ease-in-out;
+
+    &.hide{
+      left: 450px;
+      transition: left 0.3s ease-in-out;
+    }
+
+    ul{
+      list-style: none;
+
+      li{
+        margin-top: 5px;
+      }
+
+      .list-item-title{
+        font-weight: bold;
+        display: inline-block;
+        width: 70px;
+      }
+    }
+  }
+}

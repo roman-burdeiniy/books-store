@@ -6,3 +6,8 @@ export const getItemById = function(list, id){
         return null;
     return list.find(item => item._id == id);
 }
+
+export const getItemIndex = function(list, id){
+    let item = getItemById(list, id);
+    return list.indexOf(item);
+}

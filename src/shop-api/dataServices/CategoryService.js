@@ -1,28 +1,19 @@
 /**
  * Created by roman_b on 1/16/2017.
  */
-export default class CategoryService{
+import ServiceBase from './ServiceBase';
+
+export default class CategoryService extends ServiceBase{
     constructor(dbProvider){
-        this.dbProvider = dbProvider;
+        super(dbProvider);
     }
     getAll(){
         let collection = this.dbProvider.db.get('categories');
-        return collection.find({});
+        let result = this.dbCallBuilder(collection)(this.findAllCategories, (res)=> res);
+        return result;
     }
 
-    find(categoryId){
-        return null;
-    }
-
-    add(category){
-        return null;
-    }
-
-    remove(categoryId){
-        return null;
-    }
-
-    update(category){
-        return null;
+    findAllCategories(collection){
+        return collection.find({}, {fields: {'items' : 0, 'subCategories.items' : 0}});
     }
 }
