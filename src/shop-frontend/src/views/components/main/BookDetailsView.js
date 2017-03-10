@@ -46,11 +46,21 @@ export class BookDetailsView extends React.Component{
 
     quantityBox(props){
         return <section className="quantity-box">
-            <input ref="quantity" onChange={this.onQuantityChange.bind(this)} defaultValue={this.state.quantity}/>
-            <section className="control-button minus-button">-</section>
-            <section className="control-button plus-button">+</section>
+            <input ref="quantity" onChange={this.onQuantityChange.bind(this)} value={this.state.quantity}/>
+            <section className="control-button minus-button" onClick={this.onQuantityMinus.bind(this)}>-</section>
+            <section className="control-button plus-button" onClick={this.onQuantityPlus.bind(this)}>+</section>
         </section>
 
+    }
+
+    onQuantityMinus(){
+        let newValue = this.state.quantity > 1 ? this.state.quantity - 1 : this.state.quantity
+        this.setState({...this.state, quantity : newValue})
+    }
+
+    onQuantityPlus(){
+        let newValue = this.state.quantity + 1;
+        this.setState({...this.state, quantity : newValue})
     }
 
      orderHolder(props){
@@ -73,9 +83,15 @@ export class BookDetailsView extends React.Component{
                 <section className="price-label">{this.calculateTotalPrice(props)}{this.getCurrency()}</section>
             </section>
             <section className="add-button-holder">
-                <section className="add-button">{getLocalizedLabel('book.details.addToCart', 'Add to Cart')}</section>
+                <section className="add-button" onClick={this.onAddToCart.bind(this)}>
+                    {getLocalizedLabel('book.details.addToCart', 'Add to Cart')}
+                </section>
             </section>
         </section>
+    }
+
+    onAddToCart(){
+        this.props.onAddToCart(this.props.book, this.state.quantity);
     }
 
     getImgURL(){

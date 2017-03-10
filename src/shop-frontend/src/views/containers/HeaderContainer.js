@@ -21,6 +21,7 @@ const mapStateToProps = function(state) {
         selectedItemId : state.dataModel.selectedGroupId,
         expandedItemId : state.dataModel.expandedGroupId,
         selectedSubItemId : state.dataModel.selectedSubGroupId,
+        itemsInCart : state.cartItems,
         langStore : state.langStore}
 }
 
@@ -59,8 +60,8 @@ class HeaderContainer extends React.Component{
                         expandedItemId={this.props.expandedItemId}
                         onButtonClick={this.props.onMenuButtonClick}/>
                    <section className="search-cart-holder">
-                       <ShoppingCart/>
-                       <SearchBox onTopPosition={this.props.isCardViewActive}/>
+                       <ShoppingCart items={this.props.itemsInCart}/>
+                       <SearchBox/>
                    </section>
                     <SubMenuView
                         dataProvider={this.getSubItems()}

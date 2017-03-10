@@ -4,24 +4,23 @@
 import React from 'react';
 import '../../../../resources/styles/components/shopping-cart.less';
 import {getLocalizedLabel} from '../../../utils/localization-util';
+import _ from 'underscore';
 
 export default class ShoppingCart extends React.Component{
-
-    constructor(props){
-        super(props);
-    }
-
-    static get defaultProps() {
-        return {
-            itemsCount: '0'
-        }
-    }
 
     render(){
         return <button className="shopping-cart-button">
             <section className="shopping-cart-button_bg-image">
-                <span className="items-count">{this.props.itemsCount}</span>
+                <span className="items-count">{this.getTotalItemsCount(this.props.items)}</span>
             </section>
         </button>
+    }
+
+    getTotalItemsCount(items){
+        let res = items.reduce((prev, current) => {
+            prev.quantity = prev.quantity + current.quantity;
+            return prev;
+        }, {quantity : 0});
+        return res.quantity;
     }
 }
