@@ -10,14 +10,19 @@ import {getLocalizedLabel} from '../../../utils/localization-util';
 import '../../../../resources/styles/components/menu-button.less';
 
 export default class MenuButton extends React.Component{
+
+    constructor(props){
+        super(props);
+        this.states = ['default', 'over', 'selected'];
+    }
+
     render(){
-        let fullURL = getBaseURL();
-        this.getImgName(this.props.imgPath);
         let bgImage = {
-            backgroundImage: `url(${fullURL}${this.getImgName(this.props.imgPath)})`,
+            backgroundImage: `url(${getBaseURL()}${this.getImgName(this.props.imgPath, this.getStateName())})`,
             backgroundPosition: 'center 8px',
             backgroundRepeat: 'no-repeat'
         };
+        bgImage.transition = this.getStateName() == 'over' ? 'background 0.3s ease-in-out' : null;
         return <li onClick={this.onClick.bind(this)}
                    onMouseOver={this.onMouseOver.bind(this)}
                    onMouseOut={this.onMouseOut.bind(this)}
@@ -36,7 +41,18 @@ export default class MenuButton extends React.Component{
                             this.props.isExpanded ? <section className="hover-arrow"/> : null
                         }
                     </Link>
+                    <section className="hidden">
+                        {
+                            this.states.map((state, index) =>{
+                                return this.createImage(`${getBaseURL()}${this.getImgName(this.props.imgPath, state)}`, index);
+                            })
+                        }
+                    </section>
               </li>
+    }
+
+    createImage(src, index){
+        return <img src={src} key={index} />;
     }
 
     getStateName(){
@@ -71,14 +87,24 @@ export default class MenuButton extends React.Component{
         return !this.isDefaultState() ? '-' + this.getStateName() : '';
     }
 
-    getImgName(imgName){
+    getImgName(imgName, stateName){
         if (this.isDefaultState()){
             return imgName;
         }
         let reg = new RegExp('[^-]+$');
         let res = reg.exec(imgName);
-        imgName = imgName.slice(0, res.index) + this.getStateName() + '-' + imgName.slice(res.index);
+        imgName = imgName.slice(0, res.index) + stateName + '-' + imgName.slice(res.index);
         return imgName;
+    }
+
+    loadImagesInCache(){
+        let states = ['default', 'over', 'selected'];
+        let images = states.map(state => {
+            let img = new Image();
+            img.src = `${getBaseURL()}${this.getImgName(this.props.imgPath, state)}`;
+            return img;
+        })
+        return images;
     }
 
     isDefaultState(){
