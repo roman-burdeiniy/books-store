@@ -31,7 +31,8 @@ export const populateBooksStrategy = (store)=>{
 
 class BooksListContainer extends React.Component {
     render() {
-        return (<BooksList headerName={this.getHeaderName()}
+        return (<BooksList headerDefaultName={this.getHeaderDefaultName()}
+                           headerNameKey={this.getHeaderNameKey()}
                            books={this.getBooksCollection()}/>);
     }
 
@@ -43,9 +44,14 @@ class BooksListContainer extends React.Component {
         return this.props.route.findStrategy;
     }
 
-    getHeaderName(){
-       return populateBooksStrategy(this.props.store)(this.findStrategy.getGroupName);
+    getHeaderDefaultName(){
+       return populateBooksStrategy(this.props.store)(this.findStrategy.getSelectedGroup).name;
     }
+
+    getHeaderNameKey(){
+        return populateBooksStrategy(this.props.store)(this.findStrategy.getSelectedGroup).localKey;
+    }
+
     getBooksCollection(){
         return populateBooksStrategy(this.props.store)(this.findStrategy.getGroupItems);
     }

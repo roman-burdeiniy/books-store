@@ -54,15 +54,11 @@ export default class MenuButton extends React.Component{
     }
 
     onMouseOver(ev){
-        if (this.props.isSelected)
-            return;
         this.isHover = true;
         this.forceUpdate();
     }
 
     onMouseOut(ev){
-        if (this.props.isSelected)
-            return;
         this.isHover = false;
         this.forceUpdate();
     }

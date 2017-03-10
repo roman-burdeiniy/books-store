@@ -1,0 +1,15 @@
+@import '../common/mixins';
+
+.books-list-container{
+  position: relative;
+
+  &_header{
+    width: 500px;
+    position: absolute;
+
+    h1{
+      width: 100%;
+      .truncated-label;
+    }
+  }
+}
