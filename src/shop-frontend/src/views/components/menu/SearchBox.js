@@ -10,6 +10,7 @@ export default class SearchBox extends React.Component{
         return <section className="search-box">
             <input className="search-box_input"/>
             <button className="search-box_button">{getLocalizedLabel('search.box.search', 'Search')}</button>
+
         </section>;
     }
 

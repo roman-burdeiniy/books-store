@@ -16,5 +16,6 @@
   "book.details.ISBN" : "ISBN",
   "currency" : "UAH",
   "weight.kg" : "kg",
+  "shopping.cart.label" : "Cart",
   "search.box.search" : "Search"
 }

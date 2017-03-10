@@ -12,9 +12,10 @@
   "book.details.price" : "Цена",
   "book.details.quantity" : "Количество",
   "book.details.totalPrice" : "Общая сумма",
-  "book.details.addToCart" : "Купить",
+  "book.details.addToCart" : "Добавить в корзину",
   "book.details.ISBN" : "ISBN",
   "currency" : "грн",
   "weight.kg" : "кг",
+  "shopping.cart.label" : "Корзина",
   "search.box.search" : "Поиск"
 }
