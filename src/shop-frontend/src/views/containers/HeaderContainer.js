@@ -10,6 +10,7 @@ import {fetchMenuItems, expandMenuItem, selectMenuItem,
 import Logo from '../components/menu/Logo';
 import LangSelector from '../components/menu/LangSelector';
 import SubMenuView from '../components/menu/SubMenuView';
+import SearchBox from '../components/menu/SearchBox';
 import {getItemById} from '../../utils/array-utils';
 
 import '../../../resources/styles/containers/header.less';
@@ -56,6 +57,7 @@ class HeaderContainer extends React.Component{
                         selectedItemId={this.props.selectedItemId}
                         expandedItemId={this.props.expandedItemId}
                         onButtonClick={this.props.onMenuButtonClick}/>
+                    <SearchBox onTopPosition={this.props.isCardViewActive}/>
                     <SubMenuView
                         dataProvider={this.getSubItems()}
                         selectedItemId={this.props.selectedSubItemId}

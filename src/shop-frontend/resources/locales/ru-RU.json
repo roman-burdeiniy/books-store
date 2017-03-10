@@ -15,5 +15,6 @@
   "book.details.addToCart" : "Купить",
   "book.details.ISBN" : "ISBN",
   "currency" : "грн",
-  "weight.kg" : "кг"
+  "weight.kg" : "кг",
+  "search.box.search" : "Поиск"
 }

@@ -34,11 +34,11 @@ export default function dataModel(state = initialState, action){
             return {...state, expandedGroupId: null};
         }
         case SELECT_MENU_ITEM:{
-            return {...state, selectedGroupId: action.itemId, selectedSubGroupId: null, expandedGroupId : null};
+            return {...state, selectedGroupId: action.itemId, selectedSubGroupId: null, expandedGroupId : null, selectedItem : null};
         }
         case SELECT_SUB_MENU_ITEM:{
             let selectedGroupId = state.expandedGroupId != null ? state.expandedGroupId : state.selectedGroupId;
-            return {...state, selectedSubGroupId: action.itemId, selectedGroupId, expandedGroupId : null};
+            return {...state, selectedSubGroupId: action.itemId, selectedGroupId, expandedGroupId : null, selectedItem : null};
         }
         case LOADING_ITEMS:{
             let groups = getUpdatedGroups(state.groups, action.groupIdsChain, {isLoading: {$set: true}});
