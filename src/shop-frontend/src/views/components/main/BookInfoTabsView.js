@@ -31,10 +31,10 @@ export default class BookInfoTabsView extends React.Component{
                         </section>
                         <section className={this.getTabClass('book-info-tabs-view_details-holder', BookInfoTabsView.DETAILS)}>
                             <ul>
-                                {this.getListItem(this.props.book.language_id, 'book.details.language', 'Language:')}
-                                {this.getListItem(this.props.book.dimensions, 'book.details.dimensions', 'Dimensions:')}
+                                {this.getGeneralListItem(this.props.book.language_id, 'book.details.language', 'Language:')}
+                                {this.getGeneralListItem(this.props.book.dimensions, 'book.details.dimensions', 'Dimensions:')}
                                 {this.getWeightItem()}
-                                {this.getListItem(this.props.book.ISBN, 'book.details.ISBN', 'ISBN:')}
+                                {this.getGeneralListItem(this.props.book.ISBN, 'book.details.ISBN', 'ISBN:')}
                             </ul>
                         </section>
                     </section>
@@ -53,18 +53,30 @@ export default class BookInfoTabsView extends React.Component{
         this.setState({...this.state, selected : ev.currentTarget.getAttribute('type')});
     }
 
-    getWeightItem(){
-        let result = this.getListItem(this.props.book.weight, 'book.details.weight', 'Shipping weight:')
-        return result != null ? result + getLocalizedLabel('weight.kg', 'kg') : null;
+    getGeneralListItem(value, localKey, defTitleValue){
+        let result = this.getListItem(value, localKey, defTitleValue)((value) => {
+            return <span>{value}</span>
+        })
+        return result;
     }
 
     getListItem(value, localKey, defTitleValue){
-        if (value == null)
-            return null;
-        return  <li><section className="list-item-title">{getLocalizedLabel(localKey, defTitleValue)}</section>
-                    <span>{value}</span>
-                </li>
+        return function(contentFun){
+            if (value == null)
+                return '';
+            return <li><section className="list-item-title">{getLocalizedLabel(localKey, defTitleValue)}</section>
+                {contentFun(value)}
+            </li>
+        }
     }
+
+    getWeightItem(){
+        let result = this.getListItem(this.props.book.weight, 'book.details.weight', 'Shipping weight:')((value) => {
+                return <span>{value} {getLocalizedLabel('weight.kg', 'kg')}</span>
+            })
+        return result;
+    }
+
 }
 
 BookInfoTabsView.DESCRIPTION = 'DESCRIPTION';
