@@ -9,7 +9,9 @@ import {getLabel} from '../../../utils/string-utils';
 import {NO_BOOK_MAIN_IMG_URL} from '../../../constants/Imgs';
 import BookInfoTabsView from './BookInfoTabsView';
 
-import '../../../../resources/styles/components/book-details-view.less';
+if(process.env.BROWSER) {
+    require('../../../../resources/styles/components/book-details-view.less');
+}
 
 export class BookDetailsView extends React.Component{
 

@@ -1,32 +1,18 @@
 /**
  * Created by roman_b on 3/1/2017.
  */
-import {LOAD_CATEGORIES_SUCCESS, SELECT_MENU_ITEM,
+import {SELECT_MENU_ITEM,
     SELECT_SUB_MENU_ITEM, EXPAND_MENU_ITEM, COLLAPSE_MENU_ITEM,
     LOAD_ITEMS_SUCCESS, LOADING_ITEMS, LOAD_ITEMS_ERROR, LOAD_SELECTED_ITEM_SUCCESS, LOAD_SELECTED_ITEM_ERROR} from '../constants/ActionTypes'
 import _ from 'underscore';
-import ItemsGroup from '../stores/ItemsGroup';
-import popularItems from './popularItems';
 import update from 'immutability-helper';
 import {getItemById, getItemIndex} from '../utils/array-utils';
-
-const contactsGroup = new ItemsGroup("contacts", "Contacts", "menu.button.contacts", null, '/img/menu/contacts-41x41.png', 999);
-const popularGroup = new ItemsGroup("popular", "Popular", "menu.button.popular", null, '/img/menu/fav-lit-40x41.png', -999, true);
-
-const staticGroups = [popularGroup, contactsGroup];
 
 let initialState = {groups : [], selectedGroupId: null, selectedSubGroupId: null,
     expandedGroupId : null, isInitialized : false};
 
 export default function dataModel(state = initialState, action){
     switch (action.type) {
-        case LOAD_CATEGORIES_SUCCESS:
-            popularGroup.items = popularItems(null, action);
-            let groups =  sortItems(buildDynamicItems(action.payload).concat(staticGroups));
-            let selectedGroup = getDefaultSelectedItem(groups, state);
-            let selectedSubGroup = getDefaultSelectedSubItem(selectedGroup, state);
-            return {...state, groups, selectedGroupId : selectedGroup._id,
-                selectedSubGroupId : selectedSubGroup._id, isInitialized : true};
         case EXPAND_MENU_ITEM:{
             return {...state, expandedGroupId: action.itemId};
         }
@@ -90,38 +76,4 @@ function updateSubGroup(groups, groupIdsChain, updateObj){
         let subGroupIndex = getItemIndex(groups[groupIndex].children, groupIdsChain[1]);
         return {children : {[subGroupIndex] : updateObj}};
     })
-}
-
-function getDefaultSelectedItem(menuItems, currentState){
-    let selectedItem = currentState.selectedGroupId != null ?
-        menuItems.find(item => item._id == currentState.selectedGroupId) :
-        menuItems.find(item => item.isDefault == true);
-    return selectedItem != null ? selectedItem : menuItems[0];
-}
-
-function buildDynamicItems(categories){
-    return categories.map(category=>{
-        return new ItemsGroup(category._id, category.name, null, category.subCategories,
-            category.img, category.disporder, category.isDefault, category.items);
-    })
-}
-
-function getDefaultSelectedSubItem(item, currentState){
-    let result;
-    if (item != null && item.children != null){
-        result = item.children.find(item => item._id == currentState.selectedSubGroupId);
-    }
-    return result || {};
-}
-
-function sortItems(items){
-    items.sort((item1, item2)=>{
-        if (item1.disporder < item2.disporder){
-            return -1;
-        }else if(item1.disporder > item2.disporder){
-            return 1;
-        }
-        return 0;
-    });
-    return items;
 }

@@ -24,10 +24,28 @@ function copyBackendResources(){
         .pipe(gulp.dest(BUILD_PATH + '/shop-backend/views'));
     gulp.src([BACKEND_SOURCE_PATH + '/img/**/*'])
         .pipe(gulp.dest(BUILD_PATH + '/shop-backend/img'));
+    gulp.src([BACKEND_SOURCE_PATH + '/frontendSource/**/*'])
+        .pipe(gulp.dest(BUILD_PATH + '/shop-backend/frontendSource'));
+    gulp.src([BACKEND_SOURCE_PATH + '/webpackConfig/**/*'])
+        .pipe(gulp.dest(BUILD_PATH + '/shop-backend/webpackConfig'));
 }
+
+gulp.task('copy-backend-resources', function () {
+    return copyBackendResources();
+});
+
+gulp.task('copy-frontend-resources', function () {
+    return gulp.src([FRONTEND_SOURCE_PATH + '/resources/**/*'])
+        .pipe(gulp.dest(BACKEND_SOURCE_PATH + '/frontendSource/resources'));
+});
 
 gulp.task('clean-dist', function () {
     return gulp.src(['./dist/*', '!' + BUILD_PATH + '/shop-api'], {read: false})
+        .pipe(clean());
+});
+
+gulp.task('clean-frontend-source-dist', function () {
+    return gulp.src(BACKEND_SOURCE_PATH + '/frontendSource/*', {read: false})
         .pipe(clean());
 });
 
@@ -74,21 +92,37 @@ gulp.task('build-frontend-dev', function(done) {
     });
 });
 
-gulp.task('prepare-build-dev', function(callback) {
-    runSequence('clean-dist', 'build-frontend-dev',
+gulp.task('compile-dev', ['clean-dist'], function(){
+    return gulp.src([BACKEND_SOURCE_PATH + '/**/*.js',
+            '!' + BACKEND_SOURCE_PATH + '/public/**/*',
+            '!' + BACKEND_SOURCE_PATH + '/frontendSource/**/*',
+            '!' + BACKEND_SOURCE_PATH + '/webpackConfig/**/*'])
+        .pipe(sourcemaps.init())
+        .pipe(babel({
+            presets: ['react', 'es2015', "stage-2"]
+        }))
+        .pipe(sourcemaps.write('./maps',{includeContent:true, sourceRoot:'../../src/shop-backend'}))
+        .pipe(gulp.dest(BUILD_PATH + '/shop-backend'));
+})
+
+gulp.task('build-shop', function(callback) {
+    return runSequence('build-frontend-dev', 'build-frontend-source',
+        'compile-dev', 'copy-frontend-resources', 'copy-backend-resources',
         callback);
 });
 
-gulp.task('build-dev', ['prepare-build-dev'], function() {
-    var res =  gulp.src([BACKEND_SOURCE_PATH + '/**/*.js',
-            '!' + BACKEND_SOURCE_PATH + '/public/**/*',
-            '!' + BACKEND_SOURCE_PATH + '/config/**/*'])
+gulp.task('build-backend', function(callback) {
+    return runSequence('compile-dev', 'copy-frontend-resources', 'copy-backend-resources',
+        callback);
+});
+
+gulp.task('build-frontend-source', ['clean-frontend-source-dist'], function() {
+    var res =  gulp.src([FRONTEND_SOURCE_PATH + '/src/**/*.js'])
         .pipe(sourcemaps.init())
         .pipe(babel({
-            presets: ['es2015', "stage-2"]
+            presets: ['react', 'es2015', "stage-2"]
         }))
-        .pipe(sourcemaps.write('./maps',{includeContent:true, sourceRoot:'../../src'}))
-        .pipe(gulp.dest(BUILD_PATH + '/shop-backend'));
-    copyBackendResources();
+        .pipe(sourcemaps.write('./maps',{includeContent:true, sourceRoot:'../../../../src/shop-frontend/src'}))
+        .pipe(gulp.dest(BACKEND_SOURCE_PATH + '/frontendSource/src'));
     return res;
 });

@@ -5,7 +5,9 @@ import React from 'react';
 import MenuButton from './MenuButton';
 import _ from 'underscore';
 
-import '../../../../resources/styles/components/menu-buttons-list.less';
+if(process.env.BROWSER) {
+    require('../../../../resources/styles/components/menu-buttons-list.less');
+}
 
 export default class MenuButtonsList extends React.Component{
     constructor(props){

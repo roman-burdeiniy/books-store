@@ -5,7 +5,7 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var webpack = require('webpack');
 
-var config = process.env.ENV === 'prod' ? require('../src/config/prod.json') : require('../src/config/dev.json');
+process.env.BROWSER = true;
 
 module.exports = {
     entry: {main: ['./src/index.js']},
@@ -15,7 +15,7 @@ module.exports = {
         publicPath : '/'
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
@@ -30,37 +30,40 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract("style-loader", ["css-loader?importLoaders=1", "postcss-loader"])
+                use: ExtractTextPlugin.extract({fallback: 'style-loader',
+                    use: [{loader : "css-loader"}]})
             },
             {
                 test: /\.less$/,
-                loader: ExtractTextPlugin.extract("style-loader", ["css-loader?importLoaders=1!", "postcss-loader", "less-loader"])
+                use: ExtractTextPlugin.extract({fallback: "style-loader",
+                    use: [{loader : "css-loader"}, {loader : "less-loader"}]})
             },
             {
                 test: /\.(eot|ttf|woff|woff2)$/,
                 loader: 'file-loader?name=./fonts/[hash].[ext]&publicPath=../../'
-            },
-            {
-                test: /\.json$/,
-                loader: 'json-loader'
             }
         ]
     },
     plugins: [
-        new ExtractTextPlugin("./styles/bundle.css"),
-        new HtmlWebpackPlugin({
-            title: 'Books Shelf',
-            template: './public/index.html',
-            filename: './index.html'
+        new ExtractTextPlugin({filename: "./styles/bundle.css"}),
+        new webpack.DefinePlugin({
+            'process.env.BROWSER': JSON.stringify(true)
+        }),
+        new webpack.LoaderOptionsPlugin({
+            debug: true
         })
+
     ],
-    externals: {
-        'Config':  JSON.stringify(config)
-    },
     stats: {
         colors: true
     },
     devtool: 'source-map',
-    debug: true,
     target: 'web'
 };
+
+/*
+*  new HtmlWebpackPlugin({
+ title: 'Books Shelf',
+ template: './public/index.html',
+ filename: './index.html'
+ }),*/

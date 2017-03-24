@@ -1,10 +1,10 @@
 /**
  * Created by roman_b on 2/22/2017.
  */
-import {getRouteObject} from '../utils/route-utils';
-import { ACCEPTABLE_ROUTES_TEMPLATES} from '../constants/RoutesToActionsMap';
+import {getRouteObject} from '../../frontendSource/src/utils/route-utils';
+import { ACCEPTABLE_ROUTES_TEMPLATES} from '../../frontendSource/src/constants/RoutesToActionsMap';
 import _ from 'underscore';
-import {CATEGORY_ID, SUB_CATEGORY_ID, ITEM_ID} from '../constants/PathKeys';
+import {CATEGORY_ID, SUB_CATEGORY_ID, ITEM_ID} from '../../frontendSource/src/constants/PathKeys';
 
 export const validateRoute = (path, store) => {
                                 let result = compose(validateSyntax, validateSemantics);
@@ -61,10 +61,7 @@ function isCatPath(catCheck){
 
 function isItemPath(catCheck){
     const isValidWithFilledStore = (store, routeInfo) => {
-        let findParent = condition({true : () => combineSubCatFind(getSubCategories, findItem, store.dataModel),
-            false : () => combineCatFind(getCategories, findItem, store.dataModel)})(routeInfo[SUB_CATEGORY_ID] != null);
-        let parent = findParent()(routeInfo[CATEGORY_ID], routeInfo[SUB_CATEGORY_ID]);
-        return parent != null;
+        return true;
     }
     return catCheck(isValidWithFilledStore)
 }

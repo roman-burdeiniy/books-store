@@ -4,6 +4,7 @@
 import _ from 'underscore';
 import {getItemById} from '../utils/array-utils';
 import {generateCategoryRoute} from '../constants/RoutesToActionsMap';
+import {EXPANDED_CATEGORY} from '../constants/PathKeys';
 
 export default class ItemsGroup{
     constructor(id, name, localKey, children, img, disporder, isDefault, items){
@@ -26,6 +27,12 @@ export default class ItemsGroup{
     }
 
     getPath(){
-        return !this.hasChildren() ? generateCategoryRoute(this._id) : '';
+        return !this.hasChildren() ? generateCategoryRoute(this._id) : `/?${EXPANDED_CATEGORY}=${this._id}`;
+    }
+
+    static convert(obj){
+        return Object.assign(new ItemsGroup(), obj)
     }
 }
+
+ItemsGroup.NULL = new ItemsGroup();

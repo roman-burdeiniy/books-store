@@ -2,8 +2,11 @@
  * Created by roman_b on 3/9/2017.
  */
 import React from 'react';
-import '../../../../resources/styles/components/search-box.less';
 import {getLocalizedLabel} from '../../../utils/localization-util';
+
+if(process.env.BROWSER) {
+    require('../../../../resources/styles/components/search-box.less');
+}
 
 export default class SearchBox extends React.Component{
     render(){

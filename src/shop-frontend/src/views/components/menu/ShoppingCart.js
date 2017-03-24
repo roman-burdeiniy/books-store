@@ -2,9 +2,12 @@
  * Created by roman_b on 3/10/2017.
  */
 import React from 'react';
-import '../../../../resources/styles/components/shopping-cart.less';
 import {getLocalizedLabel} from '../../../utils/localization-util';
 import _ from 'underscore';
+
+if(process.env.BROWSER) {
+    require('../../../../resources/styles/components/shopping-cart.less');
+}
 
 export default class ShoppingCart extends React.Component{
 

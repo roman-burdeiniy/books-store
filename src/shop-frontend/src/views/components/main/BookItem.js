@@ -3,24 +3,26 @@
  */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Link} from 'react-router'
+import {Link} from 'react-router-dom'
 import {getResourceURL} from '../../../utils/url-utils';
 import {NO_BOOK_LOGO_URL} from '../../../constants/Imgs';
 import {getLocalizedLabel} from '../../../utils/localization-util';
 
-import '../../../../resources/styles/components/book-item.less';
+if(process.env.BROWSER) {
+    require('../../../../resources/styles/components/book-item.less');
+}
 
 export default class BookItem extends React.Component{
     render(){
         return <li className="book-item" key={this.props.data._id}>
                 <section className="book-item-content-holder">
-                    <Link className="book-image-link" onClick={this.onLinkClick.bind(this)}>
+                    <Link className="book-image-link" to={`/item/${this.props.data._id}`}>
                         <section className="image-holder">
                             <img src={getResourceURL(this.getImgURL())} className="items-list-book-image"/>
                         </section>
                     </Link>
                     <section className="book-details">
-                        <Link className="book-name-link" onClick={this.onLinkClick.bind(this)}>
+                        <Link className="book-name-link" to={`/item/${this.props.data._id}`}>
                             <div title={this.props.data.name}>{this.props.data.name}</div>
                         </Link>
                         <span title={this.props.data.author} className="author-box">{this.props.data.author}</span>
@@ -32,12 +34,5 @@ export default class BookItem extends React.Component{
 
     getImgURL(){
         return this.props.data.logo != null ? this.props.data.logo : NO_BOOK_LOGO_URL;
-    }
-
-    onLinkClick(event){
-        event.preventDefault();
-        var el = ReactDOM.findDOMNode(this);
-        var event = new CustomEvent('bookItemClick', {bubbles: true, detail: {id : this.props.data._id}});
-        el.dispatchEvent(event);
     }
 }

@@ -6,7 +6,10 @@ import BookItem from './BookItem';
 import ItemsList from './ItemsList';
 
 import {getLocalizedLabel} from '../../../utils/localization-util';
-import '../../../../resources/styles/components/books-list.less'
+
+if(process.env.BROWSER) {
+    require('../../../../resources/styles/components/books-list.less');
+}
 
 export const BooksList = (props) =>{
     return  <section className="books-list-container">

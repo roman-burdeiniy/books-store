@@ -3,8 +3,11 @@
  */
 import React from 'react';
 import SubMenuItem from './SubMenuItem'
-import '../../../../resources/styles/components/sub-menu-view.less';
 import enhanceWithClickOutside from 'react-click-outside';
+
+if(process.env.BROWSER) {
+    require('../../../../resources/styles/components/sub-menu-view.less');
+}
 
 class SubMenuView extends React.Component{
     render(){

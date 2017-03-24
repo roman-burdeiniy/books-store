@@ -6,7 +6,7 @@ import {handleServerError, handleConnectionError} from '../errors/ErrorsHandler'
 import _ from 'underscore';
 
 export const loadData = (endPoint, params = [], isMandatoryParams = false) =>{
-    return (success, error) =>{
+    return new Promise((result, reject) => {
         const paramsStr = params.filter(param => param != null).join('/');
         if (isMandatoryParams && _.isEmpty(paramsStr))
             return;
@@ -20,13 +20,13 @@ export const loadData = (endPoint, params = [], isMandatoryParams = false) =>{
                 return res.json();
             })
             .then(response => {
-                success(parseResponse(response))
+                result(parseResponse(response))
             })
             .catch(err => {
                 handleConnectionError(err, url);
-                error(err);
+                reject(err);
             })
-    }
+    })
 }
 
 const parseResponse = (response) => {

@@ -5,23 +5,22 @@ import {LOAD_ITEMS_SUCCESS, LOAD_ITEMS_ERROR, LOADING_ITEMS,
     LOADING_SELECTED_ITEM, LOAD_SELECTED_ITEM_SUCCESS, LOAD_SELECTED_ITEM_ERROR} from '../constants/ActionTypes';
 import _ from 'underscore';
 import {loadData} from '../services/DataService';
-var Config = require('Config');
-import {store} from '../stores/app-store';
+import getConfig from '../config/Config';
+import {getStore} from '../stores/app-store';
 import {getGroupItems} from '../stores/finders/FindSelectedGroupStrategy';
 import {getItemById} from '../utils/array-utils';
 
 export function fetchItems(...idsChain){
     return (dispatch) => {
-        dispatch(loadingItems(idsChain));
-        loadData(`${Config.apiEndpoint}/items/`, idsChain, true)(
-            (result) => {dispatch(loadItemsSuccess(idsChain, result));},
-            (error) => {dispatch(loadItemsError(idsChain, error));}
-        )
-    }
+                dispatch(loadingItems(idsChain));
+                return loadData(`${getConfig().apiEndpoint}/items/`, idsChain, true)
+                    .then(result => dispatch(loadItemsSuccess(idsChain, result)))
+                    .catch(error => dispatch(loadItemsError(idsChain, error)))
+            }
 }
 
 export function fetchSelectedItem(id){
-    let items = getGroupItems(store.getState());
+    let items = getGroupItems(getStore().getState());
     let foundItem = getItemById(items, id);
     return (dispatch) => {
         if (foundItem == null){
@@ -34,10 +33,9 @@ export function fetchSelectedItem(id){
 
 function loadItem(id, dispatch){
     dispatch(loadingSelectedItem(id));
-    loadData(`${Config.apiEndpoint}/item/`, [id], true)(
-        (result) => {dispatch(loadSelectedItemSuccess(id, result));},
-        (error) => {dispatch(loadSelectedItemError([id], error));}
-    )
+    loadData(`${getConfig().apiEndpoint}/item/`, [id], true)
+        .then(result => dispatch(loadSelectedItemSuccess(id, result)))
+        .catch(error => dispatch(loadSelectedItemError([id], error)))
 }
 
 function loadSelectedItemSuccess(id, item) {

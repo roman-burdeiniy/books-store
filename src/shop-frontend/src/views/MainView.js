@@ -5,8 +5,6 @@ import React from 'react'
 import {connect} from 'react-redux';
 import HeaderContainer from './containers/HeaderContainer';
 import FooterContainer from './containers/FooterContainer';
-import {initDefaultLocale} from '../actions/languages';
-import {default as routeManager} from '../managers/RouteManager';
 
 const mapStateToProps = function(state) {
     return state;
@@ -14,20 +12,15 @@ const mapStateToProps = function(state) {
 
 const mapDispatchToProps = function(dispatch){
  return {
-            initDefaultLocale : function(){
-                dispatch(initDefaultLocale())
-            }
+
         }
  }
 
-class App extends React.Component{
+class MainView extends React.Component{
     constructor(props){
         super(props);
-        routeManager.startListen();
+        //routeManager.startListen();
 
-    }
-    componentDidMount(){
-        this.props.initDefaultLocale();
     }
     render(){
         return (
@@ -42,5 +35,5 @@ class App extends React.Component{
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(MainView)
 

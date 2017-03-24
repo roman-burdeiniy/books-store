@@ -5,8 +5,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import {generateItemRoute} from '../../constants/RoutesToActionsMap';
-import { browserHistory } from 'react-router';
 import {BooksList} from '../components/main/BooksList';
+import * as FindSelectedGroupStrategy from '../../stores/finders/FindSelectedGroupStrategy';
 
 const mapStateToProps = function(state) {
     return {store: state,
@@ -18,7 +18,7 @@ const mapDispatchToProps = function(dispatch){
     return {
         onBookItemClick : function(ev){
             const route = generateItemRoute(this.props.selectedGroupId, this.props.selectedSubGroupId, ev.detail.id);
-            browserHistory.push(route);
+            //browserHistory.push(route);
         }
     }
 }
@@ -41,7 +41,7 @@ class BooksListContainer extends React.Component {
     }
 
     get findStrategy(){
-        return this.props.route.findStrategy;
+        return FindSelectedGroupStrategy;
     }
 
     getHeaderDefaultName(){

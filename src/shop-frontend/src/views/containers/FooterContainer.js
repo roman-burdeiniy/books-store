@@ -6,8 +6,11 @@
  */
 import React from 'react';
 import {connect} from 'react-redux';
-import '../../../resources/styles/containers/footer.less';
 import {FormattedMessage} from 'react-intl';
+
+if(process.env.BROWSER) {
+    require('../../../resources/styles/containers/footer.less');
+}
 
 const mapStateToProps = function(state) {
     return state;

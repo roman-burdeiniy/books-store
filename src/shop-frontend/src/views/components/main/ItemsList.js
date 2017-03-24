@@ -2,7 +2,10 @@
  * Created by roman_b on 1/31/2017.
  */
 import React from 'react';
-import '../../../../resources/styles/components/items-list.less'
+
+if(process.env.BROWSER) {
+    require('../../../../resources/styles/components/items-list.less');
+}
 
 export default class ItemsList extends React.Component{
 

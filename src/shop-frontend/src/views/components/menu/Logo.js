@@ -2,7 +2,10 @@
  * Created by roman_b on 1/24/2017.
  */
 import React from 'react';
-import '../../../../resources/styles/components/menu-logo.less';
+
+if(process.env.BROWSER) {
+    require('../../../../resources/styles/components/menu-logo.less');
+}
 
 const Logo = (params) =>
     <section className="logo">

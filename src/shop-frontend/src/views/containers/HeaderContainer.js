@@ -12,9 +12,14 @@ import LangSelector from '../components/menu/LangSelector';
 import SubMenuView from '../components/menu/SubMenuView';
 import SearchBox from '../components/menu/SearchBox';
 import ShoppingCart from '../components/menu/ShoppingCart';
+import ItemsGroup from '../../stores/ItemsGroup';
 import {getItemById} from '../../utils/array-utils';
+import RouteManager from '../../managers/RouteManager'
 
-import '../../../resources/styles/containers/header.less';
+if(process.env.BROWSER) {
+    require('../../../resources/styles/containers/header.less');
+}
+
 
 const mapStateToProps = function(state) {
     return {menuItems: state.dataModel.groups,
@@ -22,7 +27,7 @@ const mapStateToProps = function(state) {
         expandedItemId : state.dataModel.expandedGroupId,
         selectedSubItemId : state.dataModel.selectedSubGroupId,
         itemsInCart : state.cartItems,
-        langStore : state.langStore}
+        langModel : state.langModel}
 }
 
 const mapDispatchToProps = function(dispatch){
@@ -31,10 +36,13 @@ const mapDispatchToProps = function(dispatch){
             dispatch(fetchMenuItems())
         },
         onMenuButtonClick : function(menuItem){
-            if (menuItem.hasChildren())
+            if (ItemsGroup.convert(menuItem).hasChildren())
                 dispatch(expandMenuItem(menuItem._id));
         },
         onSubMenuClose : function(){
+            let location = RouteManager.location;
+            location.search = null;
+            RouteManager.push(location);
             dispatch(collapseMenuItem());
         },
         onSelectLanguage: function(langCode){
@@ -44,9 +52,6 @@ const mapDispatchToProps = function(dispatch){
 }
 
 class HeaderContainer extends React.Component{
-    componentDidMount(){
-        this.props.initMenuData();
-    }
 
     render(){
         if (this.props.menuItems == null)

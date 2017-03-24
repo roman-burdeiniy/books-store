@@ -5,7 +5,9 @@ import React from 'react';
 import {getLocalizedLabel} from '../../../utils/localization-util';
 import _ from 'underscore';
 
-import '../../../../resources/styles/components/book-info-tabs-view.less';
+if(process.env.BROWSER) {
+    require('../../../../resources/styles/components/book-info-tabs-view.less');
+}
 
 export default class BookInfoTabsView extends React.Component{
 

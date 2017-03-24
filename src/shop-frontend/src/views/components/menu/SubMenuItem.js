@@ -2,10 +2,13 @@
  * Created by roman_b on 1/30/2017.
  */
 import React from 'react';
-import '../../../../resources/styles/components/sub-menu-item.less';
 import {getResourceURL} from '../../../utils/url-utils';
-import {Link} from 'react-router';
+import {Link} from 'react-router-dom'
 import {generateSubCategoryRoute} from '../../../constants/RoutesToActionsMap';
+
+if(process.env.BROWSER) {
+    require('../../../../resources/styles/components/sub-menu-item.less');
+}
 
 export default class SubMenuItem extends React.Component{
     render(){

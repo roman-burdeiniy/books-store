@@ -2,16 +2,17 @@
  * Created by roman_b on 3/6/2017.
  */
 import {getItemById} from '../../utils/array-utils';
+import ItemsGroup from '../../stores/ItemsGroup';
 
-export const getGroupItems = (store)=>{
-    return getSelectedGroup(store).items;
+export const getGroupItems = (state)=>{
+    return getSelectedGroup(state).items;
 }
 
-export function getSelectedGroup(store){
-    const groups = store.dataModel.groups;
-    const selectedGroupId = store.dataModel.selectedGroupId;
-    const selectedSubGroupId = store.dataModel.selectedSubGroupId;
+export function getSelectedGroup(state){
+    const groups = state.dataModel.groups;
+    const selectedGroupId = state.dataModel.selectedGroupId;
+    const selectedSubGroupId = state.dataModel.selectedSubGroupId;
     let group = getItemById(groups, selectedGroupId);
-    let subGroup = group != null ? group.getChildById(selectedSubGroupId) : null;
-    return subGroup || group || {};
+    let subGroup = group != null ? ItemsGroup.convert(group).getChildById(selectedSubGroupId) : null;
+    return subGroup || group || ItemsGroup.NULL;
 }

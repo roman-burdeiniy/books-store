@@ -3,11 +3,13 @@
  */
 import React from 'react';
 import {PropTypes} from 'react';
-import {getBaseURL} from '../../../utils/url-utils';
-import {Link} from 'react-router';
+import {Link} from 'react-router-dom'
+import ItemsGroup from '../../../stores/ItemsGroup';
 import {getLocalizedLabel} from '../../../utils/localization-util';
 
-import '../../../../resources/styles/components/menu-button.less';
+if(process.env.BROWSER) {
+    require('../../../../resources/styles/components/menu-button.less');
+}
 
 export default class MenuButton extends React.Component{
 
@@ -18,17 +20,16 @@ export default class MenuButton extends React.Component{
 
     render(){
         let bgImage = {
-            backgroundImage: `url(${getBaseURL()}${this.getImgName(this.props.imgPath, this.getStateName())})`,
+            backgroundImage: `url(${this.getImgName(this.props.imgPath, this.getStateName())})`,
             backgroundPosition: 'center 8px',
             backgroundRepeat: 'no-repeat'
         };
         bgImage.transition = this.getStateName() == 'over' ? 'background 0.3s ease-in-out' : null;
-        return <li onClick={this.onClick.bind(this)}
-                   onMouseOver={this.onMouseOver.bind(this)}
+        return <li onMouseOver={this.onMouseOver.bind(this)}
                    onMouseOut={this.onMouseOut.bind(this)}
                    itemID={this.props.id}
                    className={'menu-button' + this.getClassName()}>
-                    <Link to={this.props.data.getPath()}>
+                    <Link to={this.getLink()}>
                         <section className="menu-button-holder"
                                  style={bgImage}>
                             <section className="menu-button-label">
@@ -40,14 +41,14 @@ export default class MenuButton extends React.Component{
                         {
                             this.props.isExpanded ? <section className="hover-arrow"/> : null
                         }
+                        <section className="hidden">
+                            {
+                                this.states.map((state, index) =>{
+                                    return this.createImage(`${this.getImgName(this.props.imgPath, this.getStateName())}`, index);
+                                })
+                            }
+                        </section>
                     </Link>
-                    <section className="hidden">
-                        {
-                            this.states.map((state, index) =>{
-                                return this.createImage(`${getBaseURL()}${this.getImgName(this.props.imgPath, state)}`, index);
-                            })
-                        }
-                    </section>
               </li>
     }
 
@@ -65,8 +66,9 @@ export default class MenuButton extends React.Component{
         }
     }
 
-    onClick(ev){
-        this.props.onClick(this.props.data);
+    getLink(){
+        var a = ItemsGroup.convert(this.props.data).getPath(!this.props.isExpanded)
+        return a;
     }
 
     onMouseOver(ev){
@@ -97,22 +99,10 @@ export default class MenuButton extends React.Component{
         return imgName;
     }
 
-    loadImagesInCache(){
-        let states = ['default', 'over', 'selected'];
-        let images = states.map(state => {
-            let img = new Image();
-            img.src = `${getBaseURL()}${this.getImgName(this.props.imgPath, state)}`;
-            return img;
-        })
-        return images;
-    }
-
     isDefaultState(){
         return this.getStateName() == 'default';
     }
 }
-
-
 
 MenuButton.propTypes = {
     onClick: PropTypes.func.isRequired,

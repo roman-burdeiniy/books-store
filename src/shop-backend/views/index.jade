@@ -1,5 +1,12 @@
-extends layout
-
-block content
-  h1= title
-  p Welcome to #{title}
+doctype html(lang='en')
+head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title Books store
+    link(href='/./styles/bundle.css', rel='stylesheet')
+body
+    #root !{html}
+    script.
+        window.__PRELOADED_STATE__ = !{parsedState.replace(/</g, '\\u003c')}
+    script(type='text/javascript', src='/books-shop.bundle.js')
+    //!{html}

@@ -4,6 +4,7 @@
 export const CATEGORY_ID = 'catID';
 export const SUB_CATEGORY_ID = 'subCatID';
 export const ITEM_ID = 'itemID';
+export const EXPANDED_CATEGORY = 'expandedCat';
 
 export const CATEGORY = 'cat';
 export const SUB_CATEGORY = 'subCat';

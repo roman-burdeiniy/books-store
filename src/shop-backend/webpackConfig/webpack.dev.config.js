@@ -6,12 +6,6 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var webpack = require('webpack');
 var path = require('path');
 
-const SOURCE_FOLDER = "../../shop-frontend/src";
-
-var config = process.env.ENV === 'prod' ?
-    require(SOURCE_FOLDER + '/config/prod.json') :
-    require(SOURCE_FOLDER + '/config/dev.json');
-
 module.exports = {
     entry: [
         'webpack/hot/dev-server',
@@ -24,10 +18,10 @@ module.exports = {
         publicPath : '/'
     },
     resolve: {
-        modulesDirectories: ['node_modules', './src/shop-frontend/node_modules']
+        modules: ['node_modules', '../../shop-frontend/node_modules']
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
@@ -38,44 +32,37 @@ module.exports = {
             },
             {
                 test:/\.(png|jpg|svg)$/,
-                loader: 'file-loader?context=./img/[hash].[ext]&publicPath=../../'
+                loader: 'file-loader?name=./img/[hash].[ext]&publicPath=../../'
             },
             {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract("style-loader", ["css-loader?importLoaders=1", "postcss-loader"])
+                use: ExtractTextPlugin.extract({fallback: 'style-loader',
+                    use: [{loader : "css-loader"}]})
             },
-            // Optionally extract less files
-            // or any other compile-to-css language
             {
                 test: /\.less$/,
-                loader: ExtractTextPlugin.extract("style-loader", ["css-loader?importLoaders=1!", "postcss-loader", "less-loader"])
+                use: ExtractTextPlugin.extract({fallback: "style-loader",
+                    use: [{loader : "css-loader"}, {loader : "less-loader"}]})
             },
             {
-                test: /\.(eot|svg|ttf|woff|woff2)$/,
+                test: /\.(eot|ttf|woff|woff2)$/,
                 loader: 'file-loader?name=./fonts/[hash].[ext]&publicPath=../../'
-            },
-            {
-                test: /\.json$/,
-                loader: 'json-loader'
             }
         ]
     },
     plugins: [
         new ExtractTextPlugin("./styles/bundle.css"),
         new webpack.HotModuleReplacementPlugin(),
-        new HtmlWebpackPlugin({
-            title: 'Books Shelf',
-            template: './src/shop-frontend/public/index.html',
-            filename: './index.html'
+        new webpack.DefinePlugin({
+            'process.env.BROWSER': JSON.stringify(true)
+        }),
+        new webpack.LoaderOptionsPlugin({
+            debug: true
         })
     ],
-    externals: {
-        'Config':  JSON.stringify(config)
-    },
     stats: {
         colors: true
     },
     devtool: 'source-map',
-    debug: true,
     target: 'web'
 };

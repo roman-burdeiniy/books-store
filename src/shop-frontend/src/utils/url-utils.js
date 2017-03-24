@@ -2,7 +2,7 @@
  * Created by roman_b on 1/31/2017.
  */
 import _ from 'underscore';
-var Config = require('Config');
+import getConfig from '../config/Config';
 
 let getBaseURL = function(){
     return location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
@@ -11,7 +11,7 @@ let getBaseURL = function(){
 let getResourceURL = function(path){
     if (_.isEmpty(path))
         return null;
-    return Config.apiEndpoint + path;
+    return getConfig().apiEndpoint + path;
 }
 
 

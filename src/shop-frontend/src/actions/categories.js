@@ -3,7 +3,7 @@
  */
 require('es6-promise').polyfill();
 import 'isomorphic-fetch';
-var Config = require('Config');
+import getConfig from '../config/Config';
 import {fetchItems} from './items';
 import {loadData} from '../services/DataService';
 
@@ -12,18 +12,10 @@ import {LOADING_CATEGORIES, LOAD_CATEGORIES_SUCCESS, LOAD_CATEGORIES_ERROR} from
 export const fetchCategories = function() {
     return function (dispatch) {
         dispatch(loadingCategories());
-        loadData(`${Config.apiEndpoint}/categories`)(
-            (result) => {
-                dispatch(loadCategoriesSuccess(result))
-            },
-            (error) => {
-                dispatch(loadCategoriesError(error));
-            });
+        loadData(`${getConfig().apiEndpoint}/categories`)
+            .then(result => dispatch(loadCategoriesSuccess(result)))
+            .catch(error => dispatch(loadCategoriesError(error)))
     }
-}
-
-function getDataModel(){
-    return store.getState().dataModel;
 }
 
 export function loadingCategories() {

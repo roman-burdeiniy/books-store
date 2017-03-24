@@ -9,7 +9,7 @@ export default class LangSelector extends React.Component{
     }
 
     get store(){
-        return this.props.langStore;
+        return this.props.langModel;
     }
 
     render(){

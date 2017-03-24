@@ -1,37 +1,47 @@
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var FrontendManager = require('./managers/FrontendManager').default;
+import InvalidPathError from './errors/InvalidPathError'
+
 
 var app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use("/img", express.static(__dirname + '/img'));
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
 
-if (process.env.NODE_ENV == "prod"){
-  app.use(express.static(path.join(__dirname, 'public')));
-}else{
-  enableDebugMode();
+if (process.env.NODE_ENV == "development"){
+    enableDebugMode();
 }
 
-app.get('*', function(req, res, next){
-  res.sendFile(path.resolve(__dirname + '/public/index.html'));
-});
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/img', express.static(path.join(__dirname, 'img')));
 
+app.get("*", function(req, res, next){
+    console.log("req= " + req.url);
+    const frontendManager = new FrontendManager();
+    frontendManager.buildStore(req, res)
+        .then((store) => {
+                    const bundle = frontendManager.buildBundle(req.url, store);
+                    res.render('index', bundle);
+                  })
+        .catch(error => {
+            console.log(error)
+            if (error instanceof InvalidPathError)
+                res.redirect(error.redirectURL)
+        });
+});
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
+  console.log("Not found request req= " + req.url);
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
@@ -40,6 +50,7 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
+  console.log("Error stack = " + err.stack);
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
@@ -52,11 +63,13 @@ function enableDebugMode(){
   var webpack = require('webpack');
   var webpackDevMiddleware = require('webpack-dev-middleware');
   var webpackHotMiddleware = require('webpack-hot-middleware');
-  var webpackConfig = require('./config/webpack.dev.config');
+  var webpackConfig = require('./webpackConfig/webpack.dev.config.js');
 
   var compiler = webpack(webpackConfig);
+
   app.use(webpackDevMiddleware(compiler, {
     publicPath:webpackConfig.output.publicPath,
+    serverSideRender: true,
     stats: {colors:true}
   }));
 

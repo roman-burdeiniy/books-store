@@ -6,8 +6,8 @@ import { IntlProvider } from 'react-intl';
 
 
 let mapStateToProps = function(state){
-    return {locale : state.langStore.selectedLang,
-            messages : state.langStore.messages}
+    return {locale : state.langModel.selectedLang,
+            messages : state.langModel.messages}
 }
 let ConnectedItnlProvider = connect(mapStateToProps)(IntlProvider)
 export default ConnectedItnlProvider
