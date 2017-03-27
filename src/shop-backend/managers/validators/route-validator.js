@@ -1,7 +1,7 @@
 /**
  * Created by roman_b on 2/22/2017.
  */
-import {getRouteObject} from '../../frontendSource/src/utils/route-utils';
+import {matchRoute} from '../../frontendSource/src/utils/route-utils';
 import { ACCEPTABLE_ROUTES_TEMPLATES} from '../../frontendSource/src/constants/RoutesToActionsMap';
 import _ from 'underscore';
 import {CATEGORY_ID, SUB_CATEGORY_ID, ITEM_ID} from '../../frontendSource/src/constants/PathKeys';
@@ -26,7 +26,7 @@ function validateSyntax(inputPath){
 
 function validateSemantics(path, store){
     let res = condition({true: () => path, false : () => {
-        let routeInfo = getRouteObject(path);
+        let routeInfo = matchRoute(path);
         let checkExist = curried(routeInfo, store);
         let isItem = checkExist(isItemPath);
         let isSubCat = checkExist(isSubCatPath);

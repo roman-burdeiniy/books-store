@@ -7,7 +7,7 @@ import {generateCategoryRoute} from '../constants/RoutesToActionsMap';
 import {EXPANDED_CATEGORY} from '../constants/PathKeys';
 
 export default class ItemsGroup{
-    constructor(id, name, localKey, children, img, disporder, isDefault, items){
+    constructor(id, name, localKey, children, img, disporder, isDefault, items, isStatic){
         this._id = id;
         this.name = name;
         this.localKey = localKey;
@@ -16,6 +16,7 @@ export default class ItemsGroup{
         this.img = img;
         this.disporder = disporder;
         this.isDefault = isDefault;
+        this.isStatic = isStatic;
     }
 
     getChildById(id){

@@ -10,19 +10,19 @@ const popularGroup = new ItemsGroup("popular", "Popular", "menu.button.popular",
 
 const staticGroups = [popularGroup, contactsGroup];
 
-export const fetchCategories = function() {
+export const fetchCategories = function(initDefaultSelected) {
     let result = new Promise((success, reject) => {
         loadData(`${Config.apiEndpoint}/categories`)
-            .then(result => success(buildCategoriesModel(result)))
+            .then(result => success(buildCategoriesModel(result, initDefaultSelected)))
             .catch(error => reject(error))
     })
     return result;
 }
 
-function buildCategoriesModel(categories){
+function buildCategoriesModel(categories, initDefaultSelected){
     let groups =  sortItems(buildDynamicItems(categories).concat(staticGroups));
-    let selectedGroup = getDefaultSelectedItem(groups);
-    let selectedSubGroup = getDefaultSelectedSubItem(selectedGroup);
+    let selectedGroup = initDefaultSelected ? getDefaultSelectedItem(groups) : ItemsGroup.NULL;
+    let selectedSubGroup = initDefaultSelected ? getDefaultSelectedSubItem(selectedGroup) : ItemsGroup.NULL;
     return {groups, selectedGroupId : selectedGroup._id,
         selectedSubGroupId : selectedSubGroup._id, isInitialized : true};
 }

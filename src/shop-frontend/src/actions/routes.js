@@ -6,45 +6,38 @@ import {getActionsMap, ACCEPTABLE_ROUTES, ACCEPTABLE_ROUTES_TEMPLATES} from '../
 import {selectMenuItem, selectSubMenuItem} from './menu';
 import {CATEGORY_ID, SUB_CATEGORY_ID, CATEGORY, SUB_CATEGORY, ITEM_ID, IS_EXPANDED} from '../constants/PathKeys';
 import _ from 'underscore';
-import {getRouteObject, getRouteParamsObject} from '../utils/route-utils';
+import {matchRoute, getRouteParams} from '../utils/route-utils';
 import {getSelectedGroup} from '../stores/finders/FindSelectedGroupStrategy';
 import {fetchItems, fetchSelectedItem} from './items';
 import {getStore} from '../stores/app-store';
 import ItemsGroup from '../stores/ItemsGroup';
 
 export const setRouteLocation = function(pathname, params){
-        let routeObj = getRouteObject(pathname);
-        let paramsObject = getRouteParamsObject(params);
+        let routeObj = matchRoute(pathname);
+        let paramsObject = getRouteParams(params);
         return function(dispatch){
-                const needItemsReload = isSelectedGroupChanged(routeObj, CATEGORY_ID, SUB_CATEGORY_ID);
+                const prevSelectedGroup = getSelectedGroup(getStore().getState());
                 dispatchRouteState(dispatch, routeObj, CATEGORY_ID);
                 dispatchRouteState(dispatch, routeObj, SUB_CATEGORY_ID);
-                dispatchRouteState(dispatch, routeObj, ITEM_ID);
                 dispatchRouteParamsState(dispatch, paramsObject);
-                if (needItemsReload && isGroupSelectionRoute(routeObj) && !isItemSelection(routeObj)){
+                if (needToLoadItems(prevSelectedGroup) && !isItemSelection(routeObj)){
                     return dispatch(fetchItems(getDataModel().selectedGroupId, getDataModel().selectedSubGroupId))
+                }
+                if (isItemSelection(routeObj)){
+                    return dispatch(fetchSelectedItem(routeObj[ITEM_ID]))
                 }
                 return Promise.resolve({});
         }
 }
 
-function isSelectedGroupChanged(routeObj, catId, subCatId){
+function needToLoadItems(prevSelectedGroup){
     let selectedGroup = getSelectedGroup(getStore().getState());
-    return selectedGroup == ItemsGroup.NULL || _.isEmpty(selectedGroup.items) ||
-        (routeObj != null && (selectedGroup._id != routeObj[catId] || selectedGroup._id != routeObj[subCatId]));
+    return !selectedGroup.isStatic && (_.isEmpty(selectedGroup.items))
 }
 
-function isGroupSelectionRoute(routeObject){
-    let selectedGroup = getSelectedGroup(getStore().getState());
-    return !ItemsGroup.convert(selectedGroup).isStatic;
-}
 
 function isItemSelection(routeObject){
     return routeObject != null && routeObject[ITEM_ID]
-}
-
-function isDefaultSelectionRoute(routeObject){
-    return routeObject == null;
 }
 
 function dispatchRouteState(dispatch, routeObject, key){

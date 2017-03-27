@@ -98,7 +98,7 @@ var fict3 = {name: 'Hamilton: The Revolution', language_id : 'en_US',
 
 
 var subCat1Cat1 = {name: '1-3 класс', items:[book1, book2], img : '/img/categories/elementary.png'}
-var subCat2Cat1 = {name: '5-7 класс', items: [book3, book4, book9, book12], img : '/img/categories/middle.png'}
+var subCat2Cat1 = {name: '5-7 класс', items: [book3, book4, book9], img : '/img/categories/middle.png'}
 var subCat3Cat1 = {name: '8-11 класс', items: [book5, book6, book7, book8, book10, book11], img : '/img/categories/high.png'}
 var subCat4Cat1 = {name: 'Преподавателю', items: [book12, book13], img : '/img/categories/teacher.png'}
 
@@ -113,30 +113,47 @@ var mongo = new Mongo('localhost');
 var booksStoreTest = mongo.getDB(dbName);
 var langColl = booksStoreTest.getCollection('languages');
 var categoriesColl = booksStoreTest.getCollection('categories');
+var itemsColl = booksStoreTest.getCollection('items');
+itemsColl.drop();
 langColl.drop();
 categoriesColl.drop();
 
+
 var catList = [cat1, cat2, cat3];
-for (var i=0; i < catList.length; i++){
-    if (catList[i].subCategories == null && catList[i].items == null)
-        continue;
-    if (catList[i].subCategories != null){
-        for (var j = 0; j < catList[i].subCategories.length; j++){
-            var subCat = catList[i].subCategories[j];
-            subCat._id = new ObjectId();
-            for (var h = 0; h < subCat.items.length; h++){
-                var item = subCat.items[h];
-                item._id = new ObjectId();
+
+var allBooks = [];
+
+
+    for (var i=0; i < catList.length; i++){
+        catList[i]._id = new ObjectId();
+        if (catList[i].subCategories == null && catList[i].items == null)
+            continue;
+        if (catList[i].subCategories != null){
+            for (var j = 0; j < catList[i].subCategories.length; j++){
+                var subCat = catList[i].subCategories[j];
+                subCat._id = new ObjectId();
+                for (var h = 0; h < subCat.items.length; h++){
+                    var item = subCat.items[h];
+                    item._id = new ObjectId();
+                    item.parentIdsChain = [catList[i]._id, subCat._id];
+                }
+                allBooks = allBooks.concat(subCat.items);
+                subCat.items = null;
+                delete subCat.items;
             }
         }
-    }
-    if (catList[i].items != null){
-        for (var m = 0; m < catList[i].items.length; m++){
-            var item = catList[i].items[m];
-            item._id = new ObjectId();
+        if (catList[i].items != null){
+            for (var m = 0; m < catList[i].items.length; m++){
+                var item = catList[i].items[m];
+                item._id = new ObjectId();
+                item.parentIdsChain = [catList[i]._id];
+            }
+            allBooks = allBooks.concat(catList[i].items);
+            catList[i].items = null;
+            delete catList[i].items;
         }
     }
-}
 
+itemsColl.insert(allBooks);
 langColl.insert([enLang, deLang, esLang, frLang]);
 categoriesColl.insert([cat1, cat2, cat3]);
