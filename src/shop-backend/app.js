@@ -18,7 +18,7 @@ app.use(cookieParser());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-if (process.env.NODE_ENV == "development"){
+if (isDevMode()){
     enableDebugMode();
 }
 
@@ -32,7 +32,8 @@ app.get("*", function(req, res, next){
     frontendManager.buildStore(req, res)
         .then((store) => {
                     const bundle = frontendManager.buildBundle(req.url, store);
-                    res.render('index', bundle);
+                    const html = !isDevMode() ? bundle.html : '';
+                    res.render('index', {html, parsedState : bundle.parsedState});
                   })
         .catch(error => {
             console.log(error)
@@ -40,6 +41,10 @@ app.get("*", function(req, res, next){
                 res.redirect(error.redirectURL)
         });
 });
+
+function isDevMode(){
+    return process.env.NODE_ENV == "development";
+}
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   console.log("Not found request req= " + req.url);
@@ -53,7 +58,7 @@ app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   console.log("Error stack = " + err.stack);
   res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.locals.error = isDevMode() ? err : {};
 
   // render the error page
   res.status(err.status || 500);

@@ -17,5 +17,6 @@
   "currency" : "грн",
   "weight.kg" : "кг",
   "shopping.cart.label" : "Корзина",
-  "search.box.search" : "Поиск"
+  "search.box.search" : "Поиск",
+  "shopping.cart.empty" : "Ваша корзина пуста"
 }

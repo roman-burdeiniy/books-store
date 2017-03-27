@@ -67,8 +67,7 @@ export default class MenuButton extends React.Component{
     }
 
     getLink(){
-        var a = ItemsGroup.convert(this.props.data).getPath(!this.props.isExpanded)
-        return a;
+        return ItemsGroup.convert(this.props.data).getPath(!this.props.isExpanded);
     }
 
     onMouseOver(ev){

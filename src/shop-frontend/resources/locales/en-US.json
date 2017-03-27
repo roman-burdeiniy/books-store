@@ -17,5 +17,6 @@
   "currency" : "UAH",
   "weight.kg" : "kg",
   "shopping.cart.label" : "Cart",
-  "search.box.search" : "Search"
+  "search.box.search" : "Search",
+  "shopping.cart.empty" : "Your cart is empty"
 }

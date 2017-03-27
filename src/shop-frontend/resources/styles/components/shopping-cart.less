@@ -2,13 +2,55 @@
 /**
  * Created by roman_b on 3/10/2017.
  */
-.shopping-cart-button{
-  height: 50px;
-  width: 75px;
-  margin: 0 5px;
+
+.shopping-cart-holder{
   position: relative;
   float: right;
+  height: 50px;
+  width: 85px;
+  padding: 0 5px;
+
+  .shopping-cart-popup{
+    width: 250px;
+    min-height: 47px;
+    position: absolute;
+    top: 50px;
+    left: -75px;
+
+    &-holder{
+      min-height: 40px;
+      margin-top: 9px;
+      padding: 5px;
+      border-radius: 4px;
+      background: @SUB_MENU_BG_COLOR;
+      box-shadow: 6px 8px 9px -9px black,
+      -6px 8px 9px -9px black;
+    }
+
+    &:after {
+      content: "";
+      background: @SUB_MENU_BG_COLOR;
+      position: absolute;
+      left: 111px;
+      top: 4px;
+      width: 20px;
+      height: 20px;
+      transform: rotate(45deg);
+    }
+
+    .empty-cart-label{
+      color: #FFFFFF;
+      font-size: 18px;
+      line-height: 40px;
+      text-align: center;
+    }
+  }
+}
+.shopping-cart-button{
+  height: 100%;
+  width: 100%;
   border: none;
+  outline:none;
   padding: 0;
   cursor: pointer;
   background: none;
