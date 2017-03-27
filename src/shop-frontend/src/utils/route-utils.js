@@ -5,7 +5,7 @@ import {ACCEPTABLE_ROUTES} from '../constants/RoutesToActionsMap';
 import Route from 'route-parser';
 const queryString = require('query-string');
 
-export const getRouteObject = (inputPath, params)=>{
+export const matchRoute = (inputPath)=>{
     let result = ACCEPTABLE_ROUTES.reduce((prev, path)=>{
         let routeObj = new Route(path).match(inputPath);
         routeObj = routeObj == false ? null : routeObj;
@@ -15,7 +15,7 @@ export const getRouteObject = (inputPath, params)=>{
 }
 
 
-export const getRouteParamsObject = (params)=>{
-    const parsed = queryString.parse(params);
+export const getRouteParams = (path)=>{
+    const parsed = queryString.parse(path);
     return parsed;
 }

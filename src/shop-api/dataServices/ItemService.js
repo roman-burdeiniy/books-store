@@ -15,48 +15,48 @@ export default class ItemsService extends ServiceBase{
     getItemById(id){
         if (id == null)
             return null;
-        const collection = this.dbProvider.db.get('categories');
-        let result = this.dbCallBuilder(collection, id)(this.findItem, this.dataParser.parseItemById.bind(this.dataParser));
+        const collection = this.dbProvider.db.get('items');
+        let result = this.dbCallBuilder(collection, id)(this.findItem, this.dataParser.parseItemById);
         return result
     }
 
     getByCategory(catId){
         if (catId == null)
             return null;
-        const collection = this.dbProvider.db.get('categories');
-        let result = this.dbCallBuilder(collection, catId)(this.findCategory,
-            this.dataParser.getFirstCategory(this.dataParser.parseCategoryItems));
+        const collection = this.dbProvider.db.get('items');
+        let result = this.dbCallBuilder(collection, catId)(this.findByCategory,
+            this.dataParser.parseItems);
         return result
     }
 
     getBySubCategory(catId, subCatId){
         if (catId == null || subCatId == null)
             return null;
-        const collection = this.dbProvider.db.get('categories');
-        let result = this.dbCallBuilder(collection, catId, subCatId)(this.findSubCategory,
-            this.dataParser.getFirstCategory(this.dataParser.parseSubCategoryItems));
+        const collection = this.dbProvider.db.get('items');
+        let result = this.dbCallBuilder(collection, catId, subCatId)(this.findBySubCategory,
+            this.dataParser.parseItems);
         return result;
     }
 
     getPopular(){
-        const collection = this.dbProvider.db.get('categories');
-        return this.dbCallBuilder(collection)(this.findPopulars, this.dataParser.parsePopulars.bind(this.dataParser));
+        const collection = this.dbProvider.db.get('items');
+        return this.dbCallBuilder(collection)(this.findPopulars, this.dataParser.parseItems);
     }
 
     findPopulars(collection){
-        return  collection.find({$or : [{"subCategories.items" : {$elemMatch : {isPopular : true}}}, {items : {$elemMatch : {isPopular : true}}}]},
-            {fields: {"subCategories.items" : 1, "items" : 1, "_id" : 0}})
+        return  collection.find({isPopular : true})
     }
 
-    findCategory(collection, params){
-        return  collection.find({_id : new ObjectID(params[0])});
+    findByCategory(collection, params){
+        return  collection.find({parentIdsChain : {$eq: new ObjectID(params[0])}});
     }
 
-    findSubCategory(collection, params){
-        return collection.find({$and : [{_id : new ObjectID(params[0])}, {"subCategories._id" : new ObjectID(params[1])}]}, {fields: {"subCategories.$": 1}})
+    findBySubCategory(collection, params){
+        return  collection.find({$and: [{parentIdsChain: {$eq : new ObjectID(params[0])}},
+            {parentIdsChain: {$eq : new ObjectID(params[1])}}]});
     }
 
     findItem(collection, params){
-        return collection.find({$or : [{"items._id" : new ObjectID(params[0])}, {"subCategories.items._id" : new ObjectID(params[0])}]}, {fields : {"items" : 1, "subCategories.items" : 1}});
+        return collection.find({_id : new ObjectID(params[0])});
     }
 }

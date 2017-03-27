@@ -24,16 +24,17 @@ export function fetchSelectedItem(id){
     let foundItem = getItemById(items, id);
     return (dispatch) => {
         if (foundItem == null){
-            loadItem(id, dispatch);
+            return loadItem(id, dispatch);
         }else{
             dispatch(loadSelectedItemSuccess(id, foundItem));
+            return Promise.resolve(foundItem);
         }
     }
 }
 
 function loadItem(id, dispatch){
     dispatch(loadingSelectedItem(id));
-    loadData(`${getConfig().apiEndpoint}/item/`, [id], true)
+    return loadData(`${getConfig().apiEndpoint}/item/`, [id], true)
         .then(result => dispatch(loadSelectedItemSuccess(id, result)))
         .catch(error => dispatch(loadSelectedItemError([id], error)))
 }

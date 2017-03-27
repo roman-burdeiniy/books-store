@@ -7,11 +7,12 @@ import booksApp from '../reducers/app-reducer'
 
 let store = null;
 
-export const getStore = (preloadedState = {})=>{
-    if (store != null)
-        return store;
+export const buildStore = (preloadedState = {}) => {
     store = createStore(booksApp, preloadedState, applyMiddleware(thunkMiddleware));
     return store;
 }
+
+export const getStore = () => store;
+
 
 

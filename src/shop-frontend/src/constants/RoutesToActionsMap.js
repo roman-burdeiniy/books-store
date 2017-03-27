@@ -2,7 +2,6 @@
  * Created by roman_b on 2/2/2017.
  */
 import {selectMenuItem, selectSubMenuItem, expandMenuItem, collapseMenuItem} from '../actions/menu';
-import {fetchSelectedItem} from '../actions/items';
 import {CATEGORY_ID, SUB_CATEGORY_ID, CATEGORY, SUB_CATEGORY,
     ITEM, ITEM_ID, EXPANDED_CATEGORY} from './PathKeys';
 import _ from 'underscore';
@@ -29,8 +28,7 @@ const getActionsMap = () => {
     return {
         [CATEGORY_ID] : selectMenuItem,
         [EXPANDED_CATEGORY] : expandMenuItem,
-        [SUB_CATEGORY_ID] : selectSubMenuItem,
-        [ITEM_ID] : fetchSelectedItem
+        [SUB_CATEGORY_ID] : selectSubMenuItem
     }
 }
 

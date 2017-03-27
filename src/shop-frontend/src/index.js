@@ -6,13 +6,13 @@ import {render} from 'react-dom';
 import App from './App';
 import {Router} from 'react-router';
 import createHistory from 'history/createBrowserHistory'
-import {getStore} from './stores/app-store';
+import {buildStore} from './stores/app-store';
 import RouteManager from './managers/RouteManager';
 
 const preloadedState = window.__PRELOADED_STATE__;
 
 render(<Router history={RouteManager.history}>
-            <App store={getStore(preloadedState)}/>
+            <App store={buildStore(preloadedState)}/>
        </Router>, document.getElementById('root'));
 
 
