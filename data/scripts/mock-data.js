@@ -1,6 +1,8 @@
 /**
  * Created by roman_b on 1/16/2017.
  */
+var dbName = 'books-store';
+
 var enLang = {_id : "en_US", name: "Английский"};
 var deLang = {_id : "de_DE", name: "Немецкий"};
 var esLang = {_id : "es_ES", name: "Исанский"};
@@ -85,7 +87,7 @@ var fict1 = {name: "End of Watch", fullName : "A Novel (The Bill Hodges Trilogy)
     publisher: "Scribner; Book Club Edition edition", ISBN: '978-1501129742', author:"Stephen King", year:'2016',
     price: 510, edition: '1st edition', dimensions: '6.1 x 1.5 x 9.2', weight: 0.7};
 
-var fict2 = {name: 'Harry Potter and the Cursed Child, Parts 1 & 2', language_id : 'en_US', isPopular: true,
+var fict2 = {name: 'Harry Potter and the Cursed Child, Parts 1 & 2', language_id : 'en_US',
     publisher: 'Arthur A. Levine Books', ISBN: '978-1338099133', author:"J.K. Rowling, Jack Thorne, John Tiffany", year:'2016',
     price: 500, edition: 'Special Rehearsal ed. edition', dimensions: '6.4 x 1.2 x 9.1', weight: 1.2};
 
@@ -95,7 +97,7 @@ var fict3 = {name: 'Hamilton: The Revolution', language_id : 'en_US',
 
 
 var subCat1Cat1 = {name: '1-3 класс', items:[book1, book2], img : '/img/categories/elementary.png'}
-var subCat2Cat1 = {name: '5-7 класс', items: [book3, book4, book9, book12], img : '/img/categories/middle.png'}
+var subCat2Cat1 = {name: '5-7 класс', items: [book3, book4, book9], img : '/img/categories/middle.png'}
 var subCat3Cat1 = {name: '8-11 класс', items: [book5, book6, book7, book8, book10, book11], img : '/img/categories/high.png'}
 var subCat4Cat1 = {name: 'Преподавателю', items: [book12, book13], img : '/img/categories/teacher.png'}
 
@@ -106,7 +108,42 @@ var cat1 = {name:'Учебная', disporder:0, img:"/img/menu/education-lit-41x
 var cat2 = {name:'Словари', disporder:1, img:"/img/menu/dictionary-41x41.png", subCategories: [subCat1Cat2, subCat2Cat2]};
 var cat3 = {name:'Художественная', disporder:2, img:"/img/menu/fiction-lit-41x41.png", items: [fict1, fict2, fict3]};
 
+
+var catList = [cat1, cat2, cat3];
+var allBooks = [];
+
+for (var i=0; i < catList.length; i++){
+    catList[i]._id = new ObjectId();
+    if (catList[i].subCategories == null && catList[i].items == null)
+        continue;
+    if (catList[i].subCategories != null){
+        for (var j = 0; j < catList[i].subCategories.length; j++){
+            var subCat = catList[i].subCategories[j];
+            subCat._id = new ObjectId();
+            for (var h = 0; h < subCat.items.length; h++){
+                var item = subCat.items[h];
+                item._id = new ObjectId();
+                item.parentIdsChain = [catList[i]._id, subCat._id];
+            }
+            allBooks = allBooks.concat(subCat.items);
+            subCat.items = null;
+            delete subCat.items;
+        }
+    }
+    if (catList[i].items != null){
+        for (var m = 0; m < catList[i].items.length; m++){
+            var item = catList[i].items[m];
+            item._id = new ObjectId();
+            item.parentIdsChain = [catList[i]._id];
+        }
+        allBooks = allBooks.concat(catList[i].items);
+        catList[i].items = null;
+        delete catList[i].items;
+    }
+}
+
 module.exports = function(){
     this.categories = [cat1, cat2, cat3];
+    this.items = allBooks;
     this.languages = [enLang, deLang, esLang, frLang];
 }
