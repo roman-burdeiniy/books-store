@@ -2,15 +2,15 @@
  * Created by roman_b on 12/8/2016.
  */
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var HtmlWebpackPlugin = require('html-webpack-plugin');
 var webpack = require('webpack');
+var path = require('path');
 
 process.env.BROWSER = true;
 
 module.exports = {
     entry: {main: ['./src/index.js']},
     output: {
-        path: "./build",
+        path: path.resolve(__dirname, "../build"),
         filename: 'books-shop.bundle.js',
         publicPath : '/'
     },
@@ -18,15 +18,18 @@ module.exports = {
         rules: [
             {
                 test: /\.js$/,
-                loader: 'babel-loader',
+				use: {
+					loader: 'babel-loader',
+					options: {
+					  presets: ["es2015","stage-2", "react"]
+					}
+				  },
                 exclude: /node_modules/,
-                query: {
-                    presets: ["es2015","stage-2", "react"]
-                }
+               
             },
             {
               test:/\.(png|jpg|svg)$/,
-              loader: 'file-loader?name=./img/[hash].[ext]&publicPath=../../'
+              use: 'file-loader?name=./img/[hash].[ext]&publicPath=../../'
             },
             {
                 test: /\.css$/,
@@ -40,7 +43,7 @@ module.exports = {
             },
             {
                 test: /\.(eot|ttf|woff|woff2)$/,
-                loader: 'file-loader?name=./fonts/[hash].[ext]&publicPath=../../'
+                use: 'file-loader?name=./fonts/[hash].[ext]&publicPath=../../'
             }
         ]
     },
@@ -48,9 +51,6 @@ module.exports = {
         new ExtractTextPlugin({filename: "./styles/bundle.css"}),
         new webpack.DefinePlugin({
             'process.env.BROWSER': JSON.stringify(true)
-        }),
-        new webpack.LoaderOptionsPlugin({
-            debug: true
         })
 
     ],
@@ -60,10 +60,3 @@ module.exports = {
     devtool: 'source-map',
     target: 'web'
 };
-
-/*
-*  new HtmlWebpackPlugin({
- title: 'Books Shelf',
- template: './public/index.html',
- filename: './index.html'
- }),*/
