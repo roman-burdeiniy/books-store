@@ -3,8 +3,10 @@
  */
 import {selectMenuItem, selectSubMenuItem, expandMenuItem, collapseMenuItem} from '../actions/menu';
 import {CATEGORY_ID, SUB_CATEGORY_ID, CATEGORY, SUB_CATEGORY,
-    ITEM, ITEM_ID, EXPANDED_CATEGORY} from './PathKeys';
+    ITEM, ITEM_ID, EXPANDED_CATEGORY, CART, CHECKOUT} from './PathKeys';
 import _ from 'underscore';
+
+export const CHECKOUT_ROUTE = `/${CHECKOUT}/${CART}`;
 
 const buildTemplate = (...args) => {
     let result = args.reduce((prev, current) => {
@@ -19,7 +21,9 @@ const ACCEPTABLE_ROUTES = [
     `/${CATEGORY}/:${CATEGORY_ID}/${SUB_CATEGORY}/:${SUB_CATEGORY_ID}`,
     `/${ITEM}/:${ITEM_ID}`];
 
-const ACCEPTABLE_PARAMS = [EXPANDED_CATEGORY];
+const STATIC_ROUTES = [
+    CHECKOUT_ROUTE
+]
 
 const ACCEPTABLE_ROUTES_TEMPLATES = [buildTemplate(CATEGORY),
     buildTemplate(CATEGORY, SUB_CATEGORY), buildTemplate(ITEM)];
@@ -45,5 +49,5 @@ let generateItemRoute = function(catID, subCatID, itemID){
     return `${generateSubCategoryRoute(catID, subCatID)}/${ITEM}/${itemID}`;
 }
 
-export {getActionsMap, ACCEPTABLE_ROUTES, ACCEPTABLE_ROUTES_TEMPLATES,
+export {getActionsMap, ACCEPTABLE_ROUTES, ACCEPTABLE_ROUTES_TEMPLATES, STATIC_ROUTES,
     generateCategoryRoute, generateSubCategoryRoute, generateItemRoute};

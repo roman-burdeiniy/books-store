@@ -28,7 +28,7 @@ export default class ItemsGroup{
     }
 
     getPath(){
-        return !this.hasChildren() ? generateCategoryRoute(this._id) : `/?${EXPANDED_CATEGORY}=${this._id}`;
+        return !this.hasChildren() ? generateCategoryRoute(this._id) : `?${EXPANDED_CATEGORY}=${this._id}`;
     }
 
     static convert(obj){

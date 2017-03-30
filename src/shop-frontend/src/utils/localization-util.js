@@ -3,14 +3,25 @@
  */
 import _ from 'underscore';
 import React from 'react';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, FormattedHTMLMessage} from 'react-intl';
 
-let getLocalizedLabel = function(key, defaultText){
+let getLocalizedLabel = function(key, defaultText, values = {}){
     return !_.isEmpty(key) ?
         <FormattedMessage
             id={key}
-            defaultMessage={defaultText}/> :
+            defaultMessage={defaultText}
+            values={values}/> :
         defaultText;
 }
 
-export {getLocalizedLabel};
+let getLocalizedHTMLLabel = function(key, defaultText, values = {}){
+    return !_.isEmpty(key) ?
+        <FormattedHTMLMessage
+            id={key}
+            defaultMessage={defaultText}
+            values={values}/> :
+        defaultText;
+
+}
+
+export {getLocalizedLabel, getLocalizedHTMLLabel};

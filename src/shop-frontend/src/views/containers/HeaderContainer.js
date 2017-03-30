@@ -11,7 +11,7 @@ import Logo from '../components/menu/Logo';
 import LangSelector from '../components/menu/LangSelector';
 import SubMenuView from '../components/menu/SubMenuView';
 import SearchBox from '../components/menu/SearchBox';
-import ShoppingCart from '../components/menu/ShoppingCart';
+import ShoppingCartContainer from './shoppingCart/ShoppingCartContainer';
 import ItemsGroup from '../../stores/ItemsGroup';
 import {getItemById} from '../../utils/array-utils';
 import RouteManager from '../../managers/RouteManager'
@@ -26,7 +26,6 @@ const mapStateToProps = function(state) {
         selectedItemId : state.dataModel.selectedGroupId,
         expandedItemId : state.dataModel.expandedGroupId,
         selectedSubItemId : state.dataModel.selectedSubGroupId,
-        itemsInCart : state.cartItems,
         langModel : state.langModel}
 }
 
@@ -65,7 +64,7 @@ class HeaderContainer extends React.Component{
                         expandedItemId={this.props.expandedItemId}
                         onButtonClick={this.props.onMenuButtonClick}/>
                    <section className="search-cart-holder">
-                       <ShoppingCart items={this.props.itemsInCart}/>
+                       <ShoppingCartContainer/>
                        <SearchBox/>
                    </section>
                     <SubMenuView

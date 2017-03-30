@@ -9,3 +9,6 @@ export const EXPANDED_CATEGORY = 'expandedCat';
 export const CATEGORY = 'cat';
 export const SUB_CATEGORY = 'subCat';
 export const ITEM = 'item';
+
+export const CHECKOUT = 'checkout';
+export const CART = 'cart';

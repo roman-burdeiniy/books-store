@@ -21,3 +21,4 @@ export const SELECT_LANG = 'SELECT_LANG';
 export const SET_ROUTE_LOCATION = 'SET_ROUTE_LOCATION';
 
 export const ADD_ITEM_TO_CART = "ADD_ITEM_TO_CART";
+export const CHECKOUT = "CHECKOUT";

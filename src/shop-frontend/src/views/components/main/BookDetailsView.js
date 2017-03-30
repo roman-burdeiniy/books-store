@@ -8,6 +8,7 @@ import {getLocalizedLabel} from '../../../utils/localization-util';
 import {getLabel} from '../../../utils/string-utils';
 import {NO_BOOK_MAIN_IMG_URL} from '../../../constants/Imgs';
 import BookInfoTabsView from './BookInfoTabsView';
+import {getDataDependentClassName} from '../../../utils/string-utils';
 
 if(process.env.BROWSER) {
     require('../../../../resources/styles/components/book-details-view.less');
@@ -85,7 +86,11 @@ export class BookDetailsView extends React.Component{
                 <section className="price-label">{this.calculateTotalPrice(props)}{this.getCurrency()}</section>
             </section>
             <section className="add-button-holder">
-                <section className="add-button" onClick={this.onAddToCart.bind(this)}>
+                <section className={getDataDependentClassName("control-button", props.isInCart)()}
+                         onClick={this.onCheckout.bind(this)}>
+                    {getLocalizedLabel('shopping.cart.checkout', 'Checkout')}
+                </section>
+                <section className="control-button" onClick={this.onAddToCart.bind(this)}>
                     {getLocalizedLabel('book.details.addToCart', 'Add to Cart')}
                 </section>
             </section>
@@ -94,6 +99,10 @@ export class BookDetailsView extends React.Component{
 
     onAddToCart(){
         this.props.onAddToCart(this.props.book, this.state.quantity);
+    }
+
+    onCheckout(){
+        this.props.onCheckout();
     }
 
     getImgURL(){

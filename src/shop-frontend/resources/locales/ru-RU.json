@@ -18,5 +18,11 @@
   "weight.kg" : "кг",
   "shopping.cart.label" : "Корзина",
   "search.box.search" : "Поиск",
-  "shopping.cart.empty" : "Ваша корзина пуста"
+  "shopping.cart.empty" : "Ваша корзина пуста",
+  "shopping.cart.items_in_cart": "Товаров в корзине",
+  "shopping.cart.itms_quantity": "{quantity} <span class='itms_quantity_ending'>шт.</span>",
+  "shopping.cart.subtotal": "Общая сумма:",
+  "shopping.cart.view_cart": "Просмотр",
+  "shopping.cart.checkout": "Оформить",
+  "checkout.header": "Оформление заказа"
 }

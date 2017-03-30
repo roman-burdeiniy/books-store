@@ -6,6 +6,8 @@ import {PropTypes} from 'react';
 import {Link} from 'react-router-dom'
 import ItemsGroup from '../../../stores/ItemsGroup';
 import {getLocalizedLabel} from '../../../utils/localization-util';
+import {EXPANDED_CATEGORY} from '../../../constants/PathKeys';
+import RouteManager from '../../../managers/RouteManager';
 
 if(process.env.BROWSER) {
     require('../../../../resources/styles/components/menu-button.less');
@@ -24,12 +26,12 @@ export default class MenuButton extends React.Component{
             backgroundPosition: 'center 8px',
             backgroundRepeat: 'no-repeat'
         };
-        bgImage.transition = this.getStateName() == 'over' ? 'background 0.3s ease-in-out' : null;
+        bgImage.transition = this.getStateName() == 'over' ? 'background 0.3s ease-in' : null;
         return <li onMouseOver={this.onMouseOver.bind(this)}
                    onMouseOut={this.onMouseOut.bind(this)}
                    itemID={this.props.id}
                    className={'menu-button' + this.getClassName()}>
-                    <Link to={this.getLink()}>
+                    <a href={this.getLink()} onClick={this.onClick.bind(this)}>
                         <section className="menu-button-holder"
                                  style={bgImage}>
                             <section className="menu-button-label">
@@ -48,7 +50,7 @@ export default class MenuButton extends React.Component{
                                 })
                             }
                         </section>
-                    </Link>
+                    </a>
               </li>
     }
 
@@ -67,7 +69,12 @@ export default class MenuButton extends React.Component{
     }
 
     getLink(){
-        return ItemsGroup.convert(this.props.data).getPath(!this.props.isExpanded);
+        return ItemsGroup.convert(this.props.data).getPath();
+    }
+
+    onClick(ev){
+        ev.preventDefault();
+        RouteManager.push(this.getLink());
     }
 
     onMouseOver(ev){

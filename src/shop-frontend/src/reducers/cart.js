@@ -6,15 +6,31 @@ import {ADD_ITEM_TO_CART} from '../constants/ActionTypes';
 import {getItemIndex} from '../utils/array-utils';
 import update from 'immutability-helper';
 
-let initialState = [];
+let initialState = {items: [], totalPrice : 0, totalCount : 0};
 
-export default function cartItems(state = initialState, action){
+export default function cart(state = initialState, action){
     switch (action.type) {
         case ADD_ITEM_TO_CART:
-            return updateItems(state, action)
+            const updatedItems = updateItems(state.items, action);
+            return {...state, items : updatedItems, totalPrice : getTotalPrice(updatedItems),
+                totalCount : getTotalCount(updatedItems)}
         default:
             return state
     }
+}
+
+function getTotalPrice(items){
+    return items.reduce((prev, item) => {
+        return prev + item.quantity * item.item.price;
+    }, 0);
+}
+
+function getTotalCount(items){
+    let res = items.reduce((prev, current) => {
+        prev.quantity = prev.quantity + current.quantity;
+        return prev;
+    }, {quantity : 0});
+    return res.quantity;
 }
 
 function updateItems(items, action){

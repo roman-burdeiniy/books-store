@@ -5,11 +5,11 @@ import { combineReducers } from 'redux';
 import config from './config';
 import langModel from './langModel';
 import dataModel from './dataModel';
-import cartItems from './cart';
+import cart from './cart';
 
 export default combineReducers({
     config,
     langModel,
     dataModel,
-    cartItems
+    cart
 })

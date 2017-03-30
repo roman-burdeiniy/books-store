@@ -1,31 +1,31 @@
+@import '../common/mixins';
+
 .add-to-cart-holder{
   display: flex;
   margin-top: 30px;
 
   .total-price-holder{
-    width: 150px;
+    width: 120px;
 
     .control-title-label{
       padding-bottom: 3px;
     }
 
     .price-label{
+      .price-label;
       font-size: 15px;
-      font-family: 'Montserrat', sans-serif;
     }
   }
   .add-button-holder{
-    flex:1;
+    width: 330px;
 
-    .add-button{
-      width: 180px;
-      height: 35px;
-      text-align: center;
-      cursor: pointer;
-      color: #FFF;
-      line-height: 35px;
-      border-radius: 17.5px;
-      background: linear-gradient(to bottom, #D3B23F, #C2A12B);
+    .control-button{
+      ._control-button(155px, 35px);
+      float: right;
+
+      &:first-child{
+        margin-left: 10px;
+      }
     }
   }
 }

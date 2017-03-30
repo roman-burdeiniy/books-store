@@ -18,5 +18,11 @@
   "weight.kg" : "kg",
   "shopping.cart.label" : "Cart",
   "search.box.search" : "Search",
-  "shopping.cart.empty" : "Your cart is empty"
+  "shopping.cart.empty" : "Your cart is empty",
+  "shopping.cart.items_in_cart": "Items in cart",
+  "shopping.cart.itms_quantity": "Qty: {quantity}",
+  "shopping.cart.subtotal": "Subtotal:",
+  "shopping.cart.view_cart": "View cart",
+  "shopping.cart.checkout": "Checkout",
+  "checkout.header": "Checkout"
 }
