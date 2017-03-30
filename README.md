@@ -36,6 +36,9 @@ For development purpose:
 ##Run
 `npm run start-api`
 `npm run start-shop`
+The api server is stated on 3000 port by default.
+The application server is started on 3001 port by default.
+Locally site is accessible on http://localhost:3001
 
 ## API Reference
 
