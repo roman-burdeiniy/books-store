@@ -29,11 +29,11 @@ For development purpose:
     From the project root:
         `npm run populate-dev-db`
 
-##Build
+## Build
 `npm run build-api`
 `npm run build-shop`
 
-##Run
+## Run
 `npm run start-api`
 `npm run start-shop`
 The api server is stated on 3000 port by default.
