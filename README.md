@@ -34,8 +34,8 @@ For development purpose:
 `npm run build-shop`
 
 ##Run
-`npm start-api`
-`npm start-shop`
+`npm run start-api`
+`npm run start-shop`
 
 ## API Reference
 
