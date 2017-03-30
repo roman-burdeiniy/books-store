@@ -2,9 +2,10 @@
  * Created by roman_b on 1/17/2017.
  */
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var HtmlWebpackPlugin = require('html-webpack-plugin');
 var webpack = require('webpack');
 var path = require('path');
+
+console.log(path.resolve(__dirname, '../../../src/shop-frontend/node_modules'));
 
 module.exports = {
     entry: [
@@ -18,7 +19,7 @@ module.exports = {
         publicPath : '/'
     },
     resolve: {
-        modules: ['node_modules', '../../shop-frontend/node_modules']
+        modules: ['node_modules', path.resolve(__dirname, '../../../src/shop-frontend/node_modules')]
     },
     module: {
         rules: [

@@ -4,7 +4,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
-import BookDetailsView from '../../components/main/BookDetailsView';
+import BookDetailsView from '../../components/itemDetails/BookDetailsView';
 import {addItemToCart, checkout} from '../../../actions/cart';
 
 const mapStateToProps = function(state) {

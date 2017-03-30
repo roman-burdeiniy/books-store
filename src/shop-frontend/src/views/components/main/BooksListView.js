@@ -2,8 +2,8 @@
  * Created by roman_b on 2/28/2017.
  */
 import React from 'react';
-import BookItem from './BookItem';
-import ItemsList from './ItemsList';
+import BookItem from './../itemsList/BookItem';
+import ItemsList from './../itemsList/ItemsList';
 
 import {getLocalizedLabel} from '../../../utils/localization-util';
 
