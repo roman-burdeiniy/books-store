@@ -7,10 +7,10 @@
     "test": "tests"
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=production node ./dist/shop-backend/bin/www.js",
-    "start-dev": "cross-env NODE_ENV=development DEBUG=shop-backend:* node ./dist/shop-backend/bin/www.js",
+    "start-shop": "cross-env NODE_ENV=production node ./dist/shop-backend/bin/www.js",
+    "start-api": "cross-env NODE_ENV=production node ./dist/shop-api/bin/www.js",
+    "start-shop-dev": "cross-env NODE_ENV=development DEBUG=shop-backend:* node ./dist/shop-backend/bin/www.js",
     "start-api-dev": "node ./dist/shop-api/bin/www.js",
-    "start-api-prod": "cross-env NODE_ENV=production node ./dist/shop-api/bin/www.js",
     "build-shop": "gulp build-shop",
     "build-backend": "gulp build-backend",
     "build-api": "gulp build-api",
