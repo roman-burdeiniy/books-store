@@ -24,15 +24,18 @@ module.exports = {
         rules: [
             {
                 test: /\.js$/,
-                loader: 'babel-loader',
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ["es2015","stage-2", "react"]
+                    }
+                },
                 exclude: /node_modules/,
-                query: {
-                    presets: ["es2015","stage-2", "react"]
-                }
+
             },
             {
                 test:/\.(png|jpg|svg)$/,
-                loader: 'file-loader?name=./img/[hash].[ext]&publicPath=../../'
+                use: 'file-loader?name=./img/[hash].[ext]&publicPath=../../'
             },
             {
                 test: /\.css$/,
@@ -46,7 +49,7 @@ module.exports = {
             },
             {
                 test: /\.(eot|ttf|woff|woff2)$/,
-                loader: 'file-loader?name=./fonts/[hash].[ext]&publicPath=../../'
+                use: 'file-loader?name=./fonts/[hash].[ext]&publicPath=../../'
             }
         ]
     },
@@ -56,9 +59,6 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env.BROWSER': JSON.stringify(true)
         }),
-        new webpack.LoaderOptionsPlugin({
-            debug: true
-        })
     ],
     stats: {
         colors: true

@@ -1,18 +1,41 @@
 ## Synopsis
-
-At the top of the file there should be a short introduction and/ or overview that explains **what** the project is. This description should match descriptions added for package managers (Gemspec, package.json, etc.)
-
-## Code Example
-
-Show what the library does as concisely as possible, developers should be able to figure out **how** your project solves their problem by looking at the code example. Make sure the API you are showing off is obvious, and that your code is short and concise.
+The Bookstore application is self-sufficient web resource
+ that is designed to work as online shop over internet
 
 ## Motivation
 
-A short description of the motivation behind the creation and maintenance of the project. This should explain **why** the project exists.
+Allows books stores to move their business to digital
+
+## Setup requirements
+
+mongodb v3.4.0 or higher
+node v6.10.0 or higher
 
 ## Installation
 
-Provide code examples and explanations of how to get the project.
+git clone ...
+
+cd ./books-store
+
+`npm install`
+
+go to books-store/src/shop-frontend
+
+`npm install`
+
+For development purpose:
+
+1. Generate test db data:
+    From the project root:
+        `npm run populate-dev-db`
+
+##Build
+`npm run build-api`
+`npm run build-shop`
+
+##Run
+
+`npm start`
 
 ## API Reference
 
@@ -27,5 +50,3 @@ Describe and show how to run the tests with code examples.
 Let people know how they can dive into the project, include important links to things like issue trackers, irc, twitter accounts if applicable.
 
 ## License
-
-A short snippet describing the license (MIT, Apache, etc.)
