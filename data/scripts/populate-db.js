@@ -18,7 +18,6 @@ var book2 = {name: "English World 2: Pupil's Book", language_id : 'en_US',
     publisher: 'MacMillan', ISBN: '978-0-230-02460-1', author:'Liz Hocking, Mary Bowen', year:'2009',
     edition: '2d Edition', price: 350};
 var book3 = {name: "New Headway: Elementary: Student's Book", language_id : 'en_US', logo: '/img/items/logos/new-headway-el-en-course.jpg',
-    icon : '/img/items/icons/headway-small.jpg',
     isPopular: true, publisher: 'Oxford University Press', ISBN: '978-0194715096', author:'Liz Soars, John Soars', year:'2006',
     edition: '3d Edition', price: 100};
 var book4 = {name: "English 5", language_id : 'en_US',
