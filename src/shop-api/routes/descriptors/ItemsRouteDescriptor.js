@@ -18,9 +18,9 @@ function getBySubCat(req, res, next){
     return service.getBySubCategory(catId, subCatId);
 }
 
-function getById(req, res, next){
-    var itemId = req.params.itemId;
-    return service.getItemById(itemId);
+function getByIds(req, res, next){
+    var ids = req.params.itemIds.split(',');
+    return service.getItemsByIds(ids);
 }
 
 function getByPopular(req, res, next){
@@ -50,13 +50,13 @@ const bySubCategoryExt = {
     error : onError
 }
 
-const getItemByIdExt = {
-    path: '/item/:itemId',
-    handler: getById,
+const getItemsByIdsExt = {
+    path: '/item/:itemIds',
+    handler: getByIds,
     error : onError
 }
 
 export const getItemsByPopular = Object.setPrototypeOf(byPopularExt, baseRouteDescriptor);
 export const getItemsByCategory = Object.setPrototypeOf(byCategoryExt, baseRouteDescriptor);
 export const getItemsBySubCategory = Object.setPrototypeOf(bySubCategoryExt, baseRouteDescriptor);
-export const getItemById = Object.setPrototypeOf(getItemByIdExt, baseRouteDescriptor);
+export const getItemsByIds = Object.setPrototypeOf(getItemsByIdsExt, baseRouteDescriptor);

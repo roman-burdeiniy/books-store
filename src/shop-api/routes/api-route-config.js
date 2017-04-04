@@ -5,9 +5,9 @@ var express = require('express');
 var router = express.Router();
 import RouteRegistrator from './RouteRegistrator';
 import {getAllCategories} from './descriptors/CategoriesRouteDescriptor';
-import {getItemsByCategory, getItemsBySubCategory, getItemsByPopular, getItemById} from './descriptors/ItemsRouteDescriptor';
+import {getItemsByCategory, getItemsBySubCategory, getItemsByPopular, getItemsByIds} from './descriptors/ItemsRouteDescriptor';
 
-new RouteRegistrator([getAllCategories]).register(router);
-new RouteRegistrator([getItemsByPopular, getItemsByCategory, getItemsBySubCategory, getItemById]).register(router);
+new RouteRegistrator([getAllCategories, getItemsByPopular, getItemsByCategory,
+    getItemsBySubCategory, getItemsByIds]).register(router);
 
 module.exports = router;

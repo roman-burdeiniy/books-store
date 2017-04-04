@@ -24,5 +24,20 @@
   "shopping.cart.subtotal": "Общая сумма:",
   "shopping.cart.view_cart": "Просмотр",
   "shopping.cart.checkout": "Оформить",
-  "checkout.header": "Оформление заказа"
+  "checkout.header": "Оформление заказа",
+  "book.info.author_title": "by",
+  "customer.form.legend" : "Данные покупателя",
+  "customer.form.name" : "Имя и фамилия",
+  "customer.form.phone_num" : "Мобильный телефон",
+  "customer.form.email" : "Эл. почта",
+  "customer.form.submit" : "Оформить заказ",
+  "shipping.form.legend" : "Адрес доставки",
+  "shipping.form.city" : "Город",
+  "shipping.form.address" : "Адрес",
+  "shipping.form.comments" : "Комментарий",
+  "customer.form.delivery_method" : "Способ доставки",
+  "customer.form.delivery.pickup" : "Самовывоз",
+  "customer.form.delivery.new_post" : "Новая почта",
+  "customer.form.delivery.address_delivery" : "Адресная доставка по Киеву",
+  "shipping.form.post_office_num" : "Номер отделения"
 }

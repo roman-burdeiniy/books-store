@@ -27,7 +27,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/img', express.static(path.join(__dirname, 'img')));
 
 app.get("*", function(req, res, next){
-    console.log("req= " + req.url);
     const frontendManager = new FrontendManager();
     frontendManager.buildStore(req, res)
         .then((store) => {

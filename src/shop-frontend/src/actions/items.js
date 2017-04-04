@@ -2,12 +2,12 @@
  * Created by roman_b on 3/3/2017.
  */
 import {LOAD_ITEMS_SUCCESS, LOAD_ITEMS_ERROR, LOADING_ITEMS,
-    LOADING_SELECTED_ITEM, LOAD_SELECTED_ITEM_SUCCESS, LOAD_SELECTED_ITEM_ERROR} from '../constants/ActionTypes';
+    LOADING_SELECTED_ITEM, LOAD_SELECTED_ITEM_SUCCESS, LOAD_SELECTED_ITEM_ERROR, ITEM_NOT_FOUND} from '../constants/ActionTypes';
 import _ from 'underscore';
 import {loadData} from '../services/DataService';
 import getConfig from '../config/Config';
 import {getStore} from '../stores/app-store';
-import {getGroupItems} from '../stores/finders/FindSelectedGroupStrategy';
+import {getGroupItems} from '../stores/finders/GroupFinder';
 import {getItemById} from '../utils/array-utils';
 
 export function fetchItems(...idsChain){
@@ -24,6 +24,7 @@ export function fetchSelectedItem(id){
     let foundItem = getItemById(items, id);
     return (dispatch) => {
         if (foundItem == null){
+            dispatch(loadingSelectedItem(id));
             return loadItem(id, dispatch);
         }else{
             dispatch(loadSelectedItemSuccess(id, foundItem));
@@ -32,11 +33,15 @@ export function fetchSelectedItem(id){
     }
 }
 
-function loadItem(id, dispatch){
-    dispatch(loadingSelectedItem(id));
+export function loadItem(id, dispatch){
     return loadData(`${getConfig().apiEndpoint}/item/`, [id], true)
-        .then(result => dispatch(loadSelectedItemSuccess(id, result)))
-        .catch(error => dispatch(loadSelectedItemError([id], error)))
+        .then(result => {
+            if (_.isEmpty(result)){
+                dispatch(itemNotFound(id))
+            }else{
+                dispatch(loadSelectedItemSuccess(id, result[0]))
+            }
+        }).catch(error => dispatch(loadSelectedItemError([id], error)))
 }
 
 function loadSelectedItemSuccess(id, item) {
@@ -44,6 +49,13 @@ function loadSelectedItemSuccess(id, item) {
         type: LOAD_SELECTED_ITEM_SUCCESS,
         id,
         item
+    };
+}
+
+function itemNotFound(id) {
+    return {
+        type: ITEM_NOT_FOUND,
+        id
     };
 }
 

@@ -4,14 +4,16 @@
 import React from 'react';
 import _ from 'underscore';
 import {getResourceURL} from '../../../utils/url-utils';
+import {getMainImageURL} from '../../../utils/image-utils';
 import {getLocalizedLabel} from '../../../utils/localization-util';
 import {getLabel} from '../../../utils/string-utils';
 import {NO_BOOK_MAIN_IMG_URL} from '../../../constants/Imgs';
 import BookInfoTabsView from './BookInfoTabsView';
 import {getDataDependentClassName} from '../../../utils/string-utils';
+import {QuantityBox} from '../../controls/QuantityBox';
 
 if(process.env.BROWSER) {
-    require('../../../../resources/styles/components/book-details-view.less');
+    require('../../../../resources/styles/components/itemDetails/book-details-view.less');
 }
 
 export class BookDetailsView extends React.Component{
@@ -30,14 +32,14 @@ export class BookDetailsView extends React.Component{
             <section className="details-holder">
                 <section className="images-holder">
                     <section className="full-image-section css3-shadow">
-                        <img src={getResourceURL(this.getImgURL())} className="book-details-full-image"/>
+                        <img src={getResourceURL(getMainImageURL(this.props.book))} className="book-details-full-image"/>
                     </section>
                 </section>
                 <section className="info-holder">
                     <section className="book-name">{this.props.book.name}</section>
                     <section className="book-details">{this.getBookTitle(this.props)}</section>
                     <section className="publisher-holder">{this.props.book.publisher}, {this.props.book.year}</section>
-                    <section className="author-holder">by {this.props.book.author}</section>
+                    <section className="author-holder">{getLocalizedLabel('book.info.author_title', 'by')}&nbsp;{this.props.book.author}</section>
                     <hr className="divider"/>
                     {this.orderHolder(this.props)}
                     {this.addToCartHolder(this.props)}
@@ -45,25 +47,6 @@ export class BookDetailsView extends React.Component{
                 </section>
             </section>
         </section>
-    }
-
-    quantityBox(props){
-        return <section className="quantity-box">
-            <input ref="quantity" onChange={this.onQuantityChange.bind(this)} value={this.state.quantity}/>
-            <section className="control-button minus-button" onClick={this.onQuantityMinus.bind(this)}>-</section>
-            <section className="control-button plus-button" onClick={this.onQuantityPlus.bind(this)}>+</section>
-        </section>
-
-    }
-
-    onQuantityMinus(){
-        let newValue = this.state.quantity > 1 ? this.state.quantity - 1 : this.state.quantity
-        this.setState({...this.state, quantity : newValue})
-    }
-
-    onQuantityPlus(){
-        let newValue = this.state.quantity + 1;
-        this.setState({...this.state, quantity : newValue})
     }
 
      orderHolder(props){
@@ -74,7 +57,9 @@ export class BookDetailsView extends React.Component{
             </section>
             <section className="box-holder">
                 <section className="control-title-label">{getLocalizedLabel('book.details.quantity', 'Quantity')}</section>
-                {this.quantityBox(props)}
+                <QuantityBox
+                    onQuantityChange={(quantity) => this.setState({quantity})}
+                    quantity={this.state.quantity}/>
             </section>
         </section>
     }
@@ -105,25 +90,12 @@ export class BookDetailsView extends React.Component{
         this.props.onCheckout();
     }
 
-    getImgURL(){
-        let imgURL = this.getFirstImg(this.props.book);
-        return imgURL != null ? imgURL : NO_BOOK_MAIN_IMG_URL;
-    }
-
      calculateTotalPrice(){
         return Number(this.props.book.price) * Number(this.state.quantity);
     }
 
-    onQuantityChange(ev){
-        this.setState({quantity: ev.target.value});
-    }
-
     getCurrency(){
         return getLocalizedLabel('currency', 'UAH');
-    }
-
-    getFirstImg(book){
-        return !_.isEmpty(book.imgs) ? book.imgs[0] : null;
     }
 
     getBookTitle(props){

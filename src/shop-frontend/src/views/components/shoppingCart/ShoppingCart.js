@@ -7,7 +7,7 @@ import {ShoppingCartPopup} from './ShoppingCartPopup';
 import enhanceWithClickOutside from 'react-click-outside';
 
 if(process.env.BROWSER) {
-    require('../../../../resources/styles/components/shopping-cart.less');
+    require('../../../../resources/styles/components/shoppingCart/shopping-cart.less');
 }
 
 export default class ShoppingCart extends React.Component{
@@ -19,26 +19,34 @@ export default class ShoppingCart extends React.Component{
 
     render(){
         return <section className="shopping-cart-holder"
-                        onMouseOver={this.showShoppingCart.bind(this)}
-                        onMouseOut={this.hideShoppingCart.bind(this)}>
+                        onMouseLeave={this.hideShoppingCart.bind(this)}>
                 <button className="shopping-cart-button"
+                        onMouseOver={this.showShoppingCart.bind(this)}
                         onClick={this.showShoppingCart.bind(this)}>
                     <section className="shopping-cart-button_bg-image">
                         <span className="items-count">{this.props.cart.totalCount}</span>
                     </section>
                 </button>
                 <ShoppingCartPopup cart={this.props.cart}
+                                   onMouseOver={this.showShoppingCart.bind(this)}
                                    onCheckout={this.onCheckout.bind(this)}
                                    isActive={this.state.name == 'hover'}/>
             </section>
     }
 
     showShoppingCart(ev){
-        this.setState({name: "hover"});
+        this.showAgain = true;
+        setTimeout(() => {
+                this.setState({name: "hover"})
+        }, 300);
     }
 
     hideShoppingCart(){
-        this.setState({name: "default"});
+        this.showAgain = false;
+        setTimeout(() => {
+            if (!this.showAgain)
+                this.setState({name: "default"})
+            }, 300);
     }
 
     onCheckout(ev){

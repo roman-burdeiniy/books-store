@@ -5,7 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Link} from 'react-router-dom'
 import {getResourceURL} from '../../../utils/url-utils';
-import {NO_BOOK_LOGO_URL} from '../../../constants/Imgs';
+import {getLogoURL} from '../../../utils/image-utils';
 import {getLocalizedLabel} from '../../../utils/localization-util';
 
 if(process.env.BROWSER) {
@@ -18,7 +18,7 @@ export default class BookItem extends React.Component{
                 <section className="book-item-content-holder">
                     <Link className="book-image-link" to={`/item/${this.props.data._id}`}>
                         <section className="image-holder">
-                            <img src={getResourceURL(this.getImgURL())} className="items-list-book-image"/>
+                            <img src={getResourceURL(getLogoURL(this.props.data))} className="items-list-book-image"/>
                         </section>
                     </Link>
                     <section className="book-details">
@@ -30,9 +30,5 @@ export default class BookItem extends React.Component{
                     </section>
                 </section>
             </li>
-    }
-
-    getImgURL(){
-        return this.props.data.logo != null ? this.props.data.logo : NO_BOOK_LOGO_URL;
     }
 }

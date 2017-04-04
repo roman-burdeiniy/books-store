@@ -8,8 +8,4 @@ export default class ItemsParser{
     parseItems(items){
         return items;
     }
-
-    parseItemById(items){
-        return !_.isEmpty(items) ? items[0] : [];
-    }
 }

@@ -1,3 +1,5 @@
+@import 'common/mixins';
+
 * {
   margin: 0;
   padding: 0;
@@ -18,4 +20,14 @@ body{
   margin: 0 auto;
   padding: 0px;
   text-align: left;
+}
+
+h1, h2{
+  width: 100%;
+  color: #515151;
+  .truncated-label
+}
+
+form{
+  color: #515151;
 }

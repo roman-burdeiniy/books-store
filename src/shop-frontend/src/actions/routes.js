@@ -2,12 +2,13 @@
  * Created by roman_b on 2/2/2017.
  */
 import {SET_ROUTE_LOCATION, APPLY_DEFAULT_ROUTE} from '../constants/ActionTypes';
-import {getActionsMap, ACCEPTABLE_ROUTES, ACCEPTABLE_ROUTES_TEMPLATES, STATIC_ROUTES} from '../constants/RoutesToActionsMap';
+import {getActionsMap, ACCEPTABLE_ROUTES,
+    ACCEPTABLE_ROUTES_TEMPLATES, STATIC_ROUTES} from '../constants/RoutesToActionsMap';
 import {selectMenuItem, selectSubMenuItem} from './menu';
 import {CATEGORY_ID, SUB_CATEGORY_ID, CATEGORY, SUB_CATEGORY, ITEM_ID} from '../constants/PathKeys';
 import _ from 'underscore';
 import {matchRoute, getRouteParams} from '../utils/route-utils';
-import {getSelectedGroup} from '../stores/finders/FindSelectedGroupStrategy';
+import {getSelectedGroup} from '../stores/finders/GroupFinder';
 import {fetchItems, fetchSelectedItem} from './items';
 import {getStore} from '../stores/app-store';
 import ItemsGroup from '../stores/ItemsGroup';
@@ -16,8 +17,6 @@ export const setRouteLocation = function(pathname, params){
         let routeObj = matchRoute(pathname);
         let paramsObject = getRouteParams(params);
         return function(dispatch){
-                if (isStaticRoute(pathname))
-                    return Promise.resolve({});
                 const prevSelectedGroup = getSelectedGroup(getStore().getState());
                 dispatchRouteState(dispatch, routeObj, CATEGORY_ID);
                 dispatchRouteState(dispatch, routeObj, SUB_CATEGORY_ID);
@@ -35,10 +34,6 @@ export const setRouteLocation = function(pathname, params){
 function needToLoadItems(prevSelectedGroup){
     let selectedGroup = getSelectedGroup(getStore().getState());
     return !selectedGroup.isStatic && (_.isEmpty(selectedGroup.items))
-}
-
-function isStaticRoute(pathname){
-    return STATIC_ROUTES.find(route => route == pathname) != null;
 }
 
 function isItemSelection(routeObject){
