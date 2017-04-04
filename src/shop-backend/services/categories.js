@@ -8,6 +8,8 @@ import ItemsGroup from '../frontendSource/src/stores/ItemsGroup';
 const contactsGroup = new ItemsGroup("contacts", "Contacts", "menu.button.contacts", null, '/img/menu/contacts-41x41.png', 999, false, null, true);
 const popularGroup = new ItemsGroup("popular", "Popular", "menu.button.popular", null, '/img/menu/fav-lit-40x41.png', -999, true);
 
+contactsGroup.data = {address: 'Рынок "Петровка", ул. Вербовая 17, кт.264'}
+
 const staticGroups = [popularGroup, contactsGroup];
 
 export const fetchCategories = function(initDefaultSelected) {

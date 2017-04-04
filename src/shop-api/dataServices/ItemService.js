@@ -12,11 +12,11 @@ export default class ItemsService extends ServiceBase{
         this.dataParser = new ItemsParser();
     }
 
-    getItemById(id){
-        if (id == null)
+    getItemsByIds(ids){
+        if (_.isEmpty(ids))
             return null;
         const collection = this.dbProvider.db.get('items');
-        let result = this.dbCallBuilder(collection, id)(this.findItem, this.dataParser.parseItemById);
+        let result = this.dbCallBuilder(collection, ...ids)(this.findItems, this.dataParser.parseItems);
         return result
     }
 
@@ -56,7 +56,8 @@ export default class ItemsService extends ServiceBase{
             {parentIdsChain: {$eq : new ObjectID(params[1])}}]});
     }
 
-    findItem(collection, params){
-        return collection.find({_id : new ObjectID(params[0])});
+    findItems(collection, params){
+        const ids = params.map(param => new ObjectID(param))
+        return collection.find({_id : {$in : ids}});
     }
 }

@@ -6,7 +6,7 @@ import {getLocalizedLabel} from '../../../utils/localization-util';
 import _ from 'underscore';
 
 if(process.env.BROWSER) {
-    require('../../../../resources/styles/components/book-info-tabs-view.less');
+    require('../../../../resources/styles/components/itemDetails/book-info-tabs-view.less');
 }
 
 export default class BookInfoTabsView extends React.Component{

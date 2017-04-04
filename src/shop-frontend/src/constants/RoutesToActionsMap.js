@@ -8,6 +8,8 @@ import _ from 'underscore';
 
 export const CHECKOUT_ROUTE = `/${CHECKOUT}/${CART}`;
 
+const CHECKOUT_ROUTE_TEMPLATE = `^\/${CHECKOUT}\/${CART}$`;
+
 const buildTemplate = (...args) => {
     let result = args.reduce((prev, current) => {
         prev += `\/${current}\/[a-zA-Z0-9]+`;
@@ -19,14 +21,14 @@ const buildTemplate = (...args) => {
 const ACCEPTABLE_ROUTES = [
     `/${CATEGORY}/:${CATEGORY_ID}`,
     `/${CATEGORY}/:${CATEGORY_ID}/${SUB_CATEGORY}/:${SUB_CATEGORY_ID}`,
-    `/${ITEM}/:${ITEM_ID}`];
+    `/${ITEM}/:${ITEM_ID}`, `/${CHECKOUT}/:${CART}`];
 
 const STATIC_ROUTES = [
     CHECKOUT_ROUTE
 ]
 
 const ACCEPTABLE_ROUTES_TEMPLATES = [buildTemplate(CATEGORY),
-    buildTemplate(CATEGORY, SUB_CATEGORY), buildTemplate(ITEM)];
+    buildTemplate(CATEGORY, SUB_CATEGORY), buildTemplate(ITEM), CHECKOUT_ROUTE_TEMPLATE];
 
 const getActionsMap = () => {
     return {
@@ -49,5 +51,9 @@ let generateItemRoute = function(catID, subCatID, itemID){
     return `${generateSubCategoryRoute(catID, subCatID)}/${ITEM}/${itemID}`;
 }
 
+function isStaticRoute(pathname){
+    return STATIC_ROUTES.find(route => route == pathname) != null;
+}
+
 export {getActionsMap, ACCEPTABLE_ROUTES, ACCEPTABLE_ROUTES_TEMPLATES, STATIC_ROUTES,
-    generateCategoryRoute, generateSubCategoryRoute, generateItemRoute};
+    generateCategoryRoute, generateSubCategoryRoute, generateItemRoute, isStaticRoute};

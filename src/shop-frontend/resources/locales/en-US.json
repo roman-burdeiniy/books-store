@@ -24,5 +24,19 @@
   "shopping.cart.subtotal": "Subtotal:",
   "shopping.cart.view_cart": "View cart",
   "shopping.cart.checkout": "Checkout",
-  "checkout.header": "Checkout"
+  "checkout.header": "Checkout",
+  "book.info.author_title": "by",
+  "customer.form.legend" : "Customer info",
+  "customer.form.name" : "Name and surname",
+  "customer.form.phone_num" : "Phone",
+  "customer.form.email" : "Email",
+  "customer.form.submit" : "Place order",
+  "shipping.form.legend" : "Shipping address",
+  "shipping.form.city" : "City",
+  "shipping.form.address" : "Address",
+  "shipping.form.comments" : "Comments",
+  "customer.form.delivery.pickup" : "Self-pickup",
+  "customer.form.delivery.new_post" : "New post office",
+  "customer.form.delivery.address_delivery" : "Address delivery in Kyiv",
+  "shipping.form.post_office_num" : "Office number"
 }

@@ -30,6 +30,7 @@ app.use('/shop-api', apiRoute);
 
 
 
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
@@ -42,7 +43,7 @@ app.use(function(err, req, res, next) {
     // set locals, only providing error in development
     let mes = 'Internal server error occured';
     const errorObj = {
-        message : req.app.get('env') === 'development' ? (mes +': ' + err.message) : 'Internal server error occured'
+        message : req.app.get('env') === 'development' ? (mes +': ' + err.message) : 'Internal server error occurred'
     }
     res.status(err.status || 500).send({error : errorObj});
     winston.error(err.stack);

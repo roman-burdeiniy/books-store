@@ -16,3 +16,8 @@ export function getSelectedGroup(state){
     let subGroup = group != null ? ItemsGroup.convert(group).getChildById(selectedSubGroupId) : null;
     return subGroup || group || ItemsGroup.NULL;
 }
+
+export function getGroupById(state, groupId){
+    let group = getItemById(state.dataModel.groups, groupId);
+    return group || ItemsGroup.NULL;
+}

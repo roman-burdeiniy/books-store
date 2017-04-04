@@ -4,7 +4,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {BooksListView} from '../../components/main/BooksListView';
-import {getSelectedGroup} from '../../../stores/finders/FindSelectedGroupStrategy';
+import {getSelectedGroup} from '../../../stores/finders/GroupFinder';
 
 export const baseMapStateToProps = function(state) {
     return {store: state}

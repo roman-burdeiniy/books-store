@@ -4,11 +4,12 @@
 import React from 'react';
 import _ from 'underscore';
 import {getResourceURL} from '../../../utils/url-utils';
-import {NO_BOOK_LOGO_URL} from '../../../constants/Imgs';
+import {getLogoURL} from '../../../utils/image-utils';
 import {getLocalizedLabel, getLocalizedHTMLLabel} from '../../../utils/localization-util';
 
 if(process.env.BROWSER) {
-    require('../../../../resources/styles/components/shopping-cart-item.less');
+    require('../../../../resources/styles/components/shoppingCart/shopping-cart-item.less');
+    require('../../../../resources/styles/common/shopping-cart-item-base.less');
 }
 
 export const ShoppingCartItem = (props) => {
@@ -16,7 +17,7 @@ export const ShoppingCartItem = (props) => {
                 <hr className="divider"/>
                 <section className='shopping-cart-item-holder'>
                     <section className="image-holder">
-                        <img src={getResourceURL(getImgURL(props))} className="item-image"/>
+                        <img src={getResourceURL(getLogoURL(props.data.item))} className="item-image"/>
                     </section>
                     <section className="item-details">
                         <section className="item-name">
@@ -35,8 +36,4 @@ export const ShoppingCartItem = (props) => {
                     </section>
                 </section>
         </section>
-}
-
-function getImgURL(props){
-    return props.data.item.logo != null ? props.data.item.logo : NO_BOOK_LOGO_URL;
 }

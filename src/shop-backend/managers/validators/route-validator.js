@@ -2,7 +2,7 @@
  * Created by roman_b on 2/22/2017.
  */
 import {matchRoute} from '../../frontendSource/src/utils/route-utils';
-import { ACCEPTABLE_ROUTES_TEMPLATES} from '../../frontendSource/src/constants/RoutesToActionsMap';
+import { ACCEPTABLE_ROUTES_TEMPLATES, STATIC_ROUTES} from '../../frontendSource/src/constants/RoutesToActionsMap';
 import _ from 'underscore';
 import {CATEGORY_ID, SUB_CATEGORY_ID, ITEM_ID} from '../../frontendSource/src/constants/PathKeys';
 
@@ -28,10 +28,11 @@ function validateSemantics(path, store){
     let res = condition({true: () => path, false : () => {
         let routeInfo = matchRoute(path);
         let checkExist = curried(routeInfo, store);
-        let isItem = checkExist(isItemPath);
-        let isSubCat = checkExist(isSubCatPath);
-        let isCat = checkExist(isCatPath);
-        let result = getValid(path)(isCat || isSubCat || isItem);
+        let validationResult = isStaticPath(path) ||
+            checkExist(isItemPath) ||
+            checkExist(isSubCatPath) ||
+            checkExist(isCatPath);
+        let result = getValid(path)(validationResult);
         return result;
     }})
     return res(path == '/' || !store.dataModel.isInitialized)();
@@ -57,6 +58,10 @@ function isCatPath(catCheck){
         return found != null && routeInfo[SUB_CATEGORY_ID] == null;
     }
     return catCheck(isValidWithFilledStore)
+}
+
+function isStaticPath(path){
+    return STATIC_ROUTES.find(item => item == path) != null;
 }
 
 function isItemPath(catCheck){

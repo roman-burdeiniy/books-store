@@ -15,7 +15,9 @@ class SubMenuView extends React.Component{
             return null;
         }
         return <section className="sub-menu">
-                    <section className="sub-menu-view" tabIndex="0" onBlur={this.collapse}>
+                    <section className="sub-menu-view"
+                             onMouseLeave={this.handleClickOutside.bind(this)}
+                             tabIndex="0" onBlur={this.collapse}>
                         {
                             this.props.dataProvider.map((menuItem) =>{
                                 return <SubMenuItem
