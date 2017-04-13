@@ -33,7 +33,7 @@ export const setRouteLocation = function(pathname, params){
 
 function needToLoadItems(prevSelectedGroup){
     let selectedGroup = getSelectedGroup(getStore().getState());
-    return !selectedGroup.isStatic && (_.isEmpty(selectedGroup.items))
+    return ItemsGroup.NULL != selectedGroup && !selectedGroup.isStatic && (_.isEmpty(selectedGroup.items))
 }
 
 function isItemSelection(routeObject){

@@ -9,5 +9,5 @@ let mapStateToProps = function(state){
     return {locale : state.langModel.selectedLang,
             messages : state.langModel.messages}
 }
-let ConnectedItnlProvider = connect(mapStateToProps)(IntlProvider)
-export default ConnectedItnlProvider
+let ConnectedIntlProvider = connect(mapStateToProps)(IntlProvider)
+export default ConnectedIntlProvider

@@ -13,7 +13,7 @@ class CookieManager{
     }
 
     eraseOrderCart(){
-        cookie.remove('items_in_cart');
+        cookie.remove('items_in_cart', { path: '/' });
     }
 
     get cart(){

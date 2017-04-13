@@ -28,6 +28,7 @@ export default class ShoppingCart extends React.Component{
                     </section>
                 </button>
                 <ShoppingCartPopup cart={this.props.cart}
+                                   removeItem={this.props.removeItem}
                                    onMouseOver={this.showShoppingCart.bind(this)}
                                    onCheckout={this.onCheckout.bind(this)}
                                    isActive={this.state.name == 'hover'}/>
@@ -35,22 +36,27 @@ export default class ShoppingCart extends React.Component{
     }
 
     showShoppingCart(ev){
-        this.showAgain = true;
-        setTimeout(() => {
+        if (this.cartPopupVisible)
+            return;
+        this.cartPopupVisible = true;
+        clearTimeout(this.hidePopupTimerId);
+        this.showPopupTimerId = setTimeout(() => {
                 this.setState({name: "hover"})
         }, 300);
     }
 
-    hideShoppingCart(){
-        this.showAgain = false;
-        setTimeout(() => {
-            if (!this.showAgain)
+    hideShoppingCart(delay = 300){
+        if (!this.cartPopupVisible)
+            return;
+        this.cartPopupVisible = false;
+        clearTimeout(this.showPopupTimerId);
+        this.hidePopupTimerId = setTimeout(() => {
                 this.setState({name: "default"})
-            }, 300);
+            }, delay);
     }
 
     onCheckout(ev){
-        this.hideShoppingCart();
+        this.hideShoppingCart(0);
         this.props.onCheckout();
     }
 

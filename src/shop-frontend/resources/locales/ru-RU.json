@@ -18,7 +18,7 @@
   "weight.kg" : "кг",
   "shopping.cart.label" : "Корзина",
   "search.box.search" : "Поиск",
-  "shopping.cart.empty" : "Ваша корзина пуста",
+  "shopping.cart.empty" : "Ваша корзина пуста...",
   "shopping.cart.items_in_cart": "Товаров в корзине",
   "shopping.cart.itms_quantity": "{quantity} <span class='itms_quantity_ending'>шт.</span>",
   "shopping.cart.subtotal": "Общая сумма:",
@@ -39,5 +39,15 @@
   "customer.form.delivery.pickup" : "Самовывоз",
   "customer.form.delivery.new_post" : "Новая почта",
   "customer.form.delivery.address_delivery" : "Адресная доставка по Киеву",
-  "shipping.form.post_office_num" : "Номер отделения"
+  "shipping.form.post_office_num" : "Номер отделения",
+  "validation.form.required": "Обязательное поле",
+  "validation.form.email": "Неверный адрес эл. почты",
+  "error.header" : "Возникла ошибка!",
+  "error.details.header": "Извините...<br/>Кажется, что-то пошло не так.",
+  "error.details.place_order" : "Во время оформления Вашего заказа произошла ошибка. Пожалуйста, попробуйте повторить попытку позже или обратитесь к администратору сайта",
+  "navigation.continue_shopping" : "Продолжить покупки",
+  "order.view.confirm.header" : "Спасибо за Ваш заказ!",
+  "order.view.confirm.number" : "Номер заказа:",
+  "order.view.confirm.message" : "Поздравляем, Ваш заказ успешно принят.<br/>В ближайшее время наш менеджер свяжется с Вами для уточнения деталей.",
+  "validation.form.phone" : "Неверный номера тел. Используйте формат: (099)999-99-99"
 }

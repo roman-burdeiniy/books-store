@@ -1,11 +1,11 @@
 /**
  * Created by roman_b on 3/3/2017.
  */
-import baseRouteDescriptor from './BaseRouteDescriptor';
+import {getRouteDescriptor} from './BaseRouteDescriptor';
 import CategoriesService from '../../dataServices/CategoryService';
 import MongoDBProvider from '../../db/MongoDBProvider';
 
-const service = new CategoriesService(new MongoDBProvider());
+const service = new CategoriesService(MongoDBProvider);
 
 function getAll(req, res, next){
     return service.getAll();
@@ -23,4 +23,4 @@ const getAllExt = {
 }
 
 
-export const getAllCategories = Object.setPrototypeOf(getAllExt, baseRouteDescriptor);
+export const getAllCategories = Object.setPrototypeOf(getAllExt, getRouteDescriptor);

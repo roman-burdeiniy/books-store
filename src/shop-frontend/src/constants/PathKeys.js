@@ -10,5 +10,9 @@ export const CATEGORY = 'cat';
 export const SUB_CATEGORY = 'subCat';
 export const ITEM = 'item';
 
+export const ERROR = 'error';
+
 export const CHECKOUT = 'checkout';
 export const CART = 'cart';
+export const ORDER = 'order';
+export const ORDER_ID = 'orderID';

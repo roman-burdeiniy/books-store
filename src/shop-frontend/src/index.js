@@ -5,7 +5,6 @@ import React from 'react';
 import {render} from 'react-dom';
 import App from './App';
 import {Router} from 'react-router';
-import createHistory from 'history/createBrowserHistory'
 import {buildStore} from './stores/app-store';
 import RouteManager from './managers/RouteManager';
 

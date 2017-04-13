@@ -10,16 +10,9 @@ const mapStateToProps = function(state) {
     return state;
 }
 
-const mapDispatchToProps = function(dispatch){
- return {
-
-        }
- }
-
 class MainView extends React.Component{
     constructor(props){
         super(props);
-        //routeManager.startListen();
 
     }
     render(){
@@ -35,5 +28,5 @@ class MainView extends React.Component{
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainView)
+export default connect(mapStateToProps)(MainView)
 

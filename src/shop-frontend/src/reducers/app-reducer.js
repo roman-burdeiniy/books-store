@@ -6,10 +6,16 @@ import config from './config';
 import langModel from './langModel';
 import dataModel from './dataModel';
 import cart from './cart';
+import errors from './errors';
+import ordersModel from './ordersModel';
+import { reducer as formReducer } from 'redux-form'
 
 export default combineReducers({
     config,
     langModel,
     dataModel,
-    cart
+    cart,
+    errors,
+    ordersModel,
+    form: formReducer
 })

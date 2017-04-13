@@ -57,7 +57,7 @@
     "webpack-hot-middleware": "^2.15.0"
   },
   "dependencies": {
-    "array.prototype.find": "^2.0.3",
+    "array.prototype.find": "^2.0.4",
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
     "cross-env": "^3.1.4",
@@ -79,9 +79,11 @@
     "react-router": "^4.0.0",
     "react-router-dom": "^4.0.0",
     "redux": "^3.6.0",
+    "redux-form": "^6.6.1",
     "redux-thunk": "^2.2.0",
     "route-parser": "0.0.5",
     "serve-favicon": "^2.3.2",
+    "shortid": "^2.2.8",
     "underscore": "^1.8.3",
     "winston": "^2.3.1"
   },

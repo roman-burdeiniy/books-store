@@ -6,9 +6,9 @@ export default class ServiceBase{
         this.dbProvider = dbProvider;
     }
     dbCallBuilder(collection, ...params){
-        return function(find, parse){
+        return function(dbCall, parse){
             let result = new Promise((success, reject) => {
-                find(collection, params)
+                dbCall(collection, params)
                     .then(res => {
                         success(parse(res, ...params));
                     })

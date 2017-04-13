@@ -18,7 +18,7 @@
   "weight.kg" : "kg",
   "shopping.cart.label" : "Cart",
   "search.box.search" : "Search",
-  "shopping.cart.empty" : "Your cart is empty",
+  "shopping.cart.empty" : "Your cart is empty...",
   "shopping.cart.items_in_cart": "Items in cart",
   "shopping.cart.itms_quantity": "Qty: {quantity}",
   "shopping.cart.subtotal": "Subtotal:",
@@ -38,5 +38,15 @@
   "customer.form.delivery.pickup" : "Self-pickup",
   "customer.form.delivery.new_post" : "New post office",
   "customer.form.delivery.address_delivery" : "Address delivery in Kyiv",
-  "shipping.form.post_office_num" : "Office number"
+  "shipping.form.post_office_num" : "Office number",
+  "validation.form.required": "Required",
+  "validation.form.email": "Invalid email address",
+  "error.header" : "Sorry, an error occurred!",
+  "error.details.header": "Oops...<br/>Something went wrong...",
+  "error.details.place_order" : "We got troubles while processing your order. Please try again later or contact our support",
+  "navigation.continue_shopping" : "Continue shopping",
+  "order.view.confirm.header" : "Thank you for your order!",
+  "order.view.confirm.number" : "Order number:",
+  "order.view.confirm.message" : "Congratulations, your order accepted.<br/>We will call you soon for order details clarification.",
+  "validation.form.phone" : "Invalid phone number. Use format: (099)999-99-99"
 }

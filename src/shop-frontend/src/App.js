@@ -10,7 +10,9 @@ import BooksListContainer from './views/containers/main/BooksListContainer';
 import BookDetailsViewContainer from './views/containers/book/BookDetailsViewContainer'
 import ContactsContainer from './views/containers/main/ContactsContainer'
 import CardCheckoutContainer from './views/containers/main/CardCheckoutContainer';
-import ConnectedItnlProvider from './providers/ConnectedItnlProvider';
+import OrderConfirmedViewContainer  from './views/containers/order/OrderConfirmedViewContainer';
+import ErrorContainer from './views/containers/error/ErrorContainer';
+import ConnectedIntlProvider from './providers/ConnectedIntlProvider';
 import {addLocaleData} from 'react-intl';
 import {initConfig} from './config/Config';
 
@@ -33,7 +35,7 @@ export default class App extends React.Component {
 
     render(){
         return <Provider store={this.props.store}>
-            <ConnectedItnlProvider>
+            <ConnectedIntlProvider>
                 <MainView>
                     <Switch>
                         <Route path="/cat/popular"
@@ -46,10 +48,14 @@ export default class App extends React.Component {
                                component={BookDetailsViewContainer}/>
                         <Route path="/checkout/cart"
                                component={CardCheckoutContainer}/>
+                        <Route path="/checkout/order/:key"
+                               component={OrderConfirmedViewContainer}/>
+                        <Route path="/error"
+                               component={ErrorContainer}/>
                         <Route component={BooksListContainer}/>
                     </Switch>
                 </MainView>
-            </ConnectedItnlProvider>
+            </ConnectedIntlProvider>
         </Provider>
     }
 }

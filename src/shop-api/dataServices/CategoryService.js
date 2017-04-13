@@ -14,6 +14,6 @@ export default class CategoryService extends ServiceBase{
     }
 
     findAllCategories(collection){
-        return collection.find({}, {fields: {'items' : 0, 'subCategories.items' : 0}});
+        return collection.find({});
     }
 }

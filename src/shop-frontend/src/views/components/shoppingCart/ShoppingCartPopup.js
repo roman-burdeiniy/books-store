@@ -20,6 +20,7 @@ export const ShoppingCartPopup = (props, context) => {
                     {props.cart.items.map((item) =>{
                         return <ShoppingCartItem
                             data={item}
+                            removeItem={props.removeItem}
                             key={item.item._id}/>
                     })
                     }

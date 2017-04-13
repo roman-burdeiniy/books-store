@@ -11,4 +11,4 @@ class MongoDBProvider{
     }
 }
 
-export default MongoDBProvider;
+export default new MongoDBProvider();

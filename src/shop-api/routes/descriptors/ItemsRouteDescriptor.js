@@ -1,11 +1,11 @@
 /**
  * Created by roman_b on 3/2/2017.
  */
-import baseRouteDescriptor from './BaseRouteDescriptor';
+import {getRouteDescriptor} from './BaseRouteDescriptor';
 import ItemsService from '../../dataServices/ItemService';
 import MongoDBProvider from '../../db/MongoDBProvider';
 
-const service = new ItemsService(new MongoDBProvider());
+const service = new ItemsService(MongoDBProvider);
 
 function getByCat(req, res, next){
     var catId = req.params.catId;
@@ -56,7 +56,7 @@ const getItemsByIdsExt = {
     error : onError
 }
 
-export const getItemsByPopular = Object.setPrototypeOf(byPopularExt, baseRouteDescriptor);
-export const getItemsByCategory = Object.setPrototypeOf(byCategoryExt, baseRouteDescriptor);
-export const getItemsBySubCategory = Object.setPrototypeOf(bySubCategoryExt, baseRouteDescriptor);
-export const getItemsByIds = Object.setPrototypeOf(getItemsByIdsExt, baseRouteDescriptor);
+export const getItemsByPopular = Object.setPrototypeOf(byPopularExt, getRouteDescriptor);
+export const getItemsByCategory = Object.setPrototypeOf(byCategoryExt, getRouteDescriptor);
+export const getItemsBySubCategory = Object.setPrototypeOf(bySubCategoryExt, getRouteDescriptor);
+export const getItemsByIds = Object.setPrototypeOf(getItemsByIdsExt, getRouteDescriptor);

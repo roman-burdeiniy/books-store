@@ -4,6 +4,7 @@
 import Config from '../config/Config';
 import {loadData} from '../frontendSource/src/services/DataService';
 import ItemsGroup from '../frontendSource/src/stores/ItemsGroup';
+import {getDefaultSelectedItem} from '../frontendSource/src/reducers/dataModel';
 
 const contactsGroup = new ItemsGroup("contacts", "Contacts", "menu.button.contacts", null, '/img/menu/contacts-41x41.png', 999, false, null, true);
 const popularGroup = new ItemsGroup("popular", "Popular", "menu.button.popular", null, '/img/menu/fav-lit-40x41.png', -999, true);
@@ -27,11 +28,6 @@ function buildCategoriesModel(categories, initDefaultSelected){
     let selectedSubGroup = initDefaultSelected ? getDefaultSelectedSubItem(selectedGroup) : ItemsGroup.NULL;
     return {groups, selectedGroupId : selectedGroup._id,
         selectedSubGroupId : selectedSubGroup._id, isInitialized : true};
-}
-
-function getDefaultSelectedItem(menuItems){
-    let selectedItem = menuItems.find(item => item.isDefault == true);
-    return selectedItem != null ? selectedItem : menuItems[0];
 }
 
 function buildDynamicItems(categories){

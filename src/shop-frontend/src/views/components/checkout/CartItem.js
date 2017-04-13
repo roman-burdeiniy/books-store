@@ -38,7 +38,8 @@ export default class CartItem extends React.Component{
                         </section>
                     </section>
                     <section className="remove-item">
-                        <section className="remove-item-button"/>
+                        <section className="remove-item-button"
+                                 onClick={this.removeItem.bind(this)}/>
                     </section>
                 </section>
                 <hr className="divider"/>
@@ -52,6 +53,10 @@ export default class CartItem extends React.Component{
     getBookTitle(){
         return [this.item.name, this.item.edition,
             this.item.year].filter(item => item != null).join(', ');
+    }
+
+    removeItem(ev){
+        this.props.removeItem(this.item._id);
     }
 
     onQuantityChange(quantity){

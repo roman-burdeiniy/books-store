@@ -5,34 +5,55 @@ import 'isomorphic-fetch';
 import {handleServerError, handleConnectionError} from '../errors/ErrorsHandler';
 import _ from 'underscore';
 
+const GET_HEADERS = {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+}
+
+const POST_HEADERS = {
+    'Accept': 'application/json, text/plain, */*',
+    'Content-Type': 'application/json'
+}
+
 export const loadData = (endPoint, params = [], isMandatoryParams = false) =>{
+    const paramsStr = params.filter(param => param != null).join('/');
+    if (isMandatoryParams && _.isEmpty(paramsStr))
+        return Promise.resolve({});
+    const url = `${endPoint}${paramsStr}`;
+    return call(url, 'GET', GET_HEADERS);
+}
+
+export const sendData = (endPoint, data) =>{
+    return call(endPoint, 'POST', POST_HEADERS, data);
+}
+
+const call = (endPoint, method, headers, data = null) => {
     return new Promise((result, reject) => {
-        const paramsStr = params.filter(param => param != null).join('/');
-        if (isMandatoryParams && _.isEmpty(paramsStr))
-            return;
-        const url = `${endPoint}${paramsStr}`
-        fetch(url,
-            {method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }}).then(res => {
+        let config = {
+            method: method,
+            headers
+        }
+        if (!_.isEmpty(data))
+            config.body = JSON.stringify(data);
+        fetch(endPoint, config)
+            .then(res => {
                 return res.json();
             })
             .then(response => {
-                result(parseResponse(response))
+                if (isError(response)){
+                    handleServerError(response.error);
+                    reject(response.error);
+                }else{
+                    result(response)
+                }
             })
             .catch(err => {
-                handleConnectionError(err, url);
+                handleConnectionError(err, endPoint);
                 reject(err);
             })
     })
 }
 
-const parseResponse = (response) => {
-    if (response != null && response.hasOwnProperty('error')){
-        handleServerError(response.error);
-        return null;
-    }
-    return response;
+const isError = (response) => {
+    return response != null && response.hasOwnProperty('error');
 }

@@ -49,6 +49,11 @@ export default function dataModel(state = initialState, action){
     }
 }
 
+export const getDefaultSelectedItem = (menuItems) => {
+    let selectedItem = menuItems.find(item => item.isDefault == true);
+    return selectedItem != null ? selectedItem : menuItems[0];
+}
+
 function getUpdatedGroups(groups, groupIdsChain, updateObj){
     groupIdsChain = groupIdsChain.filter(id => id != null);
     let updateMap = {

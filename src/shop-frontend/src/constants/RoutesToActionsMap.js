@@ -3,7 +3,7 @@
  */
 import {selectMenuItem, selectSubMenuItem, expandMenuItem, collapseMenuItem} from '../actions/menu';
 import {CATEGORY_ID, SUB_CATEGORY_ID, CATEGORY, SUB_CATEGORY,
-    ITEM, ITEM_ID, EXPANDED_CATEGORY, CART, CHECKOUT} from './PathKeys';
+    ITEM, ITEM_ID, EXPANDED_CATEGORY, CART, CHECKOUT, ORDER, ORDER_ID, ERROR} from './PathKeys';
 import _ from 'underscore';
 
 export const CHECKOUT_ROUTE = `/${CHECKOUT}/${CART}`;
@@ -21,7 +21,8 @@ const buildTemplate = (...args) => {
 const ACCEPTABLE_ROUTES = [
     `/${CATEGORY}/:${CATEGORY_ID}`,
     `/${CATEGORY}/:${CATEGORY_ID}/${SUB_CATEGORY}/:${SUB_CATEGORY_ID}`,
-    `/${ITEM}/:${ITEM_ID}`, `/${CHECKOUT}/:${CART}`];
+    `/${ITEM}/:${ITEM_ID}`, `/${CHECKOUT}/:${CART}`,
+    `/${CHECKOUT}/${ORDER}/:${ORDER_ID}`];
 
 const STATIC_ROUTES = [
     CHECKOUT_ROUTE
@@ -42,6 +43,14 @@ let generateCategoryRoute = function(catID){
     return `/${CATEGORY}/${catID}`
 }
 
+let generateOrderRoute = function(orderID){
+    return `/${CHECKOUT}/${ORDER}/${orderID}`
+}
+
+let generateErrorRoute = function(){
+    return `/${ERROR}`
+}
+
 let generateSubCategoryRoute = function(catID, subCatID){
     let subCatPart = !_.isEmpty(subCatID) ?  `/${SUB_CATEGORY}/${subCatID}` : ''
     return `${generateCategoryRoute(catID)}${subCatPart}`;
@@ -56,4 +65,4 @@ function isStaticRoute(pathname){
 }
 
 export {getActionsMap, ACCEPTABLE_ROUTES, ACCEPTABLE_ROUTES_TEMPLATES, STATIC_ROUTES,
-    generateCategoryRoute, generateSubCategoryRoute, generateItemRoute, isStaticRoute};
+    generateCategoryRoute, generateSubCategoryRoute, generateItemRoute, generateOrderRoute, generateErrorRoute, isStaticRoute};

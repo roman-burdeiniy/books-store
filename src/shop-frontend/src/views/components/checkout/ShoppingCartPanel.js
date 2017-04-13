@@ -4,6 +4,7 @@
 import React from 'react';
 import CartItem from './CartItem'
 import {getLocalizedLabel} from '../../../utils/localization-util';
+import {getDataDependentClassName} from '../../../utils/string-utils';
 
 if(process.env.BROWSER) {
     require('../../../../resources/styles/components/checkout/shopping-cart-panel.less');
@@ -11,11 +12,12 @@ if(process.env.BROWSER) {
 
 export default class ShoppingCartPanel extends React.Component{
     render(){
-        return <section className="shopping-cart-panel">
+        return <section className={getDataDependentClassName('shopping-cart-panel', this.props.cart.items)()}>
             <ul>
                 {this.props.cart.items.map((item) =>{
                     return <CartItem
                         onQuantityChange={this.props.onQuantityChange}
+                        removeItem={this.props.removeItem}
                         data={item}
                         key={item.item._id}/>
                 })

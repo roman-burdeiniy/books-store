@@ -71,6 +71,8 @@ gulp.task('build-api', ['clean-dist-api'], function() {
         .pipe(gulp.dest(BUILD_PATH + '/shop-api/views'));
     gulp.src([API_SOURCE_PATH + '/img/**/*'])
         .pipe(gulp.dest(BUILD_PATH + '/shop-api/img'));
+    gulp.src([API_SOURCE_PATH + '/public/**/*'])
+        .pipe(gulp.dest(BUILD_PATH + '/shop-api/public'));
     return gulp.src([API_SOURCE_PATH + '/**/*.js'])
         .pipe(sourcemaps.init())
         .pipe(babel({

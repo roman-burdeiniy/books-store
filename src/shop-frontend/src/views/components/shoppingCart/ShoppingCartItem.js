@@ -32,8 +32,10 @@ export const ShoppingCartItem = (props) => {
                         </section>
                     </section>
                     <section className="remove-item">
-                        <section className="remove-item-button"/>
+                        <section className="remove-item-button" onClick={removeItem(props)}/>
                     </section>
                 </section>
         </section>
 }
+
+const removeItem = (props) => (ev) => props.removeItem(props.data.item._id);

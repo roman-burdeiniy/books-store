@@ -10,4 +10,12 @@ const baseRouteDescriptor = {
         winston.error(err.message);
     }
 }
-export default baseRouteDescriptor;
+
+const getRouteDescriptor = Object.create(baseRouteDescriptor);
+getRouteDescriptor.type = 'GET';
+
+const postRouteDescriptor = Object.create(baseRouteDescriptor);
+postRouteDescriptor.type = 'POST'
+
+
+export {getRouteDescriptor, postRouteDescriptor};

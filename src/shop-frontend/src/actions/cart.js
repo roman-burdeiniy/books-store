@@ -3,7 +3,7 @@
  */
 import RouteManager from '../managers/RouteManager';
 import CookieManager from '../managers/CookieManager';
-import {ADD_ITEM_TO_CART, QUANTITY_CHANGE} from '../constants/ActionTypes';
+import {ADD_ITEM_TO_CART, QUANTITY_CHANGE, EMPTY_CART, REMOVE_ITEM_FROM_CART} from '../constants/ActionTypes';
 import {CHECKOUT_ROUTE} from '../constants/RoutesToActionsMap';
 
 export const addItemToCart = function(item, quantity){
@@ -20,11 +20,23 @@ export const checkout = function(){
     }
 }
 
-export const quantityChange = function(quantityDescriptor){
-    return {
-        type: QUANTITY_CHANGE,
-        item: {_id : quantityDescriptor.id},
-        quantity: quantityDescriptor.quantity
+export const quantityChange = (quantityDescriptor) => (
+        {
+            type: QUANTITY_CHANGE,
+            item: {_id: quantityDescriptor.id},
+            quantity: quantityDescriptor.quantity
+        }
+    )
+
+export const removeItem = (itemId)=>{
+    return (dispatch) => {
+        dispatch({type: REMOVE_ITEM_FROM_CART, itemId : itemId});
+        CookieManager.saveOrderCart();
     }
+}
+
+export const emptyCart = () => {
+    CookieManager.eraseOrderCart();
+    return {type: EMPTY_CART}
 }
 
