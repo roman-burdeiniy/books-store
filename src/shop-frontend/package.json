@@ -17,9 +17,6 @@
     "isomorphic-fetch": "^2.2.1",
     "normalize.css": "^5.0.0",
     "query-string": "^4.3.2",
-    "ramda": "^0.23.0",
-    "react-click-outside": "^2.2.0",
-    "redux-thunk": "^2.2.0",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
@@ -43,7 +40,6 @@
     "less": "^2.7.2",
     "less-loader": "^3.0.0",
     "postcss-loader": "^1.2.2",
-    "react-redux": "^5.0.2",
     "style-loader": "^0.13.1",
     "universal-webpack": "^0.3.7",
     "url-loader": "^0.5.7",
