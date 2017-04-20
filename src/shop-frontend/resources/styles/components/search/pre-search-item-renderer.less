@@ -1,0 +1,27 @@
+.pre-search-item-renderer{
+  padding: 3px 10px;
+  color: #808394;
+  font-size: 14px;
+  text-shadow: 0 1px white;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  cursor: pointer;
+
+  &:hover,&.selected{
+    background-color: #D3B23F;
+    color: #FFFFFF;
+  }
+
+  &:first-child:hover:before,&.selected:first-child:before{
+    content: "";
+    background: #D3B23F;
+    position: absolute;
+    left: 117px;
+    top: -5px;
+    width: 8px;
+    height: 8px;
+    border: 1px solid;
+    border-color: #c4c7d7 #D3B23F #D3B23F #c4c7d7;
+    transform: rotate(45deg);
+  }
+}

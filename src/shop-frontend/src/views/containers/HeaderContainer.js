@@ -6,15 +6,19 @@ import _ from 'underscore';
 import {connect} from 'react-redux';
 import MenuButtonsList from '../components/menu/MenuButtonsList'
 import {fetchMenuItems, expandMenuItem, selectMenuItem,
-    selectLanguage, selectSubMenuItem, collapseMenuItem} from '../../actions/menu'
+    selectLanguage, selectSubMenuItem, collapseMenuItem} from '../../actions/menu';
+import {preSearchItems} from '../../actions/search'
 import Logo from '../components/menu/Logo';
 import LangSelector from '../components/menu/LangSelector';
 import SubMenuView from '../components/menu/SubMenuView';
-import SearchBox from '../components/menu/SearchBox';
+import SearchBox from '../components/menu/search/SearchBox';
 import ShoppingCartContainer from './shoppingCart/ShoppingCartContainer';
 import ItemsGroup from '../../stores/ItemsGroup';
 import {getItemById} from '../../utils/array-utils';
-import RouteManager from '../../managers/RouteManager'
+import RouteManager from '../../managers/RouteManager';
+import {generateSearchRoute} from '../../constants/RoutesToActionsMap';
+import {getSearchPromptList} from '../../reducers/searchModel';
+import {PRE_SEARCH} from '../../constants/SearchTypes';
 
 if(process.env.BROWSER) {
     require('../../../resources/styles/containers/header.less');
@@ -26,7 +30,8 @@ const mapStateToProps = function(state) {
         selectedItemId : state.dataModel.selectedGroupId,
         expandedItemId : state.dataModel.expandedGroupId,
         selectedSubItemId : state.dataModel.selectedSubGroupId,
-        langModel : state.langModel}
+        langModel : state.langModel,
+        preSearchModel : state.searchModel[PRE_SEARCH]}
 }
 
 const mapDispatchToProps = function(dispatch){
@@ -46,6 +51,12 @@ const mapDispatchToProps = function(dispatch){
         },
         onSelectLanguage: function(langCode){
             dispatch(selectLanguage(langCode))
+        },
+        onSearchChange: function(searchPattern){
+            RouteManager.push(generateSearchRoute(searchPattern.toLowerCase()));
+        },
+        onPreSearchChange : function(searchPattern){
+            dispatch(preSearchItems(searchPattern));
         }
     }
 }
@@ -65,7 +76,10 @@ class HeaderContainer extends React.Component{
                         onButtonClick={this.props.onMenuButtonClick}/>
                    <section className="search-cart-holder">
                        <ShoppingCartContainer/>
-                       <SearchBox/>
+                       <SearchBox
+                           preSearchItems={getSearchPromptList(this.props.preSearchModel)}
+                           preSearchChange={this.props.onPreSearchChange}
+                           searchChange={this.props.onSearchChange}/>
                    </section>
                     <SubMenuView
                         dataProvider={this.getSubItems()}

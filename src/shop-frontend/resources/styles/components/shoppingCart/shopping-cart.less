@@ -10,7 +10,7 @@
   float: right;
   height: 50px;
   width: @SHOPPING_CART_HOLDER_WIDTH;
-  padding: 0 10px 0 5px;
+  //padding: 0 10px 0 5px;
 
   .shopping-cart-popup{
     width: @SHOPPING_CART_POPUP_WIDTH;
@@ -68,7 +68,7 @@
       background: @SUB_MENU_BG_COLOR;
       z-index: -1;
       position: absolute;
-      left: @SHOPPING_CART_POPUP_WIDTH / 2;
+      left: @SHOPPING_CART_POPUP_WIDTH / 2 - 5px;
       top: 14px;
       width: 20px;
       height: 20px;
@@ -86,6 +86,8 @@
 
       &.empty{
         text-align: center;
+        line-height: 1em;
+        margin-top: 12px;
       }
     }
 

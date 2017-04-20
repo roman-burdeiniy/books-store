@@ -13,6 +13,9 @@ import CardCheckoutContainer from './views/containers/main/CardCheckoutContainer
 import OrderConfirmedViewContainer  from './views/containers/order/OrderConfirmedViewContainer';
 import ErrorContainer from './views/containers/error/ErrorContainer';
 import ConnectedIntlProvider from './providers/ConnectedIntlProvider';
+import SelectedGroupItemsFinder from './stores/finders/SelectedGroupItemsFinder';
+import SelectedGroupDataFinder from './stores/finders/SelectedGroupDataFinder';
+import SearchResultItemsFinder from './stores/finders/SearchResultItemsFinder';
 import {addLocaleData} from 'react-intl';
 import {initConfig} from './config/Config';
 
@@ -39,23 +42,36 @@ export default class App extends React.Component {
                 <MainView>
                     <Switch>
                         <Route path="/cat/popular"
-                               component={BooksListContainer}/>
+                               render={this.renderBooksList()}/>
                         <Route path="/cat/contacts"
-                               component={ContactsContainer} />
+                               render={this.renderContacts}/>
                         <Route path="/cat/:id/subCat/:id"
-                               component={BooksListContainer}/>
+                               render={this.renderBooksList()}/>
                         <Route path="/item/:id"
                                component={BookDetailsViewContainer}/>
                         <Route path="/checkout/cart"
                                component={CardCheckoutContainer}/>
                         <Route path="/checkout/order/:key"
                                component={OrderConfirmedViewContainer}/>
+                        <Route path="/items/search/:key"
+                               render={this.renderBooksList(new SearchResultItemsFinder())}/>
                         <Route path="/error"
                                component={ErrorContainer}/>
-                        <Route component={BooksListContainer}/>
+                        <Route render={this.renderBooksList()}/>
                     </Switch>
                 </MainView>
             </ConnectedIntlProvider>
         </Provider>
+    }
+
+    renderBooksList(finderStrategy = new SelectedGroupItemsFinder()){
+        return function (props){
+            return <BooksListContainer  finder={finderStrategy}/>
+        }
+    }
+
+    renderContacts(props){
+        return <ContactsContainer {...props}
+            finder={new SelectedGroupDataFinder()}/>
     }
 }

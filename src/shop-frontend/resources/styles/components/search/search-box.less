@@ -2,16 +2,23 @@
   height: 30px;
   padding: 10px;
   float: right;
+  position: relative;
 
   &_input{
-    width: 280px;
+    width: 245px;
     height: 30px;
-    padding: 5px 5px;
+    box-sizing: border-box;
+    padding: 5px 12px 5px 25px;
+    border: 1px solid;
+    border-color: #a8acbc #babdcc #c0c3d2;
+    border-radius: 15px;
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    color: #555860;
+    font-family: 'Helvetica Neue', 'Helvetica', sans-serif;
+    font-size: 14px;
     float: left;
-    font: bold 15px 'Merriweather', 'Tahoma';
-    border: 0;
-    background: #eee;
-    border-radius: 3px 0 0 3px;
+    background: #eee url(../../../img/search.png) 8px 8px no-repeat;
   }
 
   &_button{
@@ -34,9 +41,9 @@
       position: absolute;
       border-width: 8px 8px 8px 0;
       border-style: solid solid solid none;
-      border-color: transparent #C2A12B transparent;
+      background: linear-gradient(to bottom, #D3B23F, #C2A12B);
       top: 8px;
-      left: -6px;
+      left: -8px;
     }
   }
 }

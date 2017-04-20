@@ -17,7 +17,7 @@
   "currency" : "грн",
   "weight.kg" : "кг",
   "shopping.cart.label" : "Корзина",
-  "search.box.search" : "Поиск",
+  "search.box.search" : "Поиск...",
   "shopping.cart.empty" : "Ваша корзина пуста...",
   "shopping.cart.items_in_cart": "Товаров в корзине",
   "shopping.cart.itms_quantity": "{quantity} <span class='itms_quantity_ending'>шт.</span>",
@@ -49,5 +49,6 @@
   "order.view.confirm.header" : "Спасибо за Ваш заказ!",
   "order.view.confirm.number" : "Номер заказа:",
   "order.view.confirm.message" : "Поздравляем, Ваш заказ успешно принят.<br/>В ближайшее время наш менеджер свяжется с Вами для уточнения деталей.",
-  "validation.form.phone" : "Неверный номера тел. Используйте формат: (099)999-99-99"
+  "validation.form.phone" : "Неверный номера тел. Используйте формат: (099)999-99-99",
+  "search.results.view.header" : "Результаты поиска..."
 }

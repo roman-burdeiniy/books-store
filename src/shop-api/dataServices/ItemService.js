@@ -5,6 +5,7 @@ var ObjectID = require('mongodb').ObjectID;
 import _ from 'underscore';
 import ServiceBase from './ServiceBase';
 import ItemsParser from '../parsers/ItemsParser';
+import {buildSearchTemplate} from '../managers/SearchManager';
 
 export default class ItemsService extends ServiceBase{
     constructor(dbProvider){
@@ -43,6 +44,20 @@ export default class ItemsService extends ServiceBase{
         return this.dbCallBuilder(collection)(this.findPopulars, this.dataParser.parseItems);
     }
 
+    searchItems(searchPatterns){
+        const collection = this.dbProvider.db.get('items');
+        const wordsTmpt = searchPatterns.split(/\s+/);
+        const searchTmpt = buildSearchTemplate(wordsTmpt);
+        return this.dbCallBuilder(collection, searchTmpt)(this.searchByTextPattern, this.dataParser.parseSearchResults(wordsTmpt));
+    }
+
+    searchItemsByTag(searchPatterns){
+        const collection = this.dbProvider.db.get('items');
+        const wordsTmpt = searchPatterns.split(/\s+/);
+        const searchTmpt = buildSearchTemplate(wordsTmpt, true);
+        return this.dbCallBuilder(collection, searchTmpt)(this.searchByTag, this.dataParser.parseItems);
+    }
+
     findPopulars(collection){
         return  collection.find({isPopular : true})
     }
@@ -57,7 +72,23 @@ export default class ItemsService extends ServiceBase{
     }
 
     findItems(collection, params){
-        const ids = params.map(param => new ObjectID(param))
+        const ids = params.map(param => new ObjectID(param));
         return collection.find({_id : {$in : ids}});
     }
+
+    searchByTextPattern(collection, params){
+        return collection.find({$or: [{name: {$regex: params[0], $options: 'i'}},
+            {author: {$regex: params[0], $options: 'i'}}, {publisher: {$regex: params[0], $options: 'i'}}]});
+    }
+
+    searchByTag(collection, params){
+        return collection.find({searchTags: {$regex: params[0], $options: 'i'}});
+    }
+
+   /* db.items.find({$or : [{name: {$regex: '^(?=.*eng)(?=.*Murph).*$', $options: 'i'}},
+        {author: {$regex: '^(?=.*eng)(?=.*Murph).*$', $options: 'i'}}]});*/
+
+    //^(?=.*eng)(?=.*gram).*$
+    //^(?=.*jack)(?=.*james).*$
+    //^.*(eng).*(gram).*$
 }

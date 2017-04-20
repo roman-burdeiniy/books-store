@@ -22,8 +22,7 @@ export const ShoppingCartPopup = (props, context) => {
                             data={item}
                             removeItem={props.removeItem}
                             key={item.item._id}/>
-                    })
-                    }
+                    })}
                 </ul>
                 <hr className={getDataDependentClassName('divider', props.cart.items)()}/>
                 <section className={getDataDependentClassName('subtotal-holder', props.cart.items)()}>

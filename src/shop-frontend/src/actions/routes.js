@@ -5,7 +5,7 @@ import {SET_ROUTE_LOCATION, APPLY_DEFAULT_ROUTE} from '../constants/ActionTypes'
 import {getActionsMap, ACCEPTABLE_ROUTES,
     ACCEPTABLE_ROUTES_TEMPLATES, STATIC_ROUTES} from '../constants/RoutesToActionsMap';
 import {selectMenuItem, selectSubMenuItem} from './menu';
-import {CATEGORY_ID, SUB_CATEGORY_ID, CATEGORY, SUB_CATEGORY, ITEM_ID} from '../constants/PathKeys';
+import {CATEGORY_ID, SUB_CATEGORY_ID, CATEGORY, SUB_CATEGORY, ITEM_ID, SEARCH_PATTERN} from '../constants/PathKeys';
 import _ from 'underscore';
 import {matchRoute, getRouteParams} from '../utils/route-utils';
 import {getSelectedGroup} from '../stores/finders/GroupFinder';
@@ -20,6 +20,7 @@ export const setRouteLocation = function(pathname, params){
                 const prevSelectedGroup = getSelectedGroup(getStore().getState());
                 dispatchRouteState(dispatch, routeObj, CATEGORY_ID);
                 dispatchRouteState(dispatch, routeObj, SUB_CATEGORY_ID);
+                dispatchRouteState(dispatch, routeObj, SEARCH_PATTERN);
                 dispatchRouteParamsState(dispatch, paramsObject);
                 if (needToLoadItems(prevSelectedGroup) && !isItemSelection(routeObj)){
                     return dispatch(fetchItems(getDataModel().selectedGroupId, getDataModel().selectedSubGroupId))

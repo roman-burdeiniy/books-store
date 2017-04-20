@@ -8,6 +8,7 @@ import dataModel from './dataModel';
 import cart from './cart';
 import errors from './errors';
 import ordersModel from './ordersModel';
+import searchModel from './searchModel';
 import { reducer as formReducer } from 'redux-form'
 
 export default combineReducers({
@@ -17,5 +18,6 @@ export default combineReducers({
     cart,
     errors,
     ordersModel,
+    searchModel,
     form: formReducer
 })

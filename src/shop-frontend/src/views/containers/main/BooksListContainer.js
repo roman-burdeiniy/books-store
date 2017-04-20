@@ -10,13 +10,8 @@ class BooksListContainer extends PageContainerBase {
     render() {
         return (<BooksListView headerDefaultName={this.getHeaderDefaultName()}
                            headerNameKey={this.getHeaderNameKey()}
-                           books={this.getBooksCollection()}/>);
+                           books={this.getData()}/>);
     }
-
-    getBooksCollection(){
-        return this.selectedGroup.items;
-    }
-
 }
 
 export default connect(baseMapStateToProps)(BooksListContainer);

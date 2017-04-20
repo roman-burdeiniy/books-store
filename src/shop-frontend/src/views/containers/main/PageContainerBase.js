@@ -12,19 +12,19 @@ export const baseMapStateToProps = function(state) {
 
 export class PageContainerBase extends React.Component {
 
-    get selectedGroup(){
-       return getSelectedGroup(this.props.store);
+    get finder(){
+        return this.props.finder;
     }
 
     getHeaderDefaultName(){
-        return this.selectedGroup.name;
+        return this.finder.getHeaderDefaultName();
     }
 
     getHeaderNameKey(){
-        return this.selectedGroup.localKey;
+        return this.finder.getHeaderNameKey();
     }
     getData(){
-        return this.selectedGroup.data;
+        return this.finder.getData();
     }
 
 }

@@ -2,7 +2,8 @@
  * Created by roman_b on 3/3/2017.
  */
 import {LOAD_ITEMS_SUCCESS, LOAD_ITEMS_ERROR, LOADING_ITEMS,
-    LOADING_SELECTED_ITEM, LOAD_SELECTED_ITEM_SUCCESS, LOAD_SELECTED_ITEM_ERROR, ITEM_NOT_FOUND} from '../constants/ActionTypes';
+    LOADING_SELECTED_ITEM, LOAD_SELECTED_ITEM_SUCCESS, LOAD_SELECTED_ITEM_ERROR,
+    ITEM_NOT_FOUND} from '../constants/ActionTypes';
 import _ from 'underscore';
 import {loadData} from '../services/DataService';
 import getConfig from '../config/Config';
@@ -83,17 +84,17 @@ export function loadItemsSuccess(groupIdsChain, items) {
     };
 }
 
+export function loadingItems(groupIdsChain){
+    return {
+        type: LOADING_ITEMS,
+        groupIdsChain
+    };
+}
+
 export function loadItemsError(groupIdsChain, error) {
     return {
         type: LOAD_ITEMS_ERROR,
         groupIdsChain,
         error
-    };
-}
-
-export function loadingItems(groupIdsChain){
-    return {
-        type: LOADING_ITEMS,
-        groupIdsChain
     };
 }

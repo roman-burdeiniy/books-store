@@ -9,6 +9,7 @@ import {placeOrder} from '../../../actions/orders';
 import {getDefaultSelectedItem} from '../../../reducers/dataModel';
 import {quantityChange, removeItem} from '../../../actions/cart';
 import {getGroupById} from '../../../stores/finders/GroupFinder';
+import {getCartMap} from '../../../reducers/cart';
 
 const mapStateToProps = function(state) {
     return {cart : state.cart,
@@ -19,7 +20,7 @@ const mapStateToProps = function(state) {
 const mapDispatchToProps = function(dispatch){
     return {
         placeOrder: function(orderInfo){
-            orderInfo.cart = this.props.cart;
+            orderInfo.cart = getCartMap(this.props.cart);
             dispatch(placeOrder(orderInfo));
         },
         onQuantityChange: function(quantityDescriptor){

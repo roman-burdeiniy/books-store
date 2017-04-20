@@ -22,6 +22,12 @@ export default function cart(state = initialState, action){
     }
 }
 
+export function getCartMap(cart){
+    const orderItems = cart.items.map(orderPosition => (
+    {id : orderPosition.item._id , quantity : orderPosition.quantity}));
+    return orderItems;
+}
+
 function buildUpdatesState(state, action){
     return (updateFun) => {
         const updatedItems = updateFun(state.items, action);

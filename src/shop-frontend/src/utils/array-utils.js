@@ -11,3 +11,11 @@ export const getItemIndex = function(list, id){
     let item = getItemById(list, id);
     return list.indexOf(item);
 }
+
+export const pushUnique = (list, item) => {
+    const index = list.indexOf(item);
+    if (index == -1){
+        list.push(item);
+    }
+    return list;
+}

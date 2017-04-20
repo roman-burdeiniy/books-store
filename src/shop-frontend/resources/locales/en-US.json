@@ -17,7 +17,7 @@
   "currency" : "UAH",
   "weight.kg" : "kg",
   "shopping.cart.label" : "Cart",
-  "search.box.search" : "Search",
+  "search.box.search" : "Search...",
   "shopping.cart.empty" : "Your cart is empty...",
   "shopping.cart.items_in_cart": "Items in cart",
   "shopping.cart.itms_quantity": "Qty: {quantity}",
@@ -48,5 +48,6 @@
   "order.view.confirm.header" : "Thank you for your order!",
   "order.view.confirm.number" : "Order number:",
   "order.view.confirm.message" : "Congratulations, your order accepted.<br/>We will call you soon for order details clarification.",
-  "validation.form.phone" : "Invalid phone number. Use format: (099)999-99-99"
+  "validation.form.phone" : "Invalid phone number. Use format: (099)999-99-99",
+  "search.results.view.header" : "Search results..."
 }
