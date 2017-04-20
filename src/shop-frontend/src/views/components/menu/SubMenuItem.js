@@ -13,7 +13,7 @@ if(process.env.BROWSER) {
 export default class SubMenuItem extends React.Component{
     render(){
         let bgImage = {
-            backgroundImage: `url(${getResourceURL(this.props.data.img)}`,
+            backgroundImage: `url(${getResourceURL(this.props.data.img)})`,
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
         };
