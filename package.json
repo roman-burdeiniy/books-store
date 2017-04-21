@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "npm-run-all -p start-api start-shop",
-    "postinstall": "npm-run-all -s install-frontend populate-prod-db build-api build-shop",
+    "postinstall": "npm-run-all -s populate-prod-db",
     "start-shop": "cross-env NODE_ENV=production node ./dist/shop-backend/bin/www.js",
     "start-api": "cross-env NODE_ENV=production node ./dist/shop-api/bin/www.js",
     "start-shop-dev": "cross-env NODE_ENV=development DEBUG=shop-backend:* node ./dist/shop-backend/bin/www.js",
@@ -20,7 +20,7 @@
     "test": "mocha ./tests --recursive --compilers js:babel-register",
     "populate-test-db": "gulp populate-test-db",
     "populate-dev-db": "gulp populate-dev-db",
-    "populate-prod-db": "gulp populate-prod-db"
+    "populate-prod-db": "mongo ./data/scripts/populate-prod-db.js"
   },
   "author": "roman.burdeiniy",
   "license": "ISC",
