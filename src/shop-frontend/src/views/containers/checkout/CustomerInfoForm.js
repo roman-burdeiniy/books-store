@@ -2,6 +2,7 @@
  * Created by roman_b on 4/6/2017.
  */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import {getLocalizedLabel} from '../../../utils/localization-util';
 import {RadioGroup, Radio} from 'react-radio-group'
@@ -103,6 +104,6 @@ class CustomerInfoForm extends React.Component{
 }
 
 
-CustomerInfoForm.contextTypes = {intl: React.PropTypes.object};
+CustomerInfoForm.contextTypes = {intl: PropTypes.object};
 
 export default reduxForm({form: 'customerInfo'})(CustomerInfoForm);

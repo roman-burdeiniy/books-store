@@ -2,6 +2,7 @@
  * Created by roman_b on 3/13/2017.
  */
 import React from 'react';
+import PropTypes from 'prop-types';
 import {getLocalizedLabel} from '../../../utils/localization-util';
 import {ShoppingCartItem} from './ShoppingCartItem';
 import _ from 'underscore';
@@ -38,4 +39,4 @@ export const ShoppingCartPopup = (props, context) => {
 }
 
 
-ShoppingCartPopup.contextTypes = {intl: React.PropTypes.object};
+ShoppingCartPopup.contextTypes = {intl: PropTypes.object};

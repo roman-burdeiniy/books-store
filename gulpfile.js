@@ -60,8 +60,14 @@ gulp.task('populate-test-db', function() {
         .pipe(gulp.dest('./data/output'))
 })
 
+gulp.task('populate-prod-db', function() {
+    return run('mongo ./data/scripts/populate-prod-db.js')
+        .exec()
+        .pipe(gulp.dest('./data/output'))
+})
+
 gulp.task('populate-dev-db', function() {
-    return run('mongo ./data/scripts/populate-db.js')
+    return run('mongo ./data/scripts/populate-local-db.js')
         .exec()
         .pipe(gulp.dest('./data/output'))
 })

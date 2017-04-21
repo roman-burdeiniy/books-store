@@ -4,6 +4,7 @@
 import React from 'react';
 import _ from 'underscore';
 import ItemsGroup from '../../../stores/ItemsGroup';
+import PropTypes from 'prop-types';
 import {getLocalizedLabel} from '../../../utils/localization-util';
 import ShoppingCartPanel from '../checkout/ShoppingCartPanel';
 import CheckoutDetails from '../checkout/CheckoutDetails';
@@ -36,4 +37,4 @@ export default class CheckoutView extends React.Component{
     }
 }
 
-CheckoutView.contextTypes = {intl: React.PropTypes.object};
+CheckoutView.contextTypes = {intl: PropTypes.object};

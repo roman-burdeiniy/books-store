@@ -2,6 +2,7 @@
  * Created by roman_b on 3/9/2017.
  */
 import React from 'react';
+import PropTypes from 'prop-types';
 import {PreSearchPopup} from './PreSearchPopup';
 import {getLocalizedLabel} from '../../../../utils/localization-util';
 import {ENTER, DOWN_ARROW, UP_ARROW} from '../../../../constants/KeyCodes';
@@ -117,6 +118,6 @@ class SearchBox extends React.Component{
     }
 }
 
-SearchBox.contextTypes = {intl: React.PropTypes.object};
+SearchBox.contextTypes = {intl: PropTypes.object};
 
 export default enhanceWithClickOutside(SearchBox);

@@ -11,13 +11,8 @@
   "author": "roman.burdeiniy",
   "license": "ISC",
   "dependencies": {
-    "es6-promise": "^4.0.5",
-    "history": "^4.6.1",
-    "immutability-helper": "^2.1.1",
-    "isomorphic-fetch": "^2.2.1",
     "normalize.css": "^5.0.0",
-    "query-string": "^4.3.2",
-    "underscore": "^1.8.3"
+    "query-string": "^4.3.2"
   },
   "devDependencies": {
     "autoprefixer": "^6.6.1",
@@ -41,7 +36,6 @@
     "less-loader": "^3.0.0",
     "postcss-loader": "^1.2.2",
     "style-loader": "^0.13.1",
-    "universal-webpack": "^0.3.7",
     "url-loader": "^0.5.7",
     "webpack": "^2.2.1"
   }
