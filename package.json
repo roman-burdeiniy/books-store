@@ -20,7 +20,8 @@
     "test": "mocha ./tests --recursive --compilers js:babel-register",
     "populate-test-db": "gulp populate-test-db",
     "populate-dev-db": "gulp populate-dev-db",
-    "populate-prod-db": "gulp populate-prod-db"
+    "populate-prod-db": "gulp populate-prod-db",
+    "test1"  : "test"
   },
   "author": "roman.burdeiniy",
   "license": "ISC",
