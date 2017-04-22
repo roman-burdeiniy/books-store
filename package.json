@@ -19,8 +19,8 @@
     "install-frontend": "cd ./src/shop-frontend && npm install",
     "test": "mocha ./tests --recursive --compilers js:babel-register",
     "populate-test-db": "gulp populate-test-db",
-    "populate-dev-db": "cross-env NODE_ENV=development node./data/scripts/dataGenerator.js",
-    "populate-prod-db": "cross-env NODE_ENV=production node./data/scripts/dataGenerator.js"
+    "populate-dev-db": "cross-env NODE_ENV=development node ./data/scripts/dataGenerator.js",
+    "populate-prod-db": "cross-env NODE_ENV=production node ./data/scripts/dataGenerator.js"
   },
   "author": "roman.burdeiniy",
   "license": "ISC",
