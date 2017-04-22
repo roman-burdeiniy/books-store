@@ -35,6 +35,7 @@ function populateDB(db){
             itemsColl.insert(data.items);
             langColl.insert(data.languages);
             categoriesColl.insert(data.categories);
+            process.exit();
         })
 }
 
