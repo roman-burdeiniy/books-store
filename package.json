@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "start": "npm start-api",
+    "start": "node ./dist/shop-api/bin/www.js",
     "postinstall": "npm-run-all -s install-frontend populate-prod-db build-api build-shop",
     "start-shop": "cross-env NODE_ENV=production PORT=80 node ./dist/shop-backend/bin/www.js",
     "start-api": "cross-env NODE_ENV=production node ./dist/shop-api/bin/www.js",
