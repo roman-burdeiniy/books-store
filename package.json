@@ -9,12 +9,11 @@
   "scripts": {
     "start": "node /dist/shop-backend/bin/www.js",
     "postinstall": "npm-run-all -s install-frontend build-shop",
-    "start-shop": "cross-env NODE_ENV=production PORT=80 node ./dist/shop-backend/bin/www.js",
+    "start-shop-prod": "cross-env NODE_ENV=production node ./dist/shop-backend/bin/www.js",
     "start-shop-dev": "cross-env NODE_ENV=development DEBUG=shop-backend:* node ./dist/shop-backend/bin/www.js",
     "build-shop": "gulp build-shop",
     "build-backend": "gulp build-backend",
-    "install-frontend": "npm-run-all -s cd ./src/shop-frontend npm install",
-    "test": "mocha ./tests --recursive --compilers js:babel-register"
+    "install-frontend": "cd ./src/shop-frontend && npm install"
   },
   "author": "roman.burdeiniy",
   "license": "ISC",
