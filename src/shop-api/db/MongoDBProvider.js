@@ -3,11 +3,11 @@
  */
 import monk from 'monk';
 import mongodb from 'mongodb';
-import config from '../config/config';
+import config from '../../../data/scripts/config/config';
 
 class MongoDBProvider{
     constructor(){
-       this.db = monk(config.db);
+       this.db = monk(config.dbURI);
     }
 }
 
