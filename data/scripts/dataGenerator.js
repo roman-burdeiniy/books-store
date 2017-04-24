@@ -31,11 +31,19 @@ function populateDB(db){
         .then(function(){
             var data = new Data();
             itemsColl.ensureIndex({name: "text", publisher: "text", author: "text"},
-                {weights: {name: 3, author: 2, publisher : 1}, name : "TextIndex"});
-            itemsColl.insert(data.items);
-            langColl.insert(data.languages);
-            categoriesColl.insert(data.categories);
-            process.exit();
+                {weights: {name: 3, author: 2, publisher : 1}, name : "TextIndex"})
+            .then(function(){
+                return itemsColl.insert(data.items);
+            })
+            .then(function(){
+                return langColl.insert(data.languages);
+            })
+            .then(function(){
+                return categoriesColl.insert(data.categories);
+            })
+            .then(function(){
+                process.exit();
+            });
         })
 }
 
