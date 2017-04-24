@@ -3,7 +3,7 @@
  */
 import reducer from '../../src/reducers/selected-category'
 import {LOAD_CATEGORIES_SUCCESS} from '../../src/constants/ActionTypes'
-import MockData from '../../../../data/scripts/mock-data';
+import MockData from '../../../../../books-store-api/data/scripts/mock-data';
 
 let mockData;
 
