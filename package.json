@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "start": "node /dist/shop-backend/bin/www.js",
+    "start": "node ./dist/shop-backend/bin/www.js",
     "postinstall": "npm-run-all -s install-frontend build-shop",
     "start-shop-prod": "cross-env NODE_ENV=production node ./dist/shop-backend/bin/www.js",
     "start-shop-dev": "cross-env NODE_ENV=development DEBUG=shop-backend:* node ./dist/shop-backend/bin/www.js",
