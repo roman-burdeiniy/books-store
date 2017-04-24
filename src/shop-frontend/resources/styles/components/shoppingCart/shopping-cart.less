@@ -5,12 +5,13 @@
 @import '../../common/constants';
 @import '../../common/mixins';
 
+@MOUSE-OVER-AREA-PADDING : 20px;
+
 .shopping-cart-holder{
   position: relative;
   float: right;
   height: 50px;
   width: @SHOPPING_CART_HOLDER_WIDTH;
-  //padding: 0 10px 0 5px;
 
   .shopping-cart-popup{
     width: @SHOPPING_CART_POPUP_WIDTH;
@@ -27,7 +28,7 @@
     }
 
     .mouse-over-area{
-      padding: 0 20px 20px;
+      padding: 0 @MOUSE-OVER-AREA-PADDING @MOUSE-OVER-AREA-PADDING;
     }
 
     &-holder{
@@ -115,6 +116,21 @@
         ._control-button(123px, 30px);
         margin-left: 5px;
         float: left;
+      }
+    }
+  }
+
+  @media all and (max-width : @CONTENT_WIDTH){
+    .shopping-cart-popup{
+      left: -@SHOPPING_CART_POPUP_WIDTH + @SHOPPING_CART_HOLDER_WIDTH;
+
+      .mouse-over-area{
+        padding: 0 0 0 @MOUSE-OVER-AREA-PADDING;
+      }
+
+      &:after {
+        left: auto;
+        right: @SHOPPING_CART_HOLDER_WIDTH / 2 - 5px;
       }
     }
   }
