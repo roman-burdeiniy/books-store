@@ -32,7 +32,6 @@ app.get("*", function(req, res, next){
         .then((store) => {
                     const bundle = frontendManager.buildBundle(req.url, store);
                     const html = !isDevMode() ? bundle.html : '';
-                    console.log(html);
                     res.render('index', {html, parsedState : bundle.parsedState});
                   })
         .catch(error => {
