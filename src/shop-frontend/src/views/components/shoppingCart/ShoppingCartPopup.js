@@ -12,7 +12,7 @@ export const ShoppingCartPopup = (props, context) => {
     return <section className={getDataDependentClassName('shopping-cart-popup', props.isActive)('hidden')}>
         <section className="mouse-over-area"
             onMouseOver={props.onMouseOver}>
-            <section className="shopping-cart-popup-holder">
+            <section data-key={getMyValue()} className="shopping-cart-popup-holder">
                 <p className={_.isEmpty(props.cart.items) ? `cart-label empty` : 'cart-label'}>
                     {_.isEmpty(props.cart.items) ? getLocalizedLabel('shopping.cart.empty', 'Your cart is empty') :
                         `${context.intl.formatMessage({id:"shopping.cart.items_in_cart", defaultMessage: "Items in cart:"})} ${props.cart.totalCount}`}
@@ -36,6 +36,10 @@ export const ShoppingCartPopup = (props, context) => {
             </section>
         </section>
     </section>
+}
+
+function getMyValue(){
+    return "my val";
 }
 
 
