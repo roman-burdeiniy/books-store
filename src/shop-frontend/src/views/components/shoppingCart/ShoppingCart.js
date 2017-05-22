@@ -27,7 +27,7 @@ export default class ShoppingCart extends React.Component{
                         <span className="items-count">{this.props.cart.totalCount}</span>
                     </section>
                 </button>
-                <ShoppingCartPopup cart={this.props.cart}
+                <ShoppingCartPopup myValue="test" cart={this.props.cart}
                                    removeItem={this.props.removeItem}
                                    onMouseOver={this.showShoppingCart.bind(this)}
                                    onCheckout={this.onCheckout.bind(this)}
